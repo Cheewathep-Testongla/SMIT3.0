@@ -1,0 +1,542 @@
+Details,Translate Details,Area,Contractor,Type of finding,Topic,Frequency
+นั่งร้านมีสภาพไม่สมบูรณ์ ไม่มีราวกันตก,Scaffolding is incomplete. no guard rail,Olefins2,SR,Unsafe Condition,Scaffolding,65
+ใช้บันไดนั่งร้านพาดขึ้นไปทำงานบนที่สูง,Use scaffolding ladders to lean up to work at heights.,Olefins2,TTCL,Unsafe Action,Work at height,13
+ทำงานบนนั่งร้านไม่ได้คล้องเกี่ยว Safety Harness,Work on scaffolding without safety harness,HOT,RNC,Unsafe Action,Work at height,17
+Tag นั่งร้านหมดอายุ ยังไม่ได้ Re-inspect,Scaffolding tag has expired. Haven't re-inspected yet.,UT,WTM,Unsafe Condition,Scaffolding,85
+สายไฟห้อยลงมาขวางทางเดิน,"The wires hung down, blocking the walkway.",Olefins2,TTCL,Unsafe Condition,Housekeeping,22
+งาน HW I ช่างเชื่อมใช้หน้ากากเชื่อมชนิดที่สวมใส่หมวก Safety ไม่ได้ เสี่ยงศีรษะกระแทก ได้รับบาดเจ็บ,"hw i work, welders use a welding mask that can't wear a safety helmet. Risk of head impact. injured",UT,Siam D,Unsafe Action,Hot Work,4
+ไม่คล้องเกี่ยว safety harness,Not related to safety harness,Olefins2,TNE,Unsafe Action,Work at height,6
+ผู้ช่วยช่างยืนจับ Pipe อยู่ใน Line of fire,The mechanic's assistant stood holding the pipe in the line of fire.,HOT,RNC,Unsafe Action,Hot Work,4
+ไม่มี Hard Barricade ปิดกั้นช่องเปิด,No hard barricade blocking the opening.,UT,WTM,Unsafe Condition,Work at height,3
+ติดตั้งนั่งร้านเสร็จแล้วไม่มีการแขวน Tag แสดงสถานะ,The scaffolding has been installed and there is no hanging tag to show the status.,Olefins2,SR,Unsafe Condition,Scaffolding,26
+ปิดล้อมผ้ากันไฟไม่มิดชิดงานประกอบเชื่อม Line PG,"enclosed fireproof fabric, not completely enclosed, assembly work, welding line pg",HOT,RNC,Unsafe Condition,Hot Work,23
+กองอุปกรณ์นั่งร้านไม่เป็นระเบียบ,Untidy pile of scaffolding equipment,UT,REPCO (OPM),Unsafe Condition,Housekeeping,128
+ไม่ได้ตรวจสอบ Daily checklist Generator ,The daily checklist generator is not checked.,Olefins2,RNC,Unsafe Action,Tools & Equipment,4
+มีช่องเปิดบนนั่งร้าน,There are openings on the scaffolding.,UT,PROTECH,Unsafe Condition,Scaffolding,54
+ปฏิบัติงานในพื้นที่เสียงดังโดยไม่ได้สวมใส่ Ear plug,Operate in noisy areas without wearing ear plugs.,HOT,REPCO (IE),Unsafe Action,PPE,3
+พบบันไดนั่งร้านถูกนำมาพาดใช้งาน,Found a scaffolding ladder being used across it.,Olefins2,TNE,Unsafe Condition,Scaffolding,16
+Blind flange ไม่มีการขันล็อคให้แน่น,blind flange is not tightened,UT,MOC (OPE),Unsafe Condition,Process & Operation,7
+ติดตั้งนั่งร้านกีดขวางอุปกรณ์ Plant,Install scaffolding to obstruct plant equipment.,Olefins2,TTCL,Unsafe Condition,Scaffolding,17
+Materail ค้างอยู่บน Pipe Rack,materail stuck on pipe rack,Olefins2,TTCL,Unsafe Condition,Housekeeping,4
+ผ้ากันไฟมีสภาพชำรุด,The fire retardant cloth is damaged.,HOT,RNC,Unsafe Condition,Hot Work,17
+Blower ไม่หมุน เนื่องจากปลั๊กหลวม,blower does not spin due to loose plug,HOT,RNC,Unsafe Condition,CSE,2
+ใช้งานสลิงผ้าใบขาดชำรุด,Use a broken canvas sling,UT,HDS,Unsafe Condition,Lifting,22
+สลิง Hook เส้นเล็กพันกัน,sling hook,HOT,REPCO (MER),Unsafe Condition,Lifting,4
+มีการปิดช่องเปิดด้วยแผ่นนั่งร้าน (ชั้น 6 Top TLE) แต่ไม่มีการผูกยึด ซึ่งอาจก่อให้เกิดอันตรายจากการเหยียบปลายแผ่นนั่งร้านกระดกและร่วงลงมาได้,"The opening is closed with a scaffolding plate (6 top tle), but no fastening. This may cause the danger of stepping on the end of the scaffolding, falling down.",HOT,RNC,Unsafe Condition,Work at height,6
+ไม่ได้ปิดล้อมผ้าใบป้องกันการฟุ้งกระจายของฝุ่น,Does not enclose the canvas to prevent the spread of dust.,HOT,WTM,Unsafe Condition,Insulation,2
+ผู้ปฏิบัติงานยืนเหยียบบน Line pipe เพื่อรับส่งอุปกรณ์นั่งร้าน,"The worker stands on the line pipe, takes delivery of scaffolding equipment.",HOT,RNC,Unsafe Action,Scaffolding,2
+ไม่ได้ปิดล้อมผ้ากันไฟ,not enclosed fireproof cloth,Olefins2,RNC,Unsafe Condition,Hot Work,30
+พบผู้ปฏิบัติงานทำงานไม่ใส่ถุงมือ,Workers were found working without gloves.,Olefins2,CTL,Unsafe Action,PPE,23
+ป.ปลา อุปกรณ์ช่วยยกยังไม่ผ่านการตรวจสภาพ,P.P.P. The lifting equipment has not been inspected.,HOT,RNC,Unsafe Condition,Lifting,2
+ทีมงานผู้หญิงทำงานบนนั่งร้านสูงมากกว่า 10 เมตร,A team of women works on scaffolding more than 10 meters high.,UT,WTM,Unsafe Action,Work at height,2
+ใช้ถุงกระสอบขนย้ายอุปกรณ์ขึ้นที่สูง,Use sacks to transport equipment up high.,TFU,TOTAL FLOW,Unsafe Condition,Work at height,3
+ยืนปฏิบัติงานนอก Hard Barricade เสี่ยงต่อการตกจากที่สูง,Standing outside a hard barricade is at risk of falling from a height.,HOT,RNC,Unsafe Action,Work at height,3
+จัดเก็บ Insulation ที่ไม่ได้นำมากลับมาใช้งานไม่เป็นระเบียบ,Store unused insulation in a mess.,UT,WTM,Unsafe Condition,Insulation,17
+Pallet ไม้มีสภาพชำรุด,The wooden pallet is damaged.,UT,Right Solution,Unsafe Condition,Housekeeping,3
+งานทาสี ผู้ปฏิบัติงานไม่สวมใส่หน้ากากป้องกันสารเคมี,Paint work. Workers do not wear chemical protective masks.,TFU,REPCO (MES),Unsafe Action,Paint/ Coat/ Blast,2
+บันไดทางขึ้นนั่งร้านไม่มีจุดยึดขาบันไดด้านล่าง,The stairs leading up to the scaffolding do not have anchoring points for the lower stair legs.,Olefins2,SR,Unsafe Condition,Scaffolding,3
+ใช้หินเจียรไม่มี Handle,"use grinding stone, no h, le",TFU,PROTECH,Unsafe Action,Hot Work,16
+ไม่มี Pin lock จุด connect hose ,No pin lock point connect hose,HOT,HDS,Unsafe Condition,Water jet,2
+โครงสร้างนั่งร้านติดตั้งบน Pipeline ที่หุ้ม insulation,Scaffolding structure mounted on pipelines covered by insulation.,HOT,RNC,Unsafe Condition,Scaffolding,7
+งานตัดเชื่อมเจียรSupport pipe ปิดกั้นผ้ากันไฟไม่มิดชิดมีลูกไฟกระเด็นออก นอกผ้ากันไฟ,"Cutting, welding, grinding, support pipe, blocking the fireproof cloth, not completely, there will be fireballs flying out of the fireproof cloth.",Olefins2,CAPK,Unsafe Condition,Hot Work,11
+งานหุ้ม Insulation เขียนอุปกรณ์ที่จะทำเพิ่มที่หน้างาน,Insulation cladding work. Write equipment to be added at the job site.,HOT,WTM,Unsafe Action,Insulation,2
+พบถุง Big bag ค้างบน Pipe Rack,Found a big bag stuck on the pipe rack.,Olefins2,TNE,Unsafe Condition,Housekeeping,2
+ไม่ตรวจสอบ JSA และลงลายมือชื่อก่อนเริ่มงาน,"no jsa check , signed before starting work",HOT,REPCO (MER),Unsafe Action,PTW & JSA,3
+อุปกรณ์ช่วยยก (ตะขอ) ไม่ได้ระบุพิกัดน้ำหนัก (SWL),Lifting aids (hooks) do not specify a weight rating (swl).,HOT,RNC,Unsafe Condition,Lifting,2
+ใช้ไม้รองชิ้นงานขณะทำงานเจียร,Use a wood to support the workpiece while grinding.,UT,ECE,Unsafe Condition,Hot Work,2
+วางประแจไว้ในจุดที่เสี่ยงต่อการตกลงด้านล่าง,Place the wrench where it is at risk of falling below.,HOT,HDS,Unsafe Condition,Work at height,3
+ไม่ได้หนุนล้อรถดูดน้ำ,not supporting the water suction wheel,HOT,REPCO (MES),Unsafe Condition,Transportation,2
+พบถุงขยะไม่มีการจัดเก็บคัดแยก,Found garbage bags without sorting.,TFU,MYC,Unsafe Condition,Housekeeping,3
+พบรังผึ้งที่ E-605A,The honeycomb was found at e-605a.,COLD,MOC (OPE),Near Miss,Others,3
+ไม่มีการติดตั้ง Hard Barricade ป้องกันการตก ที่ชั้น4,No fall protection hard barricade is installed on the 4th floor.,HOT,RNC,Unsafe Condition,Work at height,3
+คล้อง Safety sling ไม่ปลอดภัย,The safety sling is not secure.,HOT,REPCO (MES),Unsafe Condition,Pressure test,10
+งานแก้ไขนั่งร้านถอดฐานนั่งร้านออก,"Fixing scaffolding, removing scaffolding base",OCU,WTM,Unsafe Condition,Scaffolding,9
+งานแก้ไขนั่งร้านยืนเหยียบอุปกรณ์ Plant,"Fixing work on scaffolding, standing, stepping on plant equipment",OCU,WTM,Unsafe Action,Scaffolding,13
+ไม่มี Checklist ตรวจสอบตู้ไฟ (ใช้งานแล้ว),"No checklist, check the power cabinet (used)",HOT,RNC,Unsafe Condition,Electrical & Grounding,3
+Work permit ไม่อยู่ที่หน้างาน,work permit is not at the job site,TFU,MYC,Unsafe Action,PTW & JSA,3
+พบมีงานตั้งนั่งร้านแต่ลืมคล้องเกี่ยว harness,Found a job to set up scaffolding but forgot to attach the harness,Olefins2,SR,Unsafe Action,Work at height,3
+วาง Clamp นั่งร้านทิ้งไว้ในจุดที่มีโอกาสเสี่ยงร่วงหล่น,Leave the scaffolding clamps where there is a risk of falling.,HOT,RNC,Unsafe Condition,Work at height,39
+ติดตั้งเสานั่งร้านบนคาน Beam ไม่มั่นคงแข็งแรง,"Install the scaffolding column on the beam, the beam is not stable and strong.",TFU,WTM,Unsafe Condition,Scaffolding,3
+ช่องเปิดนั่งร้านด้านหน้า manhole,scaffold opening in front of manhole,TFU,NCN,Unsafe Condition,Scaffolding,2
+กองอุปกรณ์นั่งร้านกีดขวางออกนอกถนน,A pile of scaffolding equipment blocks off the road.,Olefins2,TTCL,Unsafe Condition,Housekeeping,4
+งานทาสี ทำงานบนบันได A โดยลำพัง,Paint work Work on stairs a alone,Olefins2,TTCL,Unsafe Action,Paint/ Coat/ Blast,2
+"ผู้ปฏิบัติงานรื้อ Insulation สวมใส่ถุงมือผิดประเภทและใช้แว่นสายตา
+","Workers dismantling insulation, wearing the wrong type of gloves, using eyeglasses,",Olefins2,TNE,Unsafe Action,Insulation,10
+"งานหุ้ม Insulation บนนั่งร้าน ไม่มีการปิดล้อมพื้นที่รอบจุดปฏิบัติงาน
+","Insulation covering work on scaffolding without enclosing the area around the operating point,",Olefins2,TNE,Unsafe Action,Insulation,35
+Hot Box งานเชื่อม ไม่มีถังดับเพลิงประจำจุดปฏิบัติงาน,hot box welding work without fire extinguisher at the point of operation,Olefins2,RNC,Unsafe Condition,Hot Work,4
+ยังไม่ได้ติดตั้ง insulation,The insulation has not been installed.,Olefins2,TTCL,Unsafe Condition,Insulation,4
+เศษอุปกรณ์ทิ้งไว้บนนั่งร้าน,Scrap equipment left on scaffolding,Olefins2,ATI-LT,Unsafe Condition,Housekeeping,43
+งานขนย้ายอุปกรณ์ขึ้นที่สูงไม่ได้ปิดล้อมพื้นที่,The work of moving equipment to heights does not enclose the area.,HOT,REPCO (EE),Unsafe Condition,Lifting,5
+ถัง Argon ไม่มี Checklist,argon tank no checklist,Olefins2,UTOC,Unsafe Condition,Hot Work,2
+"ใช้สว่าน Battery โดยไม่มีเชือกคล้องเกี่ยวในงานรื้อ Insulation Line 30"" ","Use a battery drill without a rope to dismantle insulation line 30"".",HOT,RNC,Unsafe Action,Work at height,3
+พบผู้ปฏิบัติงานหุ้ม insulation แต่ลืมคล้อง harness,An insulating worker was found but forgot to attach the harness.,Olefins2,TNE,Unsafe Action,Work at height,2
+ผู้ปฏิบัติงานไม่ได้เอา Face Shield ลง,The operator did not put down the face shield.,HOT,RNC,Unsafe Action,Hot Work,6
+ผู้ปฏิบัติงานไม่ได้ลงชื่อ Safety Talk และ SL ไม่ได้ตรวจสอบมาตรการในเอกสาร JSA ,"Worker doesn't sign safety talk , sl doesn't check measures in jsa docs.",HOT,REPCO (IE),Unsafe Action,PTW & JSA,2
+ผู้ปฏิบัติงานหุ้ม Insulation ขึ้นนั่งร้านที่ไม่ได้ inspect และใช้บันไดนั่งร้านพาดกับโครงสร้างเพื่อขึ้นไปปฏิบัติงาน,"Workers covering insulation up scaffolding that are not inspected, using scaffolding ladders across the structure, up to work.",Olefins2,TNE,Unsafe Action,Insulation,14
+JSA งาน Remove Insulation ประเมินความเสี่ยงไม่ครอบคลุม,jsa remove insulation task not comprehensive risk assessment,HOT,RNC,Unsafe Action,PTW & JSA,3
+งานรือนั่งร้าน ผู้ปฏิบัติงานไม่คล้องเกี่ยว Safety Harness,scaffolding Operators are not involved in safety harness,HOT,RNC,Unsafe Action,Work at height,30
+รหัสของ PTW ไม่ตรงกับลักษณะงาน (HW II ขึ้นเป็น LC),"PTW code does not match, job description (hw ii becomes lc)",Olefins2,e-PTW Team,Unsafe Action,PTW & JSA,3
+"หน้า PTW ไม่ได้ระบุ Spec อุปกรณ์ PPE ที่ใช้
+","The ptw page does not specify the ppe device spec used,",COLD,REPCO (MER),Unsafe Action,PTW & JSA,2
+ข้อมูลใน WAH Certificate ไม่ครบถ้วน,The information in the wah certificate is incomplete.,Olefins2,REPCO (MES),Unsafe Action,PTW & JSA,7
+หุ้ม Insulation นอกจุดที่ระบุใน Work permit,Cover insulation outside the point specified in the work permit.,HOT,WTM,Unsafe Action,Work Procedure,3
+พบผู้ปฎิบัติงาน ยืนทำงานบน Handrail โดนที่ไม่มีจุดคล้องเกี่ยวหรือจุดยืนที่มั่นคง,"Found a worker standing working on an h, rail that has no attachment point or stable stand.",Olefins2,TTCL,Unsafe Action,Work at height,4
+นำรถเข็นน้ำขนย้ายแผ่นนั่งร้าน,Bring the water cart to move the scaffolding sheet.,HOT,RNC,Unsafe Action,Scaffolding,8
+Fire Watch อ่านค่าวัดแก๊สไม่เป็น,fire watch can't read gas meter,UT,PROTECH,Unsafe Action,Hot Work,3
+Generator ไม่มีถังดับเพลิง stand by,"generator without fire extinguisher st, by",Olefins2,RNC,Unsafe Condition,Hot Work,3
+พบเครื่องกำเนิดไฟฟ้ายังไม่ผ่านการตรวจสภาพที่หน้างาน,Found a generator that hasn't been inspected at the job site.,Olefins2,TTCL,Unsafe Condition,Work Procedure,5
+"งานติดตั้งนั่งร้าน, ไม่มี Guard protect อุปกรณ์ Instrument","Installation of scaffolding, no guard protect equipment, instrument",Olefins2,RSC,Unsafe Condition,Scaffolding,16
+พบทีมงานหุ้ม insulation ไม่สวมถุงมือขณะปฎิบัติงาน,Found the insulation team not wearing gloves while working.,Olefins2,TNE,Unsafe Action,Insulation,22
+แสงสว่างไม่เพียงพอ,insufficient lighting,HOT,RNC,Unsafe Condition,Environmental,5
+ไม่ใส่แว่นตาขณะปฏิบัติงานติดตั้งนั่งร้าน,Do not wear glasses while working to install scaffolding.,UT,PROTECH,Unsafe Action,Scaffolding,4
+สาย Ground ชำรุดไหม้ขณะทำงานเชื่อม,The ground cable burned out during welding work.,HOT,RNC,Unsafe Condition,Hot Work,2
+"ใช้งานหินเจียร 4"" โดยไม่มี Handle","Use a 4"" grinding wheel without h, le.",HOT,RNC,Unsafe Action,Hot Work,8
+Safety Lead ลงชื่อไว้ใน Work permit แต่ไม่ได้อยู่ควบคุมที่หน้างาน,safety lead signed in work permit but not in control at the event,HOT,RNC,Unsafe Action,SL Performance,3
+ไม่สวมใส่ Face Shield ขณะเปลี่ยน Packing Valve Line Steam SS,Do not wear face shield when replacing packing valve line steam ss,HOT,ST,Unsafe Action,Installation/ Alignment,4
+ประเมิน JSA ไม่ครอบคลุม (ระบุ Spec PPE ไม่ละเอียดตามความเสี่ยงของงาน),Not comprehensive jsa assessment (spec ppe not detailed according to job risk),HOT,WTM,Unsafe Action,PTW & JSA,8
+ใช้งานประแจโดยไม่ได้ผูกเชือกคล้องเกี่ยว,Operate the wrench without tying the rope.,HOT,RNC,Unsafe Action,Work at height,6
+ไม่มีถาดรองน้ำมันเครื่อง Generator,no generator oil tray,TFU,PROTECH,Unsafe Condition,Housekeeping,7
+ติดตั้งบันไดนั่งร้านกีดขวางทางเข้า-ออก,Install scaffolding ladders blocking the entrance-exit.,HOT,RNC,Unsafe Condition,Scaffolding,6
+"ก้านเปิดน้ำ Eye washer ชำรุด
+
+","The eye washer is damaged, ,",ARU,MOC (Safety),Unsafe Condition,Others,5
+มีงานเชื่อม 2 จุด HOT BOX แต่ มี F/W 1 คน,"There are 2 hot box welding work, but there are f, w 1 person.",Interpipe,RNC,Unsafe Action,Hot Work,7
+วางบันไดพาดอุปกรณ์ ไม่ได้ใช้งาน,"Ladder is placed across the device, not in use.",HOT,RNC,Unsafe Condition,Housekeeping,2
+ใช้บันไดนั่งร้านมาพาดทำงาน,Use scaffolding ladders to prop work.,Olefins2,TTCL,Unsafe Condition,Work at height,3
+ถังน้ำมันรอการขนย้ายออกจากพื้นที่,Oil tanks waiting to be moved from the area.,Olefins2,MOC (OPE),Unsafe Condition,Chemical Work,2
+อุปกรณ์นั่งร้านวางทิ้งไว้บน Pipe rack,Scaffolding equipment is left on the pipe rack.,UT,SIS,Unsafe Condition,Housekeeping,23
+งานยกไม่ได้มีการปิดล้อมพื้นที่,Lifting work does not enclose the area.,TFU,MYC,Unsafe Condition,Lifting,6
+งานยกขนย้ายอุปกรณ์ด้วยรถเฮี้ยบ ไม่มีป้ายชี้บ่งอันตรายและใช้กรวยตั้งเป็น Barricade,"Lifting and moving equipment with a hip truck No danger sign, use cones as barricade.",HOT,UTOC,Unsafe Condition,Lifting,3
+"Jacket, insulation และอุปกรณ์ที่ไม่ได้ใช้งานแล้ว ไม่ได้นำออกจากพื้นที่
+","jacket , insulation , unused equipment not taken out of the area,",COLD,MOC (OPE),Unsafe Condition,Housekeeping,5
+เครื่อง Water jet ไม่ได้ตรวจสอบ/ inspect ตามรอบเดือน,"The water jet was not inspected, inspected monthly.",ARU,REPCO (ME),Unsafe Condition,Water jet,2
+งาน Water jet บริเวณจุด Drain น้ำชั้นล่าง ไม่มีการปิดกั้นพื้นที่ ซึ่งขณะ jet มีน้ำกระเด็นออกมาบริเวณรอบค่อนข้างแรง อาจทำให้ผู้ปฏิบัติงานโดยรอบได้รับอันตรายได้,"Water jet work at the lower water drain point. There is no blocking of the area, which when the jet has water splashing out around quite strongly. May cause harm to the surrounding operators.",HOT,TSP,Unsafe Condition,Water jet,3
+เอกสารตัวหนังสือจาง ไม่ชัด,"Documents are faded, unclear",UT,WTM,Unsafe Action,PTW & JSA,2
+Chemical tank รอการขนย้ายออกจากพื้นที่,chemical tank waiting to be moved out of the area,Olefins2,TTCL,Unsafe Condition,Housekeeping,4
+"Big Bag บรรจุทรายไม่ได้นำออกจากพื้นที่
+","a big bag containing sand is not taken out of the area,",OCU,MOC (OPE),Unsafe Condition,Housekeeping,3
+Pallet ไม้รอการขนย้ายออกจากพื้นที่,wooden pallet waiting to be moved out of the area,Olefins2,TTCL,Unsafe Condition,Housekeeping,5
+เศษพลาสติกหลังหุ้ม insulation,Plastic scrap after insulation,Olefins2,TTCL,Unsafe Condition,Housekeeping,7
+จัดเตรียมเอกสารสำหรับกำจัดคอนกรีตนอกพื้นที่ไม่ครบถ้วน,Prepare documents for the removal of incomplete off-site concrete.,UT,ตะวัน,Unsafe Action,PTW & JSA,2
+กล่องไม้ไม่ได้นำออกหลังจากติดตั้งแล้ว,The wooden box was not removed after it was installed.,Olefins2,MOC (OPE),Unsafe Condition,Housekeeping,4
+pipe และ scrap รอการขนย้ายออกจากพื้นที่,"pipe , scrap waiting to be moved out of the area",Olefins2,TTCL,Unsafe Condition,Housekeeping,8
+เครื่อง Hydro test ยังไม่ได้ตรวจสภาพ,The hydro test has not been tested.,TFU,ACE,Unsafe Condition,Pressure test,2
+เศษไม้และขยะกองตามจุดต่างๆ,"wood chips, garbage piles at various points",Olefins2,RNC,Unsafe Condition,Housekeeping,2
+ไม่ได้ตรวจวัดแก๊สตามมาตรการที่กำหนดทุก 2 ชั่วโมง,Gas is not measured according to the prescribed measures every 2 hours.,HOT,RNC,Unsafe Action,Hot Work,3
+Work permit ไม่มี JSA งานสาวรอก,work permit no jsa,HOT,REPCO (MES),Unsafe Action,PTW & JSA,4
+"ความสูงของบันไดนั่งร้านสูงกว่ามาตรฐาน อาจทำให้ก้าวผิด และได้รับบาดเจ็บได้
+","The height of the scaffolding ladder is higher than the standard. may make a wrong step, injure,",COLD,WTM,Unsafe Condition,Scaffolding,3
+นั่งร้านไม่มี Toe board กันตก,Scaffolding without toe board to prevent falling,HOT,RNC,Unsafe Condition,Scaffolding,20
+ไม่ได้ต่อสาย Ground ที่ Ground bar ของ Plant,The ground wire is not connected to the ground bar of the plant.,HOT,HDS,Unsafe Condition,Water jet,2
+Fire Watch ไม่ได้ลงชื่อในเอกสาร Safe Work Certificate,fire watch not signing safe work certificate document,UT,HHP,Unsafe Action,Hot Work,2
+คล้อง Safety Harness จุดที่ไม่มั่นคงปลอดภัย,Attach the safety harness to any unstable point.,UT,ตะวัน,Unsafe Condition,Work at height,13
+ถอดหมวก/ ไม่สวมใส่แว่นตา นักพักที่จุดทำงาน,"Take off your hat, don't wear glasses. Workers",HOT,RNC,Unsafe Action,PPE,3
+"งานทาสีโดยใช้ Boom lift ไม่มี SL อยู่ที่หน้างาน
+","Paint work using boom lift without sl at the job site,",Olefins2,PSA,Unsafe Action,SL Performance,5
+"ไม่มี Safety Sling คล้องกันสะบัด จุด Connect Hose
+","No safety sling, flicker point, connect hose,",Olefins2,MOC (OPE),Unsafe Condition,Process & Operation,5
+"End Flange ยังไม่ได้ปิด
+","end flange has not yet closed,",Olefins2,MOC (OPE),Unsafe Condition,Process & Operation,2
+"Safety Valve ไม่ได้ Lock open
+","safety valve not lock open,",Olefins2,MOC (OPE),Unsafe Condition,LOTO/ LB,3
+"กุญแจ lock ปุ่ม emergency ของ LCS 
+","key lock lcs emergency button,",Olefins2,MOC (OPE),Unsafe Condition,LOTO/ LB,2
+งานทาสีไม่ได้ใส่ หน้ากาก R-95,Paint work without mask r-95,Olefins2,PSA,Unsafe Action,Paint/ Coat/ Blast,10
+วางอุปกรณ์นั่งร้านกีดขวางทางเดิน,Place scaffolding to block the walkway.,HOT,RNC,Unsafe Condition,Housekeeping,47
+"HOT-LH-12
+SL ไม่ได้ sign ตรวจสอบก่อนเริ่มปฏิบัติงานในช่วงบ่าย","hot-lh-12, sl not sign, check before starting work in the afternoon.",HOT,CR Asia,Unsafe Action,SL Performance,2
+อุปกรณ์นั่งร้านวางรวมกันจำนวนมาก ,Lots of scaffolding equipment,TFU,KAEFER,Unsafe Condition,Housekeeping,53
+กอง insulation,pile insulation,Olefins2,TTCL,Unsafe Condition,Housekeeping,14
+ขนย้ายอุปกรณ์โดยไม่สวมใส่ถุงมือ,Move equipment without wearing gloves.,OCU,REPCO (ME),Unsafe Action,PPE,4
+เชือกที่นำเข้ามาใช้งานพับเก็บไว้กับ Pipe มีลักษณะเป็นขุย >> เปลี่ยนเส้นใหม่,"The rope that is brought in for use is folded, the pipe looks flaky >> change a new line.",HOT,RNC,Unsafe Condition,Others,5
+"Safety Lead 1 คน ดูแลงาน HW I 2 จุด (Fire Box, ชั้น 4)","safety lead 1 person takes care of hw i 2 points (fire box , 4th floor)",HOT,RNC,Unsafe Action,Hot Work,5
+นั่งร้านไม่มีบันไดขึ้น-ลง,Scaffolding has no stairs up and down.,HOT,RNC,Unsafe Condition,Scaffolding,4
+"ผู้ปฏิบัติงานหุ้ม Insulation ไม่มี SL อยู่ที่หน้างาน, ทำงานบนนั่งร้านเพียงคนเดียว
+","Insulation covering worker without sl is on site, working on scaffolding alone,",Olefins2,TNE,Unsafe Action,SL Performance,2
+ตู้ไฟฟ้าไม่มี Checklist,The electric cabinet does not have a checklist.,TFU,INSEE,Unsafe Condition,Electrical & Grounding,3
+Safety lead ลงมือปฏิบัติงาน (งานเชื่อมใน Hot box ชั้น 4),"safety lead in operation (welding in hot box, 4th floor)",HOT,RNC,Unsafe Action,SL Performance,4
+ถอด-สวมใส่ Safety Harness ขณะอยู่บนนั่งร้าน,Remove and wear safety harness while on scaffolding.,HOT,REPCO (INDT),Unsafe Action,Work at height,20
+Face shield มีลักษณะชำรุด,face shield looks damaged,HOT,MYC,Unsafe Condition,Hot Work,3
+นั่งที่ขอบกระบะของรถเฮี๊ยบเพื่อเตรียมงานขนย้ายแผ่นนั่งร้าน,"Sit on the edge of the pickup truck, prepare for the transfer of the scaffolding.",Olefins2,TTCL,Unsafe Action,Transportation,2
+งาน Water jet ใช้ลวด/ เชือกฟางมัดสายไฟ,"Water jet work uses wire, straw rope to tie the cable.",HOT,ISS (HDS),Unsafe Condition,Water jet,7
+ใช้ Lifting Bar (ไม่มี Sticker inspected) ยกอุปกรณ์นั่งร้าน,Use a lifting bar (no sticker inspected) to lift the scaffolding equipment.,COLD,WTM,Unsafe Condition,Work Procedure,6
+Safety Lead ไม่อยู่ที่หน้างาน,safety lead is not at the job site,TFU,KMS,Unsafe Action,SL Performance,9
+งาน Load Chemical ไม่มีป้ายเตือนอันตราย,load chemical work no danger warning label,HOT,NALCO,Unsafe Condition,Chemical Work,3
+แนะนำให้แกะ/ ลอก Sticker inspect อุปกรณ์ที่ไม่ใช่เดือนปัจจุบันออก,"It is recommended to unpack, peel off the sticker, inspect the equipment that is not the current month.",HOT,HDS,Unsafe Condition,Tools & Equipment,2
+วางอุปกรณ์ไว้ใต้รถ (Line of fire),Put the device under the car (line of fire).,HOT,HDS,Unsafe Condition,Housekeeping,2
+งานทาสี ตรวจสอบหน้างานไม่ได้สวมใส่หน้ากาก R-95 ,Painting work. Check the work face. Not wearing a mask. r-95,Olefins2,PSA,Unsafe Action,Paint/ Coat/ Blast,2
+ยืนทำงานบน Pipe (งาน Cold cut) เสี่ยงต่อการพลัดตก,Standing on a pipe (cold cut work) risk of falling.,HOT,RNC,Unsafe Action,Work at height,2
+HOT-LH-004 เปิด Work ทำงานยกข้ามรางระบายน้ำเป็นความเสี่ยงต่ำ,"hot-lh-004 open work, lifting work across the drain chute is low risk.",HOT,REPCO (ISS),Unsafe Action,PTW & JSA,4
+ไม่มี JSA แนบ PTW,no jsa attached ptw,Olefins2,REPCO (ME),Unsafe Action,PTW & JSA,3
+Work permit ไม่ได้ระบุ JSA งานติดตั้งนั่งร้าน,work permit not specified jsa scaffolding installation work,HOT,REPCO (MES),Unsafe Action,PTW & JSA,2
+น็อตยึดบันไดลิงหาย ใช้ลวดมัดแทน,"Missing monkey ladder fixing nut, use wire tie instead.",HOT,HOT,Unsafe Condition,Work at height,3
+พบมีงานรื้อนั่งร้านแต่ล้อม Barricade ไม่ครอบคลุม,"Found that there was work to demolish the scaffolding, but the barricade was not covered.",Olefins2,ATI-LT,Unsafe Condition,Scaffolding,21
+สวมใส่อุปกรณ์ PPE ไม่เหมาะสมกับงาน,"wear improper ppe equipment, work",OSBL,APP,Unsafe Action,PPE,4
+ผู้ปฏิบัติงานอยู่ในตำแหน่ง Line of fire (ใกล้รถ Backhoe),The operator is in the line of fire position (near the backhoe).,TFU,R-Five,Unsafe Condition,Excavation,8
+ทำงานเชื่อมไม่ได้ปิดล้อมผ้ากันไฟ,The welding work is not enclosed in fireproof cloth.,HOT,RNC,Unsafe Condition,Hot Work,3
+งานรื้อถอนนั่งร้านของ ไม่มี Safety จป.ดูแลหน้างาน,Demolition work of scaffolding. No safety. P.O. takes care of the work,COLD,ACE,Unsafe Action,SL Performance,17
+ปิดล้อมพื้นที่ไม่มีป้ายเตือน,enclose the area without warning signs,Olefins2,RNC,Unsafe Condition,Lifting,11
+อุปกรณ์นั่งร้านไม่ได้นำออกจากพื้นที่หลังเสร็จงาน,Scaffolding equipment is not removed from the area after the work is done.,HOT,HDS,Unsafe Condition,Housekeeping,93
+หญ้าและวัชพืชปกคลุมทางเข้า Operate Fire Hydrant,"Grass, weeds cover the entrance. Operate fire hydrant.",TFU,MOC (OPE),Unsafe Condition,Housekeeping,3
+ทีมปฏิบัติงานไม่ได้คล้องเกี่ยว Safety Harness 100% ตลอดเวลา,The operation team is not involved in safety harness 100% all the time.,UT,ตะวัน,Unsafe Action,Work at height,12
+การระบุรายละเอียดของงานใน Work permit ไม่ครอบคลุมงานที่ปฏิบัติรวมถึง JSA ที่แนบ W/P มาด้วย (มีการทำงาน 2 จุดและแตกต่างตามลักษณะงาน),"The job description in the work permit does not cover the work performed, including the jsa attached w, p (2 work points, different by job nature).",HOT,REPCO (MES),Unsafe Action,PTW & JSA,2
+ไม่มี JSA งาน Hydro test,no jsa job hydro test,Olefins2,SIWA,Unsafe Action,PTW & JSA,5
+ทำงานสกัดคอนกรีตโดยไม่ได้สวมใส่ถุงมือ,Work in concrete chiseling without gloves.,UT,HDS,Unsafe Action,PPE,2
+"ผู้ให้สัญญาณไม่สวมเสื้อสะท้อนแสง, 4 ผู้ใส่เสื้อสะท้อนแสงสีน้ำเงิน","Signal carriers do not wear reflective vests, 4 wear blue reflective vests.",HOT,REPCO (MER),Unsafe Action,Lifting,3
+ผู้ปฏิบัติงานยืนส่งอุปกรณ์บนแผ่นนั่งร้านที่นำมาต่อกับบันได,"The operator stands to deliver the equipment on the lead scaffolding plate, ladder.",TFU,WTM,Unsafe Action,Work at height,20
+SL งานรื้อนั่งร้าน ไม่อยู่ Stand by ที่หน้างาน,"sl Dismantling scaffolding work. Not in st, by at the front of the event.",UT,ATI-LT,Unsafe Action,SL Performance,38
+งานทาสีไม่มีถังดับเพลิง Stand by,"Paint job without fire extinguisher st, by",Olefins2,TTCL,Unsafe Action,Paint/ Coat/ Blast,6
+ขนย้าย Clamp/ ข้อต่อนั่งร้านโดยไม่ได้ใช้ถุงตาข่ายป้องกันการตก,"Move clamps, scaffolding joints without the use of anti-fall net bags.",UT,WTM,Unsafe Action,Scaffolding,36
+ขนย้ายอุปกรณ์นั่งร้านข้ามรั้วโดยไม่มีใบอนุญาต,Move scaffolding equipment over fences without a permit.,Olefins2,KAEFER,Unsafe Action,Security,64
+ข้อต่อสาย Hose เครื่อง Air com งาน Sand Blast หลุด,"Hose coupling, hose, machine, air com, work s, blast off",TFU,NCN,Near Miss,Paint/ Coat/ Blast,2
+นำสว่านเจาะขึ้นไปใช้งานบนที่สูงโดยไม่มีเชือกผูกมัด,Use the drill bit to work on high ground without ropes.,UT,ตะวัน,Unsafe Condition,Work at height,5
+ผู้ปฏิบัติงานไม่สวมสายรัดคางและแว่นตานิรภัย,"Operators do not wear chin straps, safety glasses.",HOT,RNC,Unsafe Action,PPE,2
+ไม่มีเชือกคล้องเกี่ยวอุปกรณ์,No lanyard to attach the device,OCU,WTM,Unsafe Action,Work at height,9
+ไม่มีผ้ารองสลิงผ้าใบกันบาด,No tarpaulin sling backing,HOT,RNC,Unsafe Condition,Lifting,4
+Grating ชำรุด เนื่องจาก Clamp lock หลุด,The grating is damaged because the clamp lock is loose.,UT,REPCO (MES),Unsafe Condition,Work at height,3
+ชั้นบนไม่มี Fire watch,There is no fire watch upstairs.,Olefins2,TIMA,Unsafe Action,Hot Work,2
+"บัตร SL งานติดตั้ง Compact, Prove meter หมดอายุ (3 คน)","sl card installation work compact , prove meter expired (3 people)",TFU,FLOWLAB,Unsafe Action,Work Procedure,2
+ประเมินความเสี่ยงงานประกอบ Tolley Beam ไม่ครอบคลุม,Risk assessment for tolley beam assembly is not covered.,HOT,RNC,Unsafe Action,PTW & JSA,2
+มีงานตัด เชื่อม เจียรล้อมพื้นที่ไม่ครอบคลุม,"There are cutting, welding and grinding work around the area that is not covered.",Olefins2,CAPK,Unsafe Condition,Hot Work,3
+ไม่มีเครื่องวัดแก๊ส Stand by ที่หน้างาน ,"No gas meter st, by at the job site",UT,"MOC (OPE), REPCO (MES)",Unsafe Action,CSE,5
+สายไฟพาดผ่าน Access door โดยไม่มีผ้ารองกันบาด (ชั้น2),The power cable runs through the access door without a cut-proof cloth (layer 2).,HOT,RNC,Unsafe Condition,CSE,3
+ไม่สวมใส่ Goggle ขณะปฏิบัติงาน,Do not wear goggles while working.,HOT,WTM,Unsafe Action,Insulation,8
+เปิด Fire Hose Box ทิ้งไว้,Leave the fire hose box open.,UT,Safety,Unsafe Condition,Others,3
+ฝาคอนกรีตรางระบายน้ำชำรุด,Broken concrete gutter cover.,UT,Virat K.,Unsafe Condition,Others,3
+แขวน Safety Harness (ที่ไม่ใช้งาน) กับ Valve Plant,"Hang the safety harness (not in use) , valve plant.",HOT,RNC,Unsafe Condition,Housekeeping,2
+"ประแจที่นำมาใช้งานไม่มีเชือกผูก, ไม่มีผ้าใบปูรอง หรือภาชนะใส่อุปกรณ์ ป้องกันการตกลงไป เนื่องจากพื้นที่เป็นตะแกรง","The used wrench has no rope, no canvas. or equipment container prevent falling because the area is a sieve",HOT,REPCO (MER),Unsafe Action,Tools & Equipment,3
+ต่อสาย Ground  ร่วมกับ Ground ของ Plant,"Connect the common ground wire, the ground of the plant.",TFU,INSEE,Unsafe Condition,Electrical & Grounding,8
+ปรับพื้นขั้นบันไดให้เรียบและไม่เสี่ยงต่อการลื่น สะดุด ล้ม,"Adjust the floor of the stairs to be smooth, not prone to slipping, tripping and falling.",UT,REPCO (OPM),Unsafe Condition,Civil,3
+Water leak during jet (จุด connect hose กับ TLE),"water leak during jet (จุด connect hose , tle)",HOT,RNC,Unsafe Condition,Water jet,2
+ผู้ปฏิบัติงานไม่สวมใส่อุปกรณ์ป้องกันใบหน้าและดวงตา ขณะเจาะรู Tube ซึ่งอาจได้รับอันตรายจากเศษสะเก็ดไฟได้,"Operators do not wear face, eye protection when drilling holes in the tube, which could be dangerous from fire fragments.",HOT,MGB,Unsafe Action,Hot Work,10
+Hook Safety Harness ชำรุด,The hook safety harness is defective.,HOT,RNC,Unsafe Condition,Work at height,12
+วางเครื่องมือและอุปกรณ์กีดขวางพื้นที่ปฏิบัติงาน,"Place tools, equipment blocking the work area.",HOT,RNC,Unsafe Condition,Housekeeping,2
+จอดจักรยานกีดขวางพื้นที่ปฏิบัติงาน,Bicycle parked obstructing the work area.,OCU,WTM,Unsafe Action,Housekeeping,2
+นำ Cutter แบบธรรมดาเข้ามาใช้งาน Insulation,Use a normal cutter for insulation.,HOT,RNC,Unsafe Action,Tools & Equipment,2
+Steam trap leak,steam trap leak,HOT,Taratorn M.,Unsafe Condition,Process & Operation,2
+นำกล่องกระดาษรองสายไฟที่พาดกับ Handrail,"Take a paper box to line the wires, h, rail.",Olefins2,SRIC,Unsafe Condition,Electrical & Grounding,3
+ผู้ปฏิบัติงานยืนอยู่ใต้ boom crane (Line of fire) ขณะทำการยก valve ติดตั้ง,The operator stands under the boom crane (line of fire) while lifting the mounting valve.,TFU,ECE,Unsafe Action,Lifting,2
+เปิด Grating (หลังคาเตา) ทิ้งไว้ หลังปฏิบัติงาน,Leave the grating (roof of the stove) open after work.,HOT,RNC,Unsafe Condition,Work at height,2
+ผู้ปฏิบัติงาน Hydro test ขันอุปกรณ์โดยไม่สวมใส่ถุงมือ,The hydro test operator tightens the equipment without wearing gloves.,HOT,HDS,Unsafe Action,PPE,14
+ติดตั้งนั่งร้าน ไม่ปิดล้อมพื้นที่,install scaffolding does not enclose the area,HOT,WTM,Unsafe Condition,Scaffolding,31
+4 ผู้ไม่ได้สวมใส่เสื้อสะท้อนแสง ครบทุกคน ผู้บังคับเครนอาจมองไม่เห็น หรืออาจสับสนในการให้สัญญาณ มีโอกาสเกิดอันตรายได้,"4 Not wearing reflective vests, all the crane operators may not be able to see. or may be confused in signaling There is a chance of danger",HOT,STP,Unsafe Action,Lifting,4
+Wind sock ขาดชำรุด,wind sock broken,Olefins2,MOC (Safety),Unsafe Condition,Others,2
+งาน Swing blind ผู้ปฏิบัติงานสวมใส่ถุงมือผ้าแทนถุงมือหนัง,"In swing blind work, operators wear cloth gloves instead of leather gloves.",ARU,REPCO,Unsafe Action,PPE,14
+ถังดับเพลิงไม่ได้ inspect เป็นประจำรอบเดือน,Fire extinguishers are not inspected on a monthly basis.,UT,NALCO,Unsafe Condition,Tools & Equipment,3
+ไม่มีเชือกคล้องเกี่ยวอุปกรณ์เครื่องมือ,No lanyard to attach tools,Olefins2,HDS,Unsafe Condition,Work at height,2
+ยืนขนย้ายอุปกรณ์นั่งร้านขึ้นที่สูง บน Handrail,"Stand to transport scaffolding equipment to a height on h, rail.",HOT,WTM,Unsafe Action,Scaffolding,20
+ผู้ปฏิบัติงานติดตั้งนั่งร้าน/รื้อถอนนั่งร้าน​ คล้อง​เกี่ยว Safety Harness​ ไม่ถูกวิธี​,"Workers installing scaffolding, dismantling scaffolding, improperly attaching safety harnesses",Olefins2,SR,Unsafe Action,Work at height,17
+วางอุปกรณ์นั่งร้านกีดขวาง Hose Box,Place scaffolding equipment to obstruct the hose box.,OCU,WTM,Unsafe Condition,Housekeeping,4
+กองอุปกรณ์นั่งร้านทิ้งไว้ ไม่ได้จัดเก็บและไม่ได้ปิดล้อมพื้นที่,"A pile of scaffolding equipment left. not stored, not enclosed space",Olefins2,TTCL,Unsafe Condition,Housekeeping,47
+วางอุปกรณ์นั่งร้านกีดขวางทางขึ้นลงบันไดนั่งร้าน,Place scaffolding equipment blocking the way up and down the scaffolding stairs.,Olefins2,TTCL,Unsafe Condition,Housekeeping,25
+งาน Clean waste ผู้ปฏิบัติงานไม่สวมใส่ Face shield ขณะทำ water jet,Clean waste work. Operators do not wear face shields while doing water jet.,HOT,CR Asia,Unsafe Action,Water jet,5
+Safety Lead ไม่มี Sticker งาน CSE,safety lead no sticker cse work,HOT,RNC,Unsafe Action,SL Performance,2
+งานติดตั้งนั่งร้าน SL ไม่อยู่ที่หน้างาน (OLE2-LC-011),Installation of scaffolding sl is not at the job site. (ole2-lc-011),Olefins2,ATI-LT,Unsafe Action,SL Performance,3
+งาน Load Polymer ผู้ปฏิบัติงานยืนควบคุม Tag line บน Hiab เสี่ยงต่อการตกลงมาจากหลังรถ,Load polymer work. Operator stands in control of the tag line on the hiab. Risk of falling from the back of the car.,HOT,NALCO,Unsafe Action,Lifting,2
+ใช้ถุงมือผ้าปิดหุ้ม jacket insulation,Use gloves to cover the jacket insulation.,HOT,WTM,Unsafe Action,Insulation,3
+ปิดล้อม Barricade ไม่ครอบคลุมและไม่มีป้ายเตือน,"enclosed barricade not covered, no warning sign",UT,ATI-LT,Unsafe Action,Scaffolding,3
+"อุปกรณ์นั่งร้าน, Generator รอการขนย้ายออกจากพื้นที่
+","scaffolding equipment, generator waiting to be moved out of the area,",HOT,SIS,Unsafe Condition,Housekeeping,5
+คันดิน slide และไม่มี Concrete กั้นที่แนวถนน,"embankment slide , no concrete blocking the road",UT,UT,Unsafe Condition,Others,2
+ล้อ Carbon canister ชำรุด,Damaged carbon canister wheels,HOT,Taratorn M.,Unsafe Condition,Others,2
+ขนย้ายอุปกรณ์นั่งร้านด้วยรถเข็นธรรมดา,Moving scaffolding equipment with a simple cart.,HOT,RNC,Unsafe Action,Scaffolding,14
+ไม่สวมใส่ถุงมือขณะทำงานติดตั้งอุปกรณ์,Do not wear gloves when installing the device.,TFU,MYC,Unsafe Action,PPE,2
+Hole Watch สวมเสื้อสะท้อนแสงสีแดง,hole watch wearing red reflective vest,HOT,CR,Unsafe Action,CSE,2
+Hole Watch ไม่มีวิทยุสื่อสารติดต่อกับผู้ปฏิบัติงานด้านใน (Concern ผู้ปฏิบัติงานที่ทำงานบนนั่งร้านด้านใน Fire Box),"hole watch no radio contact, inner worker (concern worker working on scaffolding inside fire box)",HOT,RNC,Unsafe Condition,CSE,3
+ใช้สลิงผ้าใบเกี่ยวกับป.ปลาโดยตรง อาจเฉือนกับมุมแหลมคมทำให้สลิงผ้าใบขาดได้,"Use canvas slings to hook, Por Pla directly. May be sheared, sharp angles can cause the canvas sling to be torn.",HOT,RNC,Unsafe Condition,Lifting,2
+ผู้ปฏิบัติงานไม่ได้สวมหน้ากาก R95/ Half mask ป้องกัน เนื่องจากทรายมีกลิ่นฉุน,"Operators do not wear r95 masks, protective half masks due to the pungent smell of sand.",UT,Right Solution,Unsafe Action,PPE,3
+ใช้เชือกฟางมัดสายไฟ,Use straw rope to tie the wires.,Olefins2,SRIC,Unsafe Condition,Electrical & Grounding,4
+สายไฟไม่มีผ้ารองกันบาด,The power cord does not have a cut-proof cloth.,Olefins2,RNC,Unsafe Condition,Electrical & Grounding,3
+จุดวางถัง Argon อยู่ในตำแหน่งของ Line of fire,The argon tank is positioned on the line of fire.,COLD,JS Tech,Unsafe Condition,Hot Work,2
+จัดเก็บถุงขยะและถังน้ำมันออกจากพื้นที่,"Keep trash bags, oil bins out of the area.",HOT,Jakapong P.,Unsafe Condition,Housekeeping,2
+จุด Connect สาย Ground ไม่แน่น,The connection point of the ground cable is not tight.,TFU,PROTECH,Unsafe Condition,Electrical & Grounding,4
+งานขัดสนิมแนวเชื่อม ทาสี JSA ไม่ครอบคลุม,"Rust polishing work, welding lines, jsa paint, not covered",UT,SKI,Unsafe Action,PTW & JSA,3
+งาน Swing Blind/ ถอดประกอบ ไม่มี Safety Lead ,"Swing blind work, disassembly, no safety lead",HOT,RNC,Unsafe Action,SL Performance,3
+สวมใส่แว่นตาแฟชั่นปฏิบัติงาน Install Platform,"Wear fashion glasses, perform work, install platform",ARU,PROTECH,Unsafe Action,PPE,2
+ปิดล้อมพื้นที่ไม่ครอบคลุม,enclosing areas that are not covered,HOT,WTM,Unsafe Condition,Scaffolding,18
+งาน Swing blind ใช้ประแจปากตายไม่ได้ผูกเชือกป้องกันการตก,"Swing blind work. Use a open-end wrench, not tied to a rope to prevent falling.",HOT,LEO,Unsafe Condition,Work at height,10
+ผู้ปฏิบัติงาน งานติดตั้ง Air Compressor ไม่สวมใส่ถุงมือ,Operators installing air compressors do not wear gloves.,UT,REPCO (MER),Unsafe Action,Installation/ Alignment,3
+จัดเตรียมถาดรองถังสี,Prepare the paint bucket tray.,ARU,Borpit N.,Unsafe Condition,Chemical Work,2
+แขวน Tag LOTO ไม่ครบ,Can't hang the loto tag completely,UT,MOC (OPE),Unsafe Condition,LOTO/ LB,2
+งาน Install support coil ไม่มี JSA งาน install มีแต่ JSA สำหรับทำงานในที่อับอากาศ,install support coil job no jsa install job only jsa for working in confined spaces,HOT,REPCO (MES),Unsafe Action,PTW & JSA,3
+พบนั่งร้านในงานหุ้ม Insulation สภาพไม่สมบูรณ์ (ไม่ติดตั้งhandrail),"Found scaffolding in insulation cladding work. Incomplete condition. (not equipped with h, rail)",Olefins2,TNE,Unsafe Condition,Scaffolding,3
+งานยก Motor ปิดล้อมพื้นที่ไม่ครอบคลุม,Motor lifting work to enclose the area that is not covered,ARU,REPCO,Unsafe Condition,Lifting,3
+งาน test safety valve SL ไม่อยู่ที่หน้างาน,The test safety valve sl is not at the job site.,HOT,REPCO (IE),Unsafe Action,SL Performance,3
+วัสดุและอุปกรณ์ไม่ได้จัดเก็บออกจากพื้นที่หลังจบงาน/ ไม่ได้ปิดล้อมพื้นที่และติดป้ายชี้บ่งสถานะการขนย้าย,"Materials, equipment not stored from the area after the job, not enclosed, labeled to indicate the transport status.",UT,NP,Unsafe Condition,Housekeeping,3
+งานยกขนย้ายอุปกรณ์โดยเฮี้ยบ ไม่ได้ปิดล้อมพื้นที่,Lifting and moving equipment by Hieb does not enclose the area,TFU,Flow lab,Unsafe Condition,Lifting,4
+งานติดตั้งนั่งร้านประแจไม่มีเชือกผูก,"Installation of scaffolding, wrench, no rope to tie.",HOT,KC,Unsafe Condition,Work at height,5
+งานติดตั้งนั่งร้าน: ปิดล้อมธงขาว-แดง โดยการพันรอบนั่งร้าน (แนะนำให้เว้นระยะห่างจากนั่งร้าน 2 เมตร ตามข้อกำหนด),Installation of scaffolding: enclosing the white-red flag by wrapping around the scaffold (recommended to keep a distance of 2 meters from the scaffolding according to the requirements),UT,"REPCO (OPM), CN",Unsafe Condition,Scaffolding,3
+Rigger และ ผู้ควบคุม Tag line ใส่เสื้อสะท้อนแสงสีเขียว,"The rigger , the tag line operator wears a green reflective vest.",HOT,HDS,Unsafe Action,Lifting,2
+งานหุ้ม Insulation ไม่มี Safety Lead (อดิเรก) อยู่ที่หน้างาน เนื่องจากไปดูงานที่จุดอื่น (OLE-LH-2),Insulation covering work without safety lead (hobbies) at the job site due to going to work at another location (ole-lh-2),Olefins2,TNE,Unsafe Action,Work Procedure,3
+งาน modify close loop heavy oil ไม่มีถาดรองถังใส่สารเคมี,Modify close loop heavy oil work. No chemical tank tray.,Olefins2,REPCO,Unsafe Condition,Chemical Work,2
+ขณะทำการ Load สารเคมี ไม่มีการสวมชุดป้องกันสารเคมีและ Face Shield,"When loading chemicals, do not wear chemical protective clothing, face shield.",HOT,DORF,Unsafe Action,Chemical Work,5
+สวมใส่แว่นตาแฟชั่นขณะปฏิบัติงานหุ้ม Insulation,Wear fashionable glasses while working with insulation cover.,Olefins2,TNE,Unsafe Action,Insulation,2
+SL ไม่ได้ตรวจสอบมาตรการใน JSA ,sl not checking measures in jsa,HOT,KEC,Unsafe Action,PTW & JSA,14
+จอดรถไม่ได้ปิดล้อมพื้นที่ (มีกรวยด้านหน้าอันเดียว),Parking does not enclose the area. (with one cone in front),OCU,REPCO (EE),Unsafe Condition,Transportation,2
+ไม่ได้ตรวจสอบ JSA ก่อนเริ่มงาน,jsa not checked before starting job,Olefins2,REPCO (INDT),Unsafe Action,PTW & JSA,11
+ไม่ได้ผูกเชือกอุปกรณ์ที่นำไปใช้งานบนที่สูง,Not tying up equipment that is used at heights,TFU,TOTAL FLOW,Unsafe Condition,Work at height,2
+ตัวหนังสือ JSA มีขนาดเล็ก,jsa text is small,HOT,WTM,Unsafe Action,PTW & JSA,8
+พบนำบันไดนั่งร้านมาใช้งาน,Found used scaffolding ladder,Olefins2,TTCL,Unsafe Condition,Work at height,2
+งานขัดสนิมทาสีไม่สวมใส่หน้ากากกันสารเคมีและไม่สวมใส่แว่นตา Safety,"Rust polishing work, paint, do not wear chemical masks, do not wear safety glasses",COLD,REPCO (MES),Unsafe Action,PPE,7
+ยืนส่งอุปกรณ์นั่งร้านอยู่ใน Line of fire,Stand to deliver scaffolding equipment in line of fire,OCU,UTOC,Unsafe Condition,Work at height,28
+ค้อนทองเหลืองและประแจไม่มีเชือกผูก,"Brass hammer, wrench without string",HOT,RNC,Unsafe Condition,Work at height,11
+งาน Install control valve ใช้ถุงมือผ้า,Install control valve work. Use cloth gloves.,HOT,KEC,Unsafe Action,Installation/ Alignment,6
+สลิงผ้าใบไม่ได้ตรวจสภาพ (ไม่มี Tag),Canvas sling has not been inspected (no tag),Interpipe,R-Five,Unsafe Condition,Tools & Equipment,9
+Connecting hose ไม่มี pin lock ทั้งสองข้าง,connecting hose without pin lock on both sides,Olefins2,NALCO,Unsafe Condition,Chemical Work,4
+ถุงใส่เศษ Insulation ไม่ได้ติด Tag ระบุ,The insulation crumb bag does not have a specific tag attached.,HOT,RNC,Unsafe Action,Insulation,4
+Connecting hose คล้อง Safety Sling ไม่ครบทุกจุด,connecting hose not fitting safety sling at all points,Olefins2,MOC (OPE),Unsafe Condition,Process & Operation,8
+เศษ Insulation ฟุ้งกระจาย,insulation debris scattered,HOT,WTM,Unsafe Condition,Housekeeping,2
+ช่างสีขึ้นปฏิบัติงานบนนั่งร้าน ไม่ได้มาตราฐาน,Painter working on scaffolding not standard,Olefins2,TTCL,Unsafe Condition,Scaffolding,4
+ป้ายหมายเลขอุปกรณ์ชำรุด,Defective device number label.,COLD,Warunyoo J.,Unsafe Condition,Others,2
+นกทำรังที่โคมไฟ,birds nest at lanterns,HOT,MOC (OPE),Unsafe Condition,Housekeeping,2
+ผูกธงขาวแดงกับเสาของอุปกรณ์ Plant ,"Tie the red and white flag, the pole of the plant equipment.",HOT,WTM,Unsafe Condition,Scaffolding,6
+ผู้ขออนุญาตตรวจสอบ WAH Cert. มาล่วงหน้า ไม่ได้ประเมินที่หน้างาน,"Applicants requesting permission to inspect wah cert. come in advance, not assessed on site",TFU,REPCO (OPM),Unsafe Action,PTW & JSA,2
+ถุงพลาสติกใส่ Insulation อยู่ใกล้บริเวณที่มีการทำงาน Hot Work Class I,Plastic bag for insulation near the hot work class i work area.,HOT,RNC,Unsafe Condition,Hot Work,9
+ปรับปรุงช่องเปิดฝารางระบายน้ำที่มีขนาดใหญ่,Improved the large opening of the drain cover.,UT,UT,Unsafe Condition,Others,2
+ไม่มีเชือกผูกมัดประแจตามมาตรการ,There is no rope to tie the wrench according to the measure.,UT,REPCO (MES),Unsafe Action,Work at height,13
+วางวัสดุอุปกรณ์กีดขวางถังดับเพลิง,Place the equipment blocking the fire extinguisher.,HOT,HHP,Unsafe Condition,Housekeeping,4
+pipe นั่งร้านกีดขวางทางเดิน,pipe scaffold blocking walkway,HOT,RNC,Unsafe Condition,Housekeeping,4
+นำเชือกฟางมาผูกมัดสายไฟ/ อุปกรณ์,"Bring the straw rope to tie the wires, equipment.",Olefins2,RNC,Unsafe Condition,Housekeeping,11
+เศษขยะจากงานซ่อมรอการจัดเก็บออกจากพื้นที่,Debris from repair work waiting to be collected from the area.,UT,MOC (OPE),Unsafe Condition,Housekeeping,4
+วางกระเช้าใส่คอนกรีตบนนั่งร้านที่ไม่ได้คำนวณมาสำหรับรองรับน้ำหนัก (สำหรับให้คนยืนปฏิบัติงานเท่านั้น),Place concrete baskets on scaffolding that are not calculated to support the weight. (for standing workers only),UT,HDS,Unsafe Condition,Lifting,4
+ไม่มี base plate รอง pack นั่งร้าน,There is no base plate to support the scaffolding pack.,HOT,RNC,Unsafe Condition,Scaffolding,7
+ปีนบันไดนั่งร้านขึ้นไปทาสี,Climb up the scaffolding ladder to paint.,Olefins2,TTCL,Unsafe Action,Work at height,2
+คล้องเกี่ยว Safety Harness ต่ำกว่าระดับศีรษะ,Attach the safety harness below head level.,Olefins2,LT,Unsafe Action,Work at height,20
+วางเหล็กชะโดสำหรับงัดรูวางทิ้งไว้บน Grating,Place the pry bar on top of the grating.,HOT,nan,Unsafe Condition,Housekeeping,6
+Barricade ล้อมรอบหลุมเปิด ไม่ใช่ Hard Barricade,"The barricade surrounds an open pit, not a hard barricade.",TFU,GPSC,Unsafe Condition,CSE,2
+ป้ายเตือนอันตรายมีสภาพซีดจาง (เปียกน้ำ),Hazard warning labels are faded (wet).,Olefins2,PSA,Unsafe Condition,Scaffolding,6
+Modify นั่งร้านเพื่อยืนปฏิบัติงานด้านใน Fire Box ไม่ได้ผูกมัดลวด,"modify scaffolding, standing work inside the fire box, not bound wire",HOT,RNC,Unsafe Condition,Scaffolding,12
+สายไฟงานเชื่อม inlet Elbow ชั้น 4 หลังคาเตา วางในพื้นที่น้ำขัง/ เปียก,"Wires, welding work, inlet elbow, 4th floor, furnace roof, placed in waterlogged, wet areas",HOT,RNC,Unsafe Condition,Hot Work,4
+จำนวน Pipe ที่ใช้ต๋งอุปกรณ์รับน้ำหนักไม่เหมาะสมทำให้ Grating ยุบ,"The number of pipes used in the load bearing device is not appropriate, causing the grating to collapse.",HOT,RNC,Unsafe Condition,Lifting,2
+ตะแกรงครอบท่อ Generator อยู่ในสภาพไม่พร้อมใช้งาน,The generator pipe cover is in unusable condition.,TFU,PROTECH,Unsafe Condition,Tools & Equipment,6
+ช่องเปิดบนหลังคาเตาไม่ได้ปิดกั้น Barricade ซึ่งมีการทำงาน Remove manifold/ Y-piece,"The opening on the stove roof does not block the barricade, which operates remove manifold, y-piece.",HOT,RNC,Unsafe Condition,Work at height,5
+ผู้ปฏิบัติงานทำงานถอดประกอบ ติดตั้งอุปกรณ์อยู่ในจุดเสี่ยงต่อการตก โดยคล้อง Safety Harness จุดที่ไม่มั่นคงแข็งแรง,The operator works disassembly. Install the device in the point of risk of falling by attaching the safety harness to the point where it is not stable and strong.,HOT,RNC,Unsafe Condition,Work at height,3
+วางขวดน้ำดื่มทิ้งไว้ด้านข้างเตา,Leave a bottle of water on the side of the stove.,HOT,RNC,Unsafe Condition,Housekeeping,2
+วางขา Hiab ที่ขอบรางระบายน้ำ,Place the hiab leg on the edge of the drain gutter.,UT,KEC,Unsafe Condition,Lifting,2
+แสงสว่างด้านหน้าทางเข้า Fire Box ไม่เพียงพอ,The light in front of the entrance to the fire box is not enough.,HOT,RNC,Unsafe Condition,CSE,2
+Steam Drum ไม่มีป้ายเตือนอันตรายในที่อับอากาศ,The steam drum has no warning signs in confined spaces.,HOT,RNC,Unsafe Condition,CSE,8
+ตี Tube เพื่อถอด ทำให้ support tube ตัวอื่นเคลื่อนตัวอาจทำให้ tube หลุดจาก TLE ได้ (แนะนำให้ดึง Tube ตัวที่หลุดขึ้นไปก่อนและ lock ด้วย U-bolt  และให้ติดตั้งนั่งร้านรองด้านล่าง),"Hit the tube , remove to cause other support tubes to move, may cause the tube to fall off the tle (recommended to pull the tube that is loose first, lock with u-bolt , install scaffolding below)",HOT,RNC,Unsafe Condition,Installation/ Alignment,7
+แสงสว่างชั้น 4 ไม่เพียงพอ,Floor 4 lighting is insufficient.,HOT,RNC,Unsafe Condition,Safety Management,3
+ผู้ปฏิบัติงานเดินลาก Hook ขูด Grating >> แจ้งให้เก็บสาย Safety Harness ให้เรียบร้อย,The worker dragged the hook and scraped the grating >> told them to keep the safety harness in place.,HOT,RNC,Unsafe Action,Work at height,2
+Fire watch ดูแลงาน HW ใน CSE นั่งหลับ,fire watch takes care of hw work in cse sitting asleep,HOT,RNC,Unsafe Action,Hot Work,4
+Safety Lead งาน CSE ไม่อยู่หน้างาน/ ไม่เข้าไปตรวจสอบงานด้านใน,"safety lead cse work not in front of the job, not going to check the work inside",HOT,RNC,Unsafe Action,SL Performance,2
+"กองนั่งร้านไม่มี Barricade กั้นและไม่มีป้ายบ่งชี้สถานะ
+","The scaffold has no barricade barriers, no status signs,",Olefins2,TTCL,Unsafe Condition,Housekeeping,6
+งาน test safety ใช้ถุงมือผ้าไม่เหมาะสม,Test safety work using inappropriate cloth gloves,HOT,LEO,Unsafe Action,PPE,15
+ไม่ได้เคลียร์น้ำออกจากถาดรองก่อน start generator,The water was not cleared from the tray before starting the generator.,UT,HDS-HCS,Unsafe Condition,Hot Work,2
+แสงสว่างไม่เพียงพอในงาน Grinding Coil ด้านใน CSE,Not enough light for grinding coil inside cse,HOT,RNC,Unsafe Condition,Safety Management,2
+งาน Re-Tube มีการปฏิบัติงานใกล้ช่องเปิด โดยไม่สวมใส่ Safety Harness,The re-tube work is performed near the opening without wearing a safety harness.,HOT,RNC,Unsafe Action,Work at height,4
+ไม่มี Checklist งาน load chemical,There is no checklist of load chemical tasks.,UT,NALCO,Unsafe Action,Chemical Work,6
+ช่างประกอบทำงานบนนั่งร้านโดยคล้องเกี่ยว Hook Safety Harness ข้างเดียว,Assemblers work on scaffolding by attaching a single hook safety harness.,HOT,RNC,Unsafe Action,Work at height,24
+Lock U-bolt ชั้นเดียว งาน Re-tube TLE (lesson learned tube รูดระหว่างทำงาน),"lock u-bolt, single layer, re-tube tle work (lesson learned tube, swipe during work)",HOT,RNC,Unsafe Condition,Installation/ Alignment,3
+ทำงานเชื่อมขณะที่มีน้ำขังอยู่,Perform welding work while there is water in it.,TFU,PROTECH,Unsafe Action,Hot Work,2
+ข้อต่อสายฝักบัว Eye washer แตกชำรุด,The eye washer shower hose is broken.,Olefins2,Olefins2,Unsafe Condition,Others,6
+มีช่องเปิดระหว่าง Chanel,There is an opening between the chanels.,HOT,RNC,Unsafe Condition,Work at height,2
+ไม่สวมแว่นตานิรภัยขณะทำงาน,Do not wear safety glasses while working.,UT,REPCO (MER),Unsafe Action,PPE,9
+ปิดกั้นพื้นที่ไม่ครอบคลุมและ Flag man ไม่มีเสื้อสะท้อนแสง,"Block out of coverage area, flag man without reflective vest.",UT,SYN,Unsafe Action,Transportation,2
+ไม่มีป้ายเตือนอันตราย,no danger sign,HOT,WTM,Unsafe Condition,Scaffolding,8
+สวมใส่ถุงมือผ้าในงาน loose bolt,Wear cloth gloves in loose bolt work.,HOT,KEC,Unsafe Condition,PPE,5
+Safety Latch รอกโซ่ที่นำมาใช้มีสภาพชำรุด ,safety latch The chain hoist used is damaged.,HOT,RNC,Unsafe Condition,Lifting,4
+"งาน Hydro test ติดตั้งสาย Hose ไม่ปลอดภัย (Hose โค้งงอ, Clip lock มีข้างเดียว, Safety Sling ไม่แนบกับ Hose)","Hydro test work: installation of hose, hose is not safe (hose is bent, clip lock is on one side, safety sling is not attached, hose)",HOT,TSP,Unsafe Condition,Pressure test,4
+คล้องเกี่ยว Safety Harness กับอุปกรณ์ Plant,"Safety harness , plant equipment",HOT,RNC,Unsafe Action,Work at height,13
+ทำงานโดยที่ FV ยังไม่ได้ลงชื่อใน Work permit >> สอบถาม Requestor แจ้งว่าได้แจ้ง FO ไปแล้วและ OPE ได้เตรียมระบบให้เรียบร้อยจึงทำงานเลย และ FO ลืมมา sign work,"Working without fv signing the work permit >> ask requestor saying that fo has been notified, ope has already prepared the system so it works , fo forgot to sign work",UT,REPCO (MER),Unsafe Action,PTW & JSA,2
+ปิดล้อมผ้ากันไฟไม่มิดชิด,"enclosed in fireproof fabric, not completely",HOT,RNC,Unsafe Condition,Hot Work,6
+ใช้ PPE(ถุงมือ) ที่ชำรุด ให้ตรวจสอบทำการเปลี่ยน,Use damaged ppe(gloves) to check and replace.,UT,Profess Con,Unsafe Action,PPE,2
+Fire Watch ที่ต้องควบคุมงานด้านใน Fire Box ไม่มี Sticker CSE,fire watch that has to control the work inside the fire box no sticker cse,HOT,RNC,Unsafe Action,Hot Work,2
+"ช่องเปิดบริเวณจุดปฏิบัติงาน (ไม่ได้ protect ด้วย Hard Barricade, concern คนตก)","Openings at operating points (not protected by hard barricade , concern people fall)",HOT,RNC,Unsafe Condition,Work at height,2
+จอดรถโดยไม่ได้หนุนล้อ,Park the car without supporting the wheels.,UT,CN,Unsafe Condition,Transportation,6
+ปฏิบัติงานใกล้ช่องเปิด ไม่ได้สวมใส่ Safety Harness,Work near openings without wearing safety harnesses.,HOT,RNC,Unsafe Action,Work at height,14
+ปิดล้อมพื้นที่ไม่เรียบร้อย,enclose the untidy area,HOT,REPCO (MES),Unsafe Condition,Lifting,10
+งาน Remove motor pump ผู้ปฏิบัติงานไม่สวมถุงมือปฏิบัติงาน,Remove motor pump worker does not wear gloves.,ARU,U-SERVICE,Unsafe Action,Installation/ Alignment,8
+จุดยืนปฏิบัติงาน Water jet ไม่มีราวกันตก,The water jet operating stand does not have railings.,HOT,HDS,Unsafe Condition,Work at height,2
+ใช้สลิงผ้าใบที่ไม่มี Sticker/ ไม่ได้ Inspect,"Using a canvas sling without sticker, did not inspect",TFU,REPCO (MER),Unsafe Action,Work Procedure,13
+ทำงานงานถอดประกอบโดยไม่สวมใส่ถุงมือป้องกันการหนีบ กระแทก,Perform disassembly work without wearing gloves to prevent pinching and shock.,HOT,RNC,Unsafe Action,Installation/ Alignment,7
+ไม่สวมใส่ถุงมือก่อนเริ่มปฏิบัติงาน,Do not wear gloves before starting work.,COLD,WTM,Unsafe Action,Insulation,8
+Hole watchman ไม่มีวิทยุติดต่อสื่อสารกับผู้ปฏิบัติงานด้านใน CSE,"hole watchman no radio, cse inner operator",UT,PN Solution,Unsafe Action,CSE,2
+นั่งร้านยังไม่ดำเนินการแก้ไข จึงแขวน Tag แดงไว้ก่อน,"The scaffolding hasn't been fixed yet, so hang the red tag first.",Olefins2,TTCL,Unsafe Condition,Scaffolding,8
+งานดึง Tube TLE ชั้น7 แสงสว่างไม่เพียงพอ,The work of pulling the tube tle on the 7th floor. The light is not enough.,HOT,RNC,Unsafe Condition,Safety Management,4
+งานดึง/ ตัด Tube ช่องเปิดไม่มี Handrail กันตก,"Pulling work, tube cutting. No h opening, rail to prevent falling.",HOT,RNC,Unsafe Condition,Work at height,2
+ติดตั้ง Pipe นั่งร้านเบียดอุปกรณ์ Plant,Install pipe scaffolding to squeeze plant equipment,HOT,RNC,Unsafe Condition,Scaffolding,13
+"Safety Lead ไม่อยู่ที่หน้างาน งาน Welding Line 14"" Bottom pass 4 (ไปดูงานเปิดฝา Manhole ชั้น5)","safety lead is not at the job site welding line 14"" bottom pass 4 (see the manhole opening on the 5th floor)",HOT,RNC,Unsafe Action,SL Performance,5
+Manifold ไม่มี Pressure gauge ,manifold without pressure gauge,HOT,HDS,Unsafe Condition,Water jet,8
+วางขวดน้ำทิ้งไว้ไม่ได้จัดเก็บ,Leave the water bottle unused.,HOT,RNC,Unsafe Condition,Housekeeping,2
+Rigger สวมเสื้อสะท้อนแสงสีเขียว (ไม่ตรงกับประเภทงานยก),"The rigger wears a green reflective vest (not straight, lifting type)",COLD,HDS,Unsafe Action,Lifting,11
+ไม่ได้ติดตั้ง Pressure gauge ที่ Manifold,The pressure gauge is not installed on the manifold.,HOT,HDS,Unsafe Condition,Water jet,2
+นำรอกมาแขวนกับนั่งร้านขณะถอดฝา,"Bring the pulley to hang, scaffolding while removing the lid.",HOT,RNC,Unsafe Condition,Lifting,2
+"ใช้ถุงมือผ้าในงานขัดแนวเชื่อมด้วยหินเจียรใบปัด 4""","Use cloth gloves when sanding the welds with a 4"" grinding wheel.",HOT,RNC,Unsafe Action,Hot Work,5
+แขวนเสื้อไว้กับอุปกรณ์,"hanging clothes, equipment",HOT,RNC,Unsafe Action,Housekeeping,2
+ทางขึ้นลงบันไดนั่งร้านไม่ Handrail กันตก,"The way up and down the stairs scaffolding is not h, rail to prevent falling.",HOT,MOC (OPE),Unsafe Condition,Scaffolding,4
+ใช้อุปกรณ์ช่วยยกไม่เหมาะสม,Improper use of lifting equipment,HOT,KEC,Unsafe Condition,Lifting,3
+"อุปกรณ์นั่งร้าน, Insulation, ขยะต่างๆ กองทิ้งไว้ ไม่ได้จัดเก็บออกจากพื้นที่","Scaffolding equipment , insulation , various garbage dumped not stored out of the area",UT,MOC (OPE),Unsafe Condition,Housekeeping,4
+งาน load chemical ผู้ให้สัญญาณไม่สวมเสื้อสะท้อนแสง,"load chemical work, signal provider does not wear reflective vest",ARU,SUEZ,Unsafe Action,Chemical Work,10
+มีผู้ไม่เกี่ยวข้องอยู่ในพื้นที่ขณะทำงานยกอุปกรณ์ (Line of fire),An unrelated person is in the area while working to lift the equipment (line of fire).,HOT,RNC,Unsafe Action,Lifting,10
+อุปกรณ์ช่วยยกผ่านการตรวจสอบรอบเดือนใหม่แล้วแต่ไม่ได้เปลี่ยนสติกเกอร์ update ใหม่,Lifting equipment passed the new menstrual cycle check but did not change the new update sticker.,UT,PROTECH,Unsafe Condition,Lifting,2
+นำเชือกฟางผูกมัดสาย Water jet (เป็นวัสดุติดไฟง่ายและอยู่ในบริเวณที่มีความร้อนสูง),"Use a straw rope to tie the water jet cable (combustible material, in high heat areas).",HOT,HDS,Unsafe Condition,Water jet,3
+ใช้ขวดน้ำดื่มใส่น้ำหล่อเย็น,Use a water bottle to cool the water.,UT,HDS,Unsafe Action,Others,6
+ไม่ได้ลงชื่อ JSA Talk,unsigned jsa talk,UT,ATP,Unsafe Action,PTW & JSA,8
+ไม่สวมใส่ถุงมือขณะหยิบจับชิ้นงาน,Do not wear gloves when handling the workpiece.,HOT,TTCL,Unsafe Action,PPE,4
+ไม่มีป้ายเตือนงาน HW I,no job warning sign hw i,HOT,RNC,Unsafe Condition,Hot Work,4
+ปิดล้อมพื้นที่ (ธงขาว-แดง) ไม่ครอบคลุม,The area enclosed (white-red flags) is not covered.,HOT,PROTECH,Unsafe Condition,Scaffolding,2
+เดินบนคาน Beam มีโอกาสเสี่ยงตกลงมาได้,"Walking on the beam, there is a chance of falling down.",HOT,RNC,Unsafe Action,Work at height,3
+จุดเต้นท์พักคนงานมีวัสดุอุปกรณ์วางกีดขวางพื้นที่ และมีน้ำขัง ชื้นแฉะ เสี่ยงต่อการเดินสะดุดลื่นล้ม (ดำเนินการ 5ส พื้นที่และกำหนดจุดวางถังน้ำใหม่ เรียบร้อย),"Workers' tent points have materials and equipment obstructing the area, stagnant water, damp, risk of tripping and slipping (operating 5S area, setting up a new water tank placement successfully)",UT,R-Five,Unsafe Condition,Civil,2
+ไม่ได้ลงค่าวัดแก๊ส/ ตรวจสอบพื้นที่ก่อนเริ่มงาน,"Did not enter the gas meter, check the area before starting work",TFU,WTM,Unsafe Action,PTW & JSA,2
+กองนั่งร้านในพื้นที่ จัดเก็บไม่เป็นระเบียบ,scaffolding in the area untidy storage,HOT,WTM,Unsafe Condition,Housekeeping,4
+ผูกธงขาว-แดงเพื่อปิดล้อมพื้นที่กับอุปกรณ์ Plant,"tying red-white flags, enclosing areas, plant equipment",HOT,WTM,Unsafe Condition,Insulation,2
+ไม่จัดเก็บเศษวัสดุจากงานเชื่อม,Do not store scraps from welding work.,HOT,RNC,Unsafe Action,Hot Work,2
+เสา Barricade ชำรุดเสื่อมสภาพ เนื่องจากเป็นพลาสติกสามารถเป็นเชื้อเพลิงได้และดูไม่เรียบร้อย,"The barricade column is worn out. Since it's plastic can be fuel, it doesn't look neat.",UT,UT,Unsafe Condition,Others,2
+ไม่มีป้ายเตือนระวังอุปกรณ์ Plant (จาก lesson learned case),No warning signs for plant equipment (from the lesson learned case).,HOT,WTM,Unsafe Condition,Scaffolding,5
+ผู้ปฏิบัติงานติดตั้งนั่งร้าน อยู่ในจุดLine of fire,worker installing scaffolding in the line of fire,UT,WTM,Unsafe Action,Scaffolding,28
+จัดวางวัสดุ/ Insulation กีดขวางพื้นที่ โดยไม่ได้ปิดกั้น Barriade,"Material placement, insulation obstructs the space. without blocking the barrier",HOT,RNC,Unsafe Condition,Housekeeping,5
+วางอุปกรณ์นั่งร้านนอกจุดที่กำหนด,Place the scaffolding equipment outside the specified point.,UT,WTM,Unsafe Condition,Housekeeping,11
+วางสายไฟบนเครื่อง Generator ขณะที่เปิดใช้งาน,Lay the wires on the generator while it is on.,UT,ATP,Unsafe Condition,Electrical & Grounding,4
+สลิงผ้าใบไม่ได้รองผ้ากันบาด,Canvas slings do not cover cuts.,UT,PROTECH,Unsafe Condition,Lifting,4
+งานขัดสนิมไม่สวมใส่หน้ากาก R95 ตามที่ระบุใน JSA,Rust polishing job not wearing r95 mask as specified in jsa,Olefins2,PROTECH,Unsafe Action,PPE,6
+ผู้ปฏิบัติงานนั่งขอบกระบะรถ Hiab,A worker sits on the edge of a hiab pickup truck.,HOT,REPCO (MES),Unsafe Action,Transportation,3
+HOT-HC-004 ยืนขนย้ายอุปกรณ์นั่งร้านนอก Handrail,"hot-hc-004 scaffolding equipment transport stand outside h, rail",HOT,RNC,Unsafe Action,Scaffolding,2
+งานยกแท่นคอนกรีตมีผู้ปฏิบัติงานอยู่ใน Line of fire,The work of lifting concrete platforms has operators in the line of fire.,UT,HDS,Unsafe Condition,Lifting,2
+ถอดรองเท้า Safety เพื่อลงไปทำงานบริเวณที่น้ำท่วมขัง,"Take off your safety shoes, go down to work in the flooded area.",UT,CN,Unsafe Action,PPE,2
+ไม่สวมถุงมือขณะทำงานถอดประกอบชิ้นงาน,Do not wear gloves when disassembling the workpiece.,HOT,RNC,Unsafe Action,Installation/ Alignment,5
+ระบุว่ามีเอกสาร Deviation ใน Safe Work Checklist ,indicates that there is a document deviation in the safe work checklist,HOT,RNC,Unsafe Action,PTW & JSA,2
+"ตรวจสอบ Safe Work Cert. งาน CSE ว่ามีการทำงาน HW I, มีการใช้งานอุปกรณ์ไฟฟ้า ซึ่งไม่เกี่ยวข้องที่หน้างาน","Check safe work cert. cse work that hw i work , electrical equipment is in use which is not related to the job site",UT,"WTM, REPCO (MES)",Unsafe Action,PTW & JSA,2
+ใส่น้ำยาล้างจานในขวดน้ำดื่ม,Put dishwashing liquid in a water bottle.,HOT,HDS,Unsafe Action,Housekeeping,2
+ไม่ได้ปิดล้อมพื้นที่จุดวาง Carbon activate ,Does not enclose the area where the carbon activates are placed.,Olefins2,MOC (OPE),Unsafe Condition,Housekeeping,3
+สวมถุงมือผ้าในงาน Swing Blind,Wear cloth gloves in swing blind work.,Olefins2,MGB,Unsafe Action,PPE,8
+HOT-LH-002 ตัวหนังสือ JSA มีขนาดเล็ก อ่านไม่ออก,"hot-lh-002 jsa text is small, illegible",HOT,REPCO (MER),Unsafe Condition,PTW & JSA,3
+แนบ JSA ไม่ตรงกับกับงานที่ระบุหน้า Work permit (Install Scaffolding) และลงลามือชื่อผู้ปฏิบัติงานมากกว่าที่หน้างาน,"Not matching jsa attachment, , the job specified in front of the work permit (install scaffolding) , sign the worker rather than at the job site.",HOT,REPCO (INDT),Unsafe Action,PTW & JSA,5
+สายไฟพาดปาก manhole โดยไม่ได้รองผ้ากันบาด,Wires across the manhole mouth without cut protection.,TFU,NCN,Unsafe Condition,CSE,2
+ทีมงานทาสีไม่ได้ใส่หน้ากาก R-95 ตามมาตรฐานที่กำหนด,The paint crew did not wear the standard r-95 masks.,Olefins2,PSA,Unsafe Action,Paint/ Coat/ Blast,4
+ปิดล้อมพื้นที่โดยไม่มีธงขาว-แดงและป้ายเตือนอันตราย,"Enclose the area without red and white flags, warning signs.",OCU,UTOC,Unsafe Condition,Lifting,3
+ปิดล้อมพื้นที่ติดกับนั่งร้านที่กำลังติดตั้ง,"Enclose the adjacent area, the scaffolding is being installed.",HOT,WTM,Unsafe Condition,Scaffolding,18
+วางเหล็ก Barricade กีดขวางพื้นที่ปฏิบัติงาน มีโอกาสเดินสะดุด เหยียบ ลื่นหกล้มได้รับบาดเจ็บได้,"Place steel barricades to block the work area. There is a chance to stumble, step on, slip, fall and get injured.",UT,ATP,Unsafe Condition,Housekeeping,2
+ปฏิบัติงานในพื้นที่ที่มีเสียงดังโดยไม่สวมใส่อุปกรณ์ลดเสียง,Operate in noisy areas without wearing noise suppressors.,COLD,WTM,Unsafe Action,PPE,2
+HOT-HH-008 ใช้ Lifting plan version เก่า,hot-hh-008 use lifting plan old version,HOT,MOC (OPE),Unsafe Action,PTW & JSA,5
+"JSA ระบุว่าใช้เครื่อง Daivo ดูดตะกอนซึ่งหน้างานใช้ Vacuum และ ตรวจสอบมาตรการใน JSA ว่าไม่เกี่ยวข้อง >> แนะนำให้ SL, Requestor ให้ดำเนินการแก้ไขปรเมินความเสี่ยงเพิ่มใน JSA ","jsa specifies that the sludge daivo is used on the jobsite vacuum , check the measures in jsa are not relevant >> suggest sl , requestor to do more vulnerability correction in jsa",UT,Right Solution,Unsafe Action,PTW & JSA,2
+"ลงข้อมูลใน Lifting Plan ไม่ครบ (รายการคำนวณการยกช่องก่อนเริ่มงาน, หัวหน้า/ วิศวกรควบคุมงานไม่ได้ลงลายมือชื่อ)","Incomplete data entry in lifting plan (calculation list of lifting channels before starting work, supervisor, control engineer did not sign)",HOT,REPCO (MES),Unsafe Action,Lifting,4
+ลงชื่อตรวจวัดแก๊สแทน FO (FO ไม่ได้มาตรวจเอง),Sign up to measure gas instead of fo (fo didn't come to check it myself),TFU,REPCO (OPM),Unsafe Action,PTW & JSA,2
+มีวัสดุติดไฟ เช่น ถุงกระสอบ บริเวณ Hot box,There are flammable materials such as sacks in the hot box area.,TFU,PROTECH,Unsafe Condition,Hot Work,12
+เอกสาร Lifting plan version เก่า,Document lifting plan old version,Olefins2,NALCO,Unsafe Action,PTW & JSA,7
+รื้อนั่งร้านกีดขวางบันไดทางขึ้น-ลง Furnace,Dismantling scaffolding blocking the stairs leading up and down the furnace,HOT,RNC,Unsafe Condition,Scaffolding,19
+กล่อง/ ลังไม้ใส่อุปกรณ์ รอการขนย้ายออกจากพื้นที่,"box, wooden crate Waiting to be moved out of the area",HOT,MOC (OPE),Unsafe Condition,Housekeeping,2
+เขม่าไอเสียเกาะตะแกรงครอบท่อไอเสีย Generator,Exhaust soot clings to the generator grille.,UT,ตะวัน,Unsafe Condition,Tools & Equipment,2
+กองนั่งร้านกีดขวางอุปกรณ์ Plant,Pile of scaffolding obstructs plant equipment.,Olefins2,TTCL/ LT,Unsafe Condition,Housekeeping,7
+นำอุปกรณ์ไฟฟ้าที่ไม่ผ่านการตรวจสภาพมาใช้งาน ,Bring electrical equipment that has not been inspected for use.,HOT,RNC,Unsafe Action,Hot Work,2
+งาน Remove compact จอดรถขวางถนนโดยไม่ได้ปิดล้อมพื้นที่และเหยียบรางระบายน้ำ,"Remove compact work, park the car blocking the road without enclosing the area, step on the drain",TFU,Flow Lab,Unsafe Condition,Lifting,3
+"เวลาประมาณ 11:20 น. พบ FV, Requestor ลงชื่อตรวจสอบหน้างาน/ ตรวจวัดแก๊สก่อนเริ่มงานช่วงบ่ายล่วงหน้า (13:30 น.)  >> เรียกมาตักเตือน","Around 11:20 a.m. found fv , requestor signing for inspection at the site, gas inspection before starting work in the afternoon in advance (1:30 p.m.) >> called to warn",UT,Virat K.,Unsafe Action,Hot Work,2
+SL และ PTW ไม่อยู่ที่หน้างาน,"sl , ptw not at the job site",TFU,MOC (GA),Unsafe Action,SL Performance,2
+โหลดสารเคมี DMDS ไม่สวมใส่หน้ากากกันสารเคมี,chemical load dmds do not wear a chemical mask,HOT,UAC,Unsafe Action,Chemical Work,2
+งานขัดสนิมและทาสีไม่สวมใส่หน้ากาก R95,"Rust polishing work, paint without mask r95",ARU,REPCO (MES),Unsafe Action,PPE,6
+Rigger ไม่มีเอกสาร Certificate 4 ผู้แสดงที่หน้างาน,rigger No document certificate 4 on-site display,HOT,REPCO (MES),Unsafe Action,Lifting,8
+งานขนย้ายอุปกรณ์ขึ้นที่สูงระบุมาตรการป้องกันใน JSA ไม่ครอบคลุม,The high-altitude move indicates that the protection measures in jsa are not covered.,HOT,REPCO (EE),Unsafe Action,PTW & JSA,3
+"การตรวจสอบ Safe Work Cert. ไม่สอดคล้องกับหน้างาน- WAH: ไม่ได้ตรวจสอบการปิดล้อมพื้นที่, การทำงานใกล้แนวสายไฟ, การใช้บันไดเอ >> ไม่เกี่ยวข้อง","check safe work cert. inconsistent, site- wah: enclosing area not checked , working near power lines , using ladder A >> not applicable",UT,WTM,Unsafe Action,PTW & JSA,6
+งานยกอุปกรณ์ด้วยเครนไม่ได้ระบุมาตรการปิดล้อมพื้นที่ใน JSA,Crane lifting work does not specify enclosing measures in jsa,HOT,REPCO (OPM),Unsafe Action,PTW & JSA,3
+เศษลวดและ pipe,"scrap wire, pipe",Olefins2,TTCL,Unsafe Condition,Housekeeping,7
+ไม่ได้ระบุมาตรการปิดล้อมพื้นที่ใน JSA งานติดตั้งนั่งร้าน,Area enclosing measures are not specified in jsa scaffold installation work,HOT,WTM,Unsafe Action,PTW & JSA,2
+การนำมาตรการใน JSA ไปใช้งานไม่ 100% (หน้างานไม่ได้สวมใส่ชุดเอี๊ยมป้องกันสะเก็ดไฟจากงานตัด เชื่อม เจียร),"Implementation of measures in jsa is not 100% implemented (worksite is not wearing safety apron to prevent sparks from cutting, welding, grinding)",HOT,PROTECH,Unsafe Action,PTW & JSA,3
+bracing นั่งร้านขวางทางเข้า ออก Eye washer,bracing scaffolding blocking the entrance eye washer,Olefins2,TTCL,Unsafe Condition,Scaffolding,2
+การตรวจสอบ Safe Work Cert. ไม่สอดคล้องกับหน้างาน- CSE: การแนบเอกสาร SDS ของสารเคมีอันตราย >> ไม่เกี่ยวข้อง,"check safe work cert. inconsistent, on-site cse: hazardous chemical sds attachment >> Not applicable",UT,SYN,Unsafe Action,PTW & JSA,6
+"การตรวจสอบเอกสาร Water jet Cert. ไม่เกี่ยวข้องกับหน้างาน (ข้อ 13, 17)","Document inspection water jet cert. Not relevant, on site (Article 13 , 17)",UT,HDS,Unsafe Condition,PTW & JSA,4
+ไม่มีหน้ากาก N95 ป้องกันฝุ่นจากงานสกัดปูน,No n95 mask to prevent dust from chiseling work.,HOT,RNC,Unsafe Action,PPE,2
+SL ไม่ขึ้นไปควบคุมงานติดตั้งนั่งร้านด้านบน,sl does not go up to control the installation of the upper scaffolding,HOT,WTM,Unsafe Action,SL Performance,2
+ทำงานตัดเชื่อมเจียรโดยที่ SL ไม่ได้อยู่หน้างาน (มีแต่ SE ที่ไม่ได้ขึ้นทะเบียน SL ควบคุมงาน HW I),"Working, cutting, welding, grinding where sl is not in front of the job (only se is not registered sl control work hw i)",HOT,RNC,Unsafe Condition,SL Performance,2
+จัดเก็บขวดน้ำดื่มไม่เรียบร้อย,Bottled water is not stored properly.,Olefins2,VPE,Unsafe Condition,Housekeeping,2
+ถังดับเพลิง stand by ไม่เพียงพอ,"Fire extinguisher st, by not enough",TFU,NCN,Unsafe Condition,Paint/ Coat/ Blast,3
+ถอด Handle หินเจียรออก (ผู้ปฏิบัติงานแจ้งว่าพื้นที่คับแคบ จึงแจ้งให้ผู้ขออนุญาติหามาตรการอื่นร่วมกับ SL และ follow up โดย field safety),"Remove the h, le grinding wheel (the operator reports that the space is confined. therefore informing the applicant to find other measures together, sl , follow up by field safety)",HOT,PROTECH,Unsafe Action,Hot Work,3
+HOT-LC-005 จอดรถจักรยานขวางทางเดินเข้าออก,hot-lc-005 Bicycle parking across the aisle,HOT,REPCO (ME),Unsafe Action,Housekeeping,2
+วางใบหินเจียรทิ้งไว้บนนั่งร้าน,Leave the grinding wheel on the scaffold.,Olefins2,MYC,Unsafe Condition,Housekeeping,2
+ช่องเปิดบริเวณบันไดขึ้น-ลง (Pipe Bridge),The opening at the stairs up and down (pipe bridge),TFU,EPC Pro,Unsafe Condition,Work at height,2
+นำไม้เข้ามาใช้รองอุปกรณ์,Bring wood to use the equipment.,HOT,HDS,Unsafe Condition,Water jet,2
+Cert. Rigger มีอายุมากกว่า 2 ปี งาน load polymer,cert. rigger more than 2 years work load polymer,HOT,REPCO (MES),Unsafe Action,Lifting,2
+ติดตั้งนั่งร้านโดยไม่มีแผ่น Plate รองเสา,Install scaffolding without a plate to support the column.,HOT,RNC,Unsafe Condition,Scaffolding,19
+ป้ายเตือนอันตรายที่อับอากาศไม่เป็นไปตามกฎหมายกำหนด (ระบุข้อความ “ที่อับอากาศ อันตราย ห้ามเข้า”),"Warning sign for dangerous confined spaces that do not comply with the law (stating the message ""Confined space, danger, do not enter"")",UT,PN Solution,Unsafe Condition,CSE,9
+เครื่อง Water jet ใช้สาย Ground ไม่เป็นไปตามข้อกำหนด,The water jet uses a ground wire that does not meet the requirements.,HOT,HDS,Unsafe Condition,Water jet,2
+"ทำงาน HW I (ชั้น 4 Welding Line 14"", ชั้น 5 Buff แนวเชื่อม) โดยใช้ Work เพียงใบเดียว- หลังเที่ยงคืน","Work hw i (4th floor welding line 14"" , 5th floor welding line buff) using only one work - after midnight",HOT,REPCO (MES),Unsafe Action,PTW & JSA,2
+ได้กลิ่น HC บริเวณ P-760A ขณะ ทำการค้นหา Tag งาน TPM  พบเจอ leak ที่ union Pipe pot Seal  P-760A หลังจากมีการ Switch มา Run ได้ไม่นาน จึงแจ้งน้อง FO กะเช้ารับทราบเบื้องต้น ใช้ N2 Purge Dilute HC  และให้ทาง ME รีบเข้ามาแก้ไข,"Smells hc around p-760a while searching for tpm job tags found leak at union pipe pot seal p-760a shortly after the switch was run, so I informed Nong fo Kao to know first. Use n2 purge dilute hc , give way. me rush to fix",OCU,MOC (OPE),Near Miss,Process & Operation,6
+ทำงานเป่าลมโดยไม่ได้ระบุงานเป่าลมใน JSA,Running blower without specifying blower job in jsa,HOT,HDS,Unsafe Action,Water jet,2
+ใช้ถังดับเพลิง plant stand by งานขัดสนิมทาสี,"Using fire extinguishers plant st, by polishing, rusting, painting",ARU,REPCO (MES),Unsafe Action,Paint/ Coat/ Blast,3
+แกะลวดที่ผูกมัดแผ่น plate รองขานั่งร้านออกก่อนรื้อนั่งร้านและวางหมิ่นเสี่ยงตกจากที่สูง,"Remove the wire that binds the plate to support the scaffolding legs before dismantling the scaffolding, placing it on the verge of falling from a height.",HOT,KAEFER,Unsafe Action,Scaffolding,2
+แขวนสลิงผ้าใบกับ Beam โดยไม่มีผ้ารองกันบาด,"Hanging canvas slings, beam without cut protection.",UT,ECE,Unsafe Condition,Lifting,14
+OCU-LH-005 มีการ Modify นั่งร้านอยู่ในสภาพไม่พร้อมใช้งาน,ocu-lh-005 Modified Scaffolding is in unusable condition.,OCU,WTM,Unsafe Condition,Scaffolding,5
+แผ่นนั่งร้านยื่นออกมาอยู่ในระดับศีรษะ อาจเดินชนได้ > > นำผ้ามาปิดคลุมป้องกันการกระแทก,"The scaffolding plate protrudes at the level of the head, may crash. > > Bring a cloth to cover it to prevent shock.",UT,ATP,Unsafe Condition,Scaffolding,2
+ติดตั้งนั่งร้านโดยไม่ได้ล้อม Barricade ,Install scaffolding without enclosing the barricade.,Olefins2,TTCL,Unsafe Condition,Scaffolding,3
+นำขวดน้ำดื่มมาใส่น้ำยาหล่อลื่น,Bring a bottle of water to add lubricant.,HOT,RNC,Unsafe Action,Housekeeping,2
+ไม่ได้ใส่น็อตที่ฝา Top TLE,I didn't put the nut on the top tle cap.,HOT,RNC,Unsafe Condition,Others,3
+ใช้สลิงผ้าใบหักคอไก่เพื่อแขวนรอก,"Use a canvas sling to break a chicken neck, hang a pulley",OCU,REPCO (MES),Unsafe Condition,Lifting,8
+มีการทำงานซ้ำซ้อนกันของงานติดตั้งนั่งร้านบริษัท BMC และ RNC (Line of fire),"There is a redundant work of scaffolding installation work bmc company , rnc (line of fire)",HOT,RNC,Unsafe Condition,Scaffolding,5
+"งานเจาะคว้านรู Tube Pass3,4 มีเศษเหล็กหล่นตามผ้าใบ อาจหล่นไปชั้นล่างได้ >> นำแผ่นนั่งร้านมาทำ Bund กันของตก","Hole drilling work tube pass3 , 4 with scraps falling on the canvas May fall to the lower floor >> Bring scaffolding sheets to make a bund to prevent falling objects",HOT,RMS,Unsafe Condition,Housekeeping,2
+Pressure gauge Manifold Argon ค้าง,pressure gauge manifold argon stuck,Olefins2,RNC,Unsafe Condition,Tools & Equipment,2
+ผูกมัดแผ่นนั่งร้านด้วยลวด ไม่แน่นหนา,Bonding the scaffolding sheets with wire is not tight.,HOT,RNC,Unsafe Condition,Scaffolding,3
+ราวกันตกบันไดลิงถูกถอดออกวางทิ้งไว้,The railings on the stairs were removed and left behind.,HOT,-,Unsafe Condition,Work at height,2
+วาง Pipe นั่งร้านกีดขวางทางเดิน,Place the scaffolding pipe to block the walkway.,HOT,BMC,Unsafe Condition,Housekeeping,23
+"ผู้ปฏิบัติงานประกอบ เชื่อม อุปกรณ์ Line 14"" TLE ไม่สวมใส่ถุงมือ","Operators assemble welding equipment line 14"" tle do not wear gloves.",HOT,RNC,Unsafe Action,Hot Work,4
+งานตัดเจียร Nozzle ผู้ปฏิบัติงานไม่สวมใส่ Face Shield ป้องกันใบหน้า,"Cutting, grinding nozzle, the operator does not wear a face shield to protect the face.",HOT,RNC,Unsafe Action,PPE,2
+วางถังดับเพลิงใกล้ Generator,Place the fire extinguisher near the generator.,UT,REPCO (MES),Unsafe Condition,Hot Work,6
+"ขณะที่ทำ TPM ใน loop GHU-2 ได้เดินผ่าน pump DMDS Z-831PA/PB ได้สังเกตเห็น Discharge Pressure PG-8333A เข็มค้างที่มากกว่า 25 kg/cm2 ซึ่ง Range PG อ่านค่าได้สูงสุดที่ 25 kg/cm2 จึงเกิดความสงสัยว่าเกิดจากอะไร จึงเดินไปดูที่ตัว LCS pump เพื่อดูว่า pump ยังมีการใช้งานหรือไม่ พบว่า pump ไม่ได้ใช้งาน จึงไปสอบถาม FO ว่าเหตุใด PG ถึงค้างเกิน range control FO แจ้งว่ามีการลงระบบ เตาของ SC H-S120A จึงได้ทำการ Stop pump DMDS หลังจากที่ shutdown H-S120A จะมีคำสั่งปิด XVS127A ซึ่งเป็น valve line DMDS เข้า H-S120A ส่งผลให้เกิดการอั้น pressure ใน line เนื่องจากการ stop pump ไม่สัมพันธ์กัน
+เบื้องต้นการแก้ไขที่ PG-8333A ค้างเกิน range นั้น ได้ทำการ depressure ไปที่ drum DMDS Z-830D แล้ว ส่วนในระยะยาวแจ้ง ENG ทำการพูดคุยกับทีมงาน SC เพื่อช่วยเพิ่มระบบที่จะช่วยลดการเกินเหตุการณ์แบบในครั้งนี้ขึ้นอีกครั้ง และแจ้งทีมงานให้ทำการ stop pump ให้ถูกหลัก เพื่อช่วยลดความเสี่ยงที่จะเกิดเหตุการณ์เหมือนในครั้งนี้ขึ้น","While doing tpm in the loop ghu-2 went through the pump dmds z-831pa, pb observed the discharge pressure pg-8333a, the needle was stuck at more than 25 kg, cm2, the range pg read the maximum value at 25 kg, cm2. wonder what caused So went to look at the lcs pump , to see if the pump is still active or not, found that the pump is not in use, so ask fo why pg is over range control fo says that the system is installed on the stove of sc h -s120a has stopped pump dmds, after shutdown h-s120a will have command to close xvs127a which is valve line dmds into h-s120a resulting in pressure in line because stop pump is not related, preliminary fix at pg-8333a out of range already depressure to drum dmds z-830d as for long term inform eng talk, sc team , add a system to reduce this overload again , Inform the team to stop the pump properly, reducing the risk of an incident like this time.",ARU,MOC (OPE),Near Miss,Process & Operation,2
+ไม่มี Fire Watch ประจำที่ Hot Box,No fire watch fixed at hot box,Interpipe,R-Five,Unsafe Action,Hot Work,3
+นำบันไดนั่งร้านพาด Handrail,"Lead the scaffolding ladder h, rail.",Olefins2,TTCL,Unsafe Action,Work at height,3
+ปลาย Tube เก่าที่ดึงมาวางไว้กีดขวางทางขึ้น-ลง บนนั่งร้าน,The end of the old tube that was pulled and placed to block the way up and down on the scaffold.,HOT,HDS,Unsafe Condition,Housekeeping,2
+ตรวจสอบ Safe Work Cert. งาน WAH ไม่เป็นไปตามหน้างานจริง เรื่องการใช้บันได/ บันไดเอ,"Check safe work cert. Wah work does not follow the actual job site. about using stairs, stairs A",HOT,"RNC, REPCO (MES)",Unsafe Action,PTW & JSA,2
+งานเจาะสกัดคอนกรีตไม่มีถังดับเพลิง Stand by ที่หน้างาน,"Concrete extraction work without fire extinguishers st, by on site",HOT,PROFESS,Unsafe Condition,Hot Work,4
+Rigger ไม่มีเสื้อสะท้อนแสงสีส้ม,rigger no orange reflective jacket,OCU,UTOC,Unsafe Action,Lifting,5
+กอง Material ทิ้งไว้ รอการขนย้ายออกจากพื้นที่,A pile of material left behind waiting to be moved out of the area.,TFU,KAEFER,Unsafe Condition,Housekeeping,2
+ใช้รถเข็นน้ำขนย้ายอุปกรณ์นั่งร้าน,Use a water cart to move the scaffolding equipment.,Olefins2,TTCL/ RSC,Unsafe Condition,Scaffolding,13
+เปิด Work 1 ใบ ทำงานพร้อมกัน 2 จุด ซึ่งมีระยะห่างมากกว่า 18 เมตร (งานติดตั้งและรื้อถอนนั่งร้าน),"Open 1 work. Work at the same time at 2 points that are more than 18 meters apart (installation work, demolishing scaffolding)",Olefins2,WTM,Unsafe Action,PTW & JSA,2
+"การตรวจสอบเอกสาร WAH Cert. ไม่เกี่ยวข้องกับหน้างาน (ข้อ 9, 10)","Document verification wah cert. Not relevant, on site (items 9 , 10)",UT,HDS,Unsafe Condition,PTW & JSA,2
+งานติดตั้งนั่งร้าน ไม่มีป้ายเตือน ระวังอุปกรณ์ควบคุมบริเวณจุดที่ทำงาน,scaffolding installation no warning sign Be careful with the control equipment in the work area.,UT,WTM,Unsafe Condition,Scaffolding,4
+งานขัดสนิมทาสีไม่มีถังดับเพลิง stand by,"Rust polishing work, paint, no fire extinguisher st, by",HOT,PROTECH,Unsafe Condition,Paint/ Coat/ Blast,4
+จอดจักรยานกีดขวางอุปกรณ์ดับเพลิง,Bicycle parking blocking fire equipment,HOT,WTM,Unsafe Condition,Housekeeping,3
+ขณะทำการเก็บ Sampling routine กำลังเปิด B/V Outlet S-801เห็นมี HC leak packing,"While collecting the sampling routine opening b, v outlet s-801 hc leak packing",ARU,MOC (OPE),Near Miss,Process & Operation,2
+เศษขยะจำนวนมากจากงานรื้อนั่งร้าน อุดอยู่ในร่อง,Lots of rubbish from scaffolding work. stuck in the groove,Olefins2,TTCL,Unsafe Condition,Housekeeping,6
+รถเทดิน ไม่ได้ป้องกันเศษดินลงไปในรางระบายน้ำ >> นำผ้าใบมาปูรอง,The dumper does not prevent dirt from entering the drainage chute. >> Bring a canvas to cover.,UT,ATP,Unsafe Condition,Civil,2
+ถุง Insulation ไม่มี Sticker ระบุ,insulation bag without label,HOT,WTM,Unsafe Condition,Insulation,3
+จอดรถในพื้นที่กระบวนการผลิตโดยไม่หนุนล้อ,Park the car in the production area without supporting the wheels.,HOT,REPCO (MER),Unsafe Condition,Transportation,4
+ติดตั้งสาย Ground เพิ่มเติม,Install additional ground wires.,UT,UT,Unsafe Condition,Electrical & Grounding,2
+ขันน็อตไม่แน่น LS1 9809,not tighten the nut ls1 9809,OCU,MOC (OPE),Unsafe Condition,Process & Operation,2
+ผู้ปฏิบัติงานต้องยื่นตัวออกมาด้านนอกเพื่อทำงานติดตั้งนั่งร้าน/ ไม่มีพื้นที่ปฏิบัติงาน,"The operator must protrude from the outside, work to install scaffolding, there is no working area.",HOT,-,Unsafe Condition,Work at height,2
+งาน Change Carbon ไม่สวมใส่ Mask ขณะปฏิบัติงาน,Change carbon work. Do not wear a mask while working.,TFU,REPCO (ME),Unsafe Action,PPE,3
+รังผึ้ง,honeycomb,HOT,MOC (OPE),Unsafe Condition,Others,2
+งาน Remove Coil ชั้น1 ปิดกั้นพื้นที่ไม่ครอบคลุม,"Remove coil work, 1st floor, blocking the area that is not covered",HOT,RNC,Unsafe Condition,Work at height,4
+ใช้ Pipe นั่งร้านงอ ในการตั้งนั่งร้าน,Use bent scaffolding pipes to set up scaffolding.,HOT,RNC,Unsafe Condition,Scaffolding,4
+ไม่มี JSA งานติดตั้งนั่งร้านรับ Tube Pass3,No jsa work to install scaffolding get tube pass3,HOT,REPCO (MES),Unsafe Action,PTW & JSA,2
+อุปกรณ์นั่งร้านวางกีดขวางทางขึ้นลงบันได,Scaffolding devices blocking the way up and down the stairs.,COLD,"SIS, SR",Unsafe Condition,Housekeeping,3
+ใช้สลิงผ้าใบผิดวิธี โดยไม่ได้คล้องห่วงผ้าใบเข้ากับ Hook Crane,"Using a canvas sling the wrong way. without hooking the canvas, hook crane",Olefins2,REPCO (MER),Unsafe Condition,Lifting,13
+ไม่สวมใส่แว่นตาและสายรัดคาง,"Do not wear glasses, chinstrap",HOT,RNC,Unsafe Action,PPE,3
+ไม่สวมใส่ถุงมือทำงานดึงสาวรอก HOT-CH-005,Do not wear work gloves pulling the pulley girl hot-ch-005,HOT,RNC,Unsafe Action,PPE,2
+"งานเชื่อม Line 18"" ชั้น 6 ปิดล้อมผ้ากันไฟไม่ครอบคลุมและใช้งานผ้ากันไฟที่มีสภาพชำรุด","Welding work line 18 "", 6th floor, enclosed with fireproof cloth, not covering, use fireproof cloth with damaged condition.",HOT,RNC,Unsafe Condition,Hot Work,4
+แผ่นกันตกบนนั่งร้านมีช่องโหว่,The fall protection plates on the scaffolding have holes.,TFU,PROTECH,Unsafe Condition,Scaffolding,7
+ไม่ได้ติดตั้ง Hard Barricade ที่ชั้น 7 บริเวณช่องเปิด Handrail,"The hard barricade is not installed on the 7th floor around the h, rail opening.",HOT,RNC,Unsafe Condition,Work at height,2
+Safety Lead REPCO (MES) ไม่มี Sticker งาน IRIS >> ให้ช่าง INDT ดูงานแทน,safety lead repco (mes) no sticker iris job >> let indt technician see the job instead,HOT,REPCO (MES),Unsafe Action,SL Performance,2
+จัดเตรียมแผ่นเหล็กปูรองให้ Cover รางระบายน้ำ (ขอบรางระบายน้ำมีสภาพแตกชำรุด),Prepare a sheet of steel to cover the drain gutter (the edge of the drain gutter is broken and damaged),HOT,Taratorn M.,Unsafe Condition,Others,3
+"Safety Lead ไม่อยู่ที่หน้างาน งานเชื่อม Repair Tube Sheet Part 3/4 ประกอบ Line 14"" ชั้น 6 (แต่ไปดูงานจุดอื่นที่ชั้น 4)","safety lead is not at the work site, welding repair tube sheet part 3, 4 assemble line 14"", 6th floor (but go to see other work at 4th floor)",HOT,RNC,Unsafe Action,SL Performance,2
+งานยกถุง Big Bag ข้ามอุปกรณ์ Plant เปิด Work เป็นความเสี่ยงต่ำ,"Lifting big bags across plant equipment, open work is a low risk.",HOT,REPCO (MES),Unsafe Action,PTW & JSA,2
+พบงานหุ้ม Insulation ไม่มีถุงหุ้ม,Found insulation work. No cover bag.,Olefins2,TNE,Unsafe Condition,Insulation,3
+ติดตั้งนั่งร้านกีดขวางทางเดิน,Install scaffolding to block the walkway.,Olefins2,TTCL,Unsafe Condition,Scaffolding,15
+งานหุ้ม Insulation ไม่สวมใส่ Goggle และ N95,"Insulation cover without goggle, n95",HOT,RNC,Unsafe Action,PPE,3
+RNC สวมใส่ Safety Harness ไม่ครบ,rnc not wearing safety harness,HOT,RNC,Unsafe Action,Work at height,2
+ยืนปฏิบัติงานบนนั่งร้านในจุดเสี่ยงที่มีโอกาสตกลงมาได้,Stand and work on scaffolding at a risk of falling.,Olefins2,REPCO (ME),Unsafe Action,Work at height,4
+ใช้ถุงมือผ้าในงานหุ้ม Jacket insulation ,Use cloth gloves to cover the jacket insulation.,Olefins2,TNE,Unsafe Action,Insulation,3
+"พนักงานรื้อนั่งร้านไม่คล้องเกี่ยว Safety harness
+","Scaffolding workers do not involve safety harness,",Olefins2,SR,Unsafe Action,Work at height,7
+ไม่มีเชือกผูกประแจ,no lanyard,HOT,RNC,Unsafe Action,Work at height,2
+ไม่ได้แขวน Tag แดงขณะรื้อนั่งร้าน,Did not hang the red tag while dismantling the scaffolding.,TFU,WTM,Unsafe Condition,Scaffolding,3
+ไม่ได้ตรวจสอบชื่อผู้ปฏิบัติงานในช่วงบ่าย (ก่อนเริ่มงาน),The operator's name was not checked in the afternoon. (before starting work),HOT,REPCO (MES),Unsafe Action,PTW & JSA,4
+นั่งร้านกีดขวางบันไดขึ้น-ลงบ่อ (แก้ไขโดยการทำสัญลักษณ์พันเทปดำเหลืองให้เห็นชัดเจนและให้กั้นพื้นที่กรณีมีการปฏิบัติงานบนนั่งร้าน),"Scaffolding blocks the stairs up and down the well. (Edited by making the symbols wrapped with yellow black tape clearly, to block the area in case of working on scaffolding)",UT,ตะวัน,Unsafe Condition,Scaffolding,5
+ติดตั้ง Handrail กันตกไม่ครอบคลุม,"Install h, anti-fall rail is not covered.",UT,HDS,Unsafe Condition,Work at height,3
+"รองเท้า Safety เป็นประเภทผ้า มีความเสี่ยงที่จะดูดซับของเหลว เช่นสารเคมี, กรด และส่งผลต่อผิวหนังได้","Safety shoes are fabric type. There is a risk of absorbing liquids such as chemicals , acids , affecting the skin.",TFU,-,Unsafe Condition,PPE,3
+งานยกขนย้ายอุปกรณ์โดยเฮี้ยบ ผู้ให้สัญญาณสวมเสื้อสะท้อนแสงสีน้ำเงิน,Lifting and moving equipment by Hieb The signal provider wears a blue reflective vest.,TFU,Flow lab,Unsafe Action,Lifting,2
+Safety Lead บัตรหมดอายุ,safety lead expired card,HOT,RMS,Unsafe Action,SL Performance,5
+Safety Lead ไม่ได้ชี้บ่งอันตรายและสื่อสารให้ทีมงานรับทราบ,"safety lead does not indicate danger, communicates to the team",UT,ATP,Unsafe Action,SL Performance,6
+นั่งร้านกีดขวางอุปกรณ์ Plant,Scaffolding obstructs plant equipment,Olefins2,LT,Unsafe Condition,Scaffolding,10
+วาง Generator ไว้ใกล้ถังอาร์กอน,Place the generator near the argon tank.,UT,ตะวัน,Unsafe Condition,Hot Work,2
+ตัวอักษร JSA มีขนาดเล็กอ่านยาก ,"jsa font is small, hard to read",HOT,REPCO (MER),Unsafe Action,PTW & JSA,5
+เศษ Insulation ไม่ได้จัดเก็บออกจากพื้นที่/ ปิดล้อม Barricade ให้เรียบร้อย,"Insulation debris not collected from the area, completely enclosed the barricade.",TFU,WTM,Unsafe Condition,Housekeeping,3
+Rigger สวมเสื้อสะท้อนแสงสีน้ำเงิน,The rigger wears a blue reflective vest.,COLD,REPCO (MER),Unsafe Action,Lifting,4
+แผ่นนั่งร้านเป็นสนิม,The scaffolding is rusted.,Olefins2,WTM,Unsafe Condition,Scaffolding,7
+ขึ้นทำงานบนนั่งร้านโดยไม่คล้องเกี่ยว Safety Harness,work on scaffolding without attaching safety harness,HOT,REPCO (IE),Unsafe Action,Work at height,15
+ไม่ได้จัดเก็บ 5 ส.หลังจากรื้อถอนนั่งร้าน,Did not store 5 S. after demolishing the scaffolding.,HOT,RNC,Unsafe Condition,Scaffolding,2
+นั่งร้านกีดขวางทางเดิน,scaffolding blocking the walkway,Olefins2,TTCL,Unsafe Condition,Housekeeping,48
+Rigger ไม่สวมใส่เสื้อสะท้องแสงสีส้ม,The rigger doesn't wear an orange glow shirt.,HOT,KC,Unsafe Action,Lifting,3
+เครื่องมือไม่มีเชือกผูกมัดป้องกันการตก,The tool does not have a rope to protect it from falling.,TFU,TOTAL FLOW,Unsafe Condition,Work at height,3
+วาง Tube บนนั่งร้านจำนวนมาก ทำให้นั่งร้านงอ,Put the tube on a lot of scaffolding. bend the scaffolding,HOT,RNC,Unsafe Condition,Scaffolding,3
+"Work permit อยู่ที่เต็นท์พักด้านล่าง ไม่มีแสดงที่หน้างาน (4,6th Floor)","The work permit is in the tent below. Not displayed at the event (4 , 6th floor)",HOT,RNC,Unsafe Action,PTW & JSA,2

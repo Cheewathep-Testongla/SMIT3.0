@@ -1,0 +1,14 @@
+cryptography
+deepcut
+deep_translator
+fastapi
+regex
+sentence_transformers
+pandas
+pydantic
+pythainlp
+pyodbc
+uvicorn
+torch
+tensorflow
+translators

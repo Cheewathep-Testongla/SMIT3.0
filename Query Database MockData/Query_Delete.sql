@@ -1,0 +1,1 @@
+DELETE FROM v_Response_SafetyAudit;
