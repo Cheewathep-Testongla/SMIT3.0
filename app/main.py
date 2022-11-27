@@ -4,7 +4,7 @@ from datetime import datetime
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.responses import JSONResponse
-# from .ii_func.ii import search_ii, update_ii
+from ii_func.ii import search_ii, update_ii
 from Function import *
 import json
 from pydantic import BaseModel
@@ -236,116 +236,23 @@ async def Corrected_input(request: WPM_Details, auth: str = Depends(BasicAuth)):
       ResponseSpellCheck = Cleansing_Input(Input_Details, Cleansing_Case)
       return JSONResponse(ResponseSpellCheck)
 
-# @app.post('/InsertAuditToDatabase', status_code=status.HTTP_200_OK)
-# async def UploadDataToDatabase(request: All_Audit, auth: str = Depends(BasicAuth)):
-#   if auth == True:
-#     # now = datetime.now().time()
-#     # current_time = now.strftime("%H:%M")
-#     # if time_in_range(current_time) == False:
-#     #   return "API In maintenance", 300
-#     # else:
-#       data = request.json()
-#       data = json.loads(data)
+@app.post("/ii", status_code=status.HTTP_200_OK ,response_model= search_engine_ii)
+async def ii_api(request: input_api, auth: str = Depends(BasicAuth)):
 
-#       ResponseFindingDetail = GetFindingDetail("DESC")
-#       Index = ResponseFindingDetail['FindingNo'].tolist()
-#       Index = Index[0]
+    data = request.json() # change input(request model) to Json
+    data = json.loads(data) # change Json to Dict
 
-#       Index = data['Index']
-#       Safety_Audit_Details = data['Safety_Audit_Details']
-#       Count = data['Count']
-#       Area = data['Area']
-#       Contractor = data['Contractor']
-#       Type_Of_Finding = data['Type_Of_Finding']
-#       Topic = data['Topic']
-#       Answer = data['Result']
-#       Problems = data['Problems']
-#       Solution = data['Solution']
-#       Date = data['Date']
-      
-#       Result = [Index]
-#       Result.extend([Safety_Audit_Details])
-#       Result.extend([Count])
-#       Result.extend([Area])
-#       Result.extend([Contractor])
-#       Result.extend([Type_Of_Finding])
-#       Result.extend([Topic])
-#       Result.extend([Answer])
-#       Result.extend([Problems])
-#       Result.extend([Solution])
-#       Result.extend([Date])
+    if data is not None:
 
-#       return Upload_Audit_To_Database(Result)
-
-# @app.get('/Request_WPM_Detail', status_code=status.HTTP_200_OK)
-# async def Request_WPM_Detail(request: Get_WPM_Detail, auth: str = Depends(BasicAuth)):
-#   if auth == True:
-#     now = datetime.now().time()
-#     current_time = now.strftime("%H:%M")
-#     if time_in_range(current_time) == False:
-#       return "API In maintenance", 300
-#     else:
-#       data = request.json()
-#       data = json.loads(data)
-
-#       Primary_Key = data['DocID']
-#       return Response_WPM_Detail(Primary_Key)
-
-# @app.post('/UploadNewFindingDetails', status_code=status.HTTP_200_OK)
-# async def UploadNewFindingDetails(request: NewFindingDetails, auth: str = Depends(BasicAuth)):
-#   if auth == True:
-#     # now = datetime.now().time()
-#     # current_time = now.strftime("%H:%M")
-#     # if time_in_range(current_time) == False:
-#     #   return "API In maintenance", 400
-#     # else:
-#       data = request.json()
-#       data = json.loads(data)
-      
-#       FindingNo = data['No']
-#       FindingCompany = data['Company']
-#       FindingArea = data['Area']
-#       FindingSubArea = data['SubArea']
-#       FindingReportor = data['Reportor']
-#       FindingContractor = data['Contractor']
-#       FindingTypeOfFinding = data['TypeOfFinding']
-#       FindingTopic = data['Topic']
-#       FindingDetails = data['Details']
-#       FindingCorrectiveAction = data['CorrectiveAction']
-#       FindingIssueDate = data['IssueDate']
-#       FindingDueDate = data['DueDate']
-#       FindingStatus = data['Status']
-
-#       ResponseFindingDetail = GetFindingDetail("DESC")
-
-#       ResponseFindingDetail = list(ResponseFindingDetail.itertuples(index=False, name=None))
-
-#       FindingData = list(zip(FindingNo, FindingCompany, FindingArea, FindingSubArea, 
-#                             FindingReportor, FindingContractor, FindingTypeOfFinding, 
-#                             FindingTopic, FindingDetails, FindingCorrectiveAction,
-#                             FindingIssueDate, FindingDueDate, FindingStatus))
-
-#       ResultFindingData = list(set(FindingData) - set(ResponseFindingDetail))
-
-#       return UploadFinding(ResultFindingData)
-
-# @app.post("/ii", status_code=status.HTTP_200_OK ,response_model= search_engine_ii,tags=["ii"])
-# async def ii_api(request: input_api, auth: str = Depends(BasicAuth)):
-
-#     data = request.json() # change input(request model) to Json
-#     data = json.loads(data) # change Json to Dict
-
-#     if data is not None:
-
-#         form_ii = search_ii(data)  # call function search_ii
-#         # print(sum_acc)
-#         # out_form_ii = json.dumps(form_ii)
-#         # out_form_ii = json.loads(out_form_ii)
-#         #!------------------------
-#         return JSONResponse(form_ii) # change Dict to Json in response
-#     else:
-#         return {
-#              "Please pass a properly formatted JSON object to the API"
-#         }  
+        form_ii = search_ii(data)  # call function search_ii
+        # print(sum_acc)
+        # out_form_ii = json.dumps(form_ii)
+        # out_form_ii = json.loads(out_form_ii)
+        #!------------------------
+        return JSONResponse(form_ii) # change Dict to Json in response
+    else:
+        return {
+             "Please pass a properly formatted JSON object to the API"
+        }  
 if __name__ == '__main__':
   uvicorn.run("main:app", host='0.0.0.0', port=443, reload=True, debug=True)

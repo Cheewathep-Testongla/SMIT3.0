@@ -1,13 +1,11 @@
 from sentence_transformers import SentenceTransformer
 import pandas as pd
 
-from ..connect_db import con
-
-model_url = 'sentence-transformers_msmarco-distilbert-base-dot-prod-v3' # folder model
+model_url = './Model/sentence-transformers_msmarco-distilbert-base-dot-prod-v3' # folder model
 model_ii = SentenceTransformer(model_url) # load model
 # --- SQL query command ---------------------
-query = "SELECT * FROM [dbo].[II_cleanData];"
-df_case = pd.read_sql(query, con)
+# query = "SELECT * FROM [dbo].[II_cleanData];"
+df_case = pd.read_csv("./SMIT_Data/data/ii/ii_split_column_translate_all_display.csv", encoding='utf-8')
 # ---------------stored data in numpy ----------------------------
 case_DocNo = df_case['DocNo'].to_numpy()
 case_capa_IINO = df_case['IINo'].to_numpy()
@@ -33,10 +31,9 @@ count_unique_Y = list(set(case_date_Y))
 # sort smallest to maximum (eg. 2543,...,2564)
 count_unique_Y.sort()
 
-from ..connect_db import con # connecting to db
 # ------- SQL query command (CAPA data)--------------
-query = "SELECT * FROM capa_Data"
-df_capa = pd.read_sql(query, con)
+
+df_capa = pd.read_csv("./SMIT_Data/data/ii/capa.csv", encoding='utf-8')
 # -----------------------------------------
 capa_IINO = df_capa['IINo'].to_numpy()
 capa_LLNO = df_capa['LLNo'].to_numpy()

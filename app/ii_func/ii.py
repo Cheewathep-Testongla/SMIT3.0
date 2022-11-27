@@ -1,7 +1,7 @@
 # import data and function
 from .data_ii import *
 from .embed_text_ii import *
-# from .clean_func import clean
+from clean_func import clean
 #import library
 import re # regex
 from deep_translator import GoogleTranslator # translate th -> en
@@ -15,8 +15,10 @@ import pickle # load pickle file
 
 from typing import List # define input/output
 
-
 # from ..connect_db import con
+
+model_url = './Model/sentence-transformers_msmarco-distilbert-base-dot-prod-v3' # folder model
+model_ii = SentenceTransformer(model_url) # load model
 
 # Dict to stored accident classification
 store_classification = {
@@ -162,11 +164,10 @@ def update_ii() -> None:
     # ---------- embedding -------------------------------------------
     global corpus_embeddings
     # ----------------------------------------------------------------------------------------
-    from ..connect_db import con # import data for connecting to database
+    # from ..connect_db import con # import data for connecting to database
 
     # SQL query command (ii data) 
-    query = "SELECT * FROM [dbo].[II_cleanData];"
-    df_case = pd.read_sql(query, con)
+    df_case = pd.read_csv("./SMIT_Data/data/ii/ii_split_column_translate_all_display.csv", encoding='utf-8')
 
     # stored data in variabled
     case_DocNo = df_case['DocNo'].to_numpy()
@@ -193,10 +194,10 @@ def update_ii() -> None:
     # sort smallest to maximum (eg. 2543,...,2564)
     count_unique_Y.sort()
 
-    from ..connect_db import con # connecting to db
+    # from ..connect_db import con # connecting to db
     # ------- SQL query command (CAPA data)--------------
-    query = "SELECT * FROM capa_Data"
-    df_capa = pd.read_sql(query, con)
+    # query = "SELECT * FROM capa_Data"
+    df_capa =  pd.read_csv("./SMIT_Data/data/ii/capa.csv", encoding='utf-8')
     # -----------------------------------------
     capa_IINO = df_capa['IINo'].to_numpy()
     capa_LLNO = df_capa['LLNo'].to_numpy()
@@ -214,7 +215,7 @@ def update_ii() -> None:
     case_detail_display = df_case['IncidentDetail_display'].to_numpy()
     case_cause_display = df_case['Cause_display'].to_numpy()
 
-    with open('../../embeddings_ii_new_all.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
+    with open('./SMIT_Data/data/embeddings_ii_new_all.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
         stored_data = pickle.load(fIn)
         corpus_embeddings = stored_data['embeddings']
     
@@ -332,7 +333,7 @@ def terminate_ii_json() -> None:
             }
         }
     }
-    --------------------------------------------------------------------
+    # --------------------------------------------------------------------
 
 
 def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float], capa: List[List[int]], group_type: str):
@@ -564,8 +565,12 @@ def search_ii(data):
     num_NM = 0
     num_hNM = 0
     num_all = 0
+
+    # queries = (GoogleTranslator(source='auto', target='en').translate(data['name'].tolist()))
+
     # loop in list of Work name
     for query in range(len(queries)):
+
         query_embedding = model_ii.encode(queries[query], convert_to_tensor=True) # encode Work name
 
         # use cosine-similarity and torch.topk (find top ...(in this project use all of data)....)
@@ -579,6 +584,7 @@ def search_ii(data):
         # loop in length of data
         for i in range(len(top_results[0])):
             index_ii_DocNo = int(top_results[1][i]) # get index of case
+            # print(len(top_results[1]), index_ii_DocNo, index_ii_DocNo, len(case_capa_IINO), len(corpus_embeddings))
             index_capa = list(np.where(capa_IINO == case_capa_IINO[index_ii_DocNo])) # use index of case to find if this case have CAPA (use data from IINO)
             # loop in all year in ii data if found match year add count
             for year in range(len(count_unique_Y)):
@@ -872,8 +878,7 @@ def search_ii(data):
         form_ii["lv2"]["ii_count"].append(round(((num_2/num_all)*100), 2))
         form_ii["lv3"]["ii_count_real"].append(num_3)
         form_ii["lv3"]["ii_count"].append(round(((num_3/num_all)*100), 2))
-
-        # ------------------- accident level 3 -----------------------------------
+        
         if not work_lv_3:
             print('\nไม่มีอุบัติเหตุ level 3')
         else: # call function update case that pass criteria to update form_ii 

@@ -1,12 +1,14 @@
 from deep_translator import GoogleTranslator
 from difflib import get_close_matches
+import numpy as np
 import re
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
 from pythainlp import sent_tokenize, word_tokenize, correct, spell
 from pythainlp.tag import pos_tag, pos_tag_sents
 from pythainlp.util import Trie
-
+import embedding_SafetyAudit
+import pickle
 import torch
 import tensorflow as tf
 import time
@@ -15,7 +17,7 @@ import pyodbc
 
 modelPath = "./Model/SentenceTransformer"
 # Test
-model = SentenceTransformer(modelPath)
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 SafetyAudit = pd.read_csv('./SMIT_Data/Prepared_Safety_Audit.csv', encoding='utf-8')
 SA_Details = SafetyAudit['Details'].tolist()
@@ -25,6 +27,9 @@ SA_Tof = SafetyAudit['TypeOfFinding'].tolist()
 SA_Topic = SafetyAudit['Topic'].tolist()
 SA_Frequency = SafetyAudit['Frequency'].tolist()
 SA_Details_Trans = SafetyAudit['TranslateDetails'].tolist()
+
+with open('./SMIT_Data/Encode_SafeyAudit.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
+  Encode_Safey_Audit_Details = pickle.load(fIn)
 
 def Cleansing_Input(Data, Case) :
 
@@ -299,6 +304,7 @@ def Search_Safety_Audit(case, Input_Location, Input_Coworker):
       return Data_Contractor_2, Data_Area_2, Data_Tof, Data_Details, Data_Details_Trans, Data_Topic, Data_Frequency
     
 def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, Input_Details, List_Input_Details, Data_Frequency, Data_Contractor, Data_Tof, Data_Area, Data_Topic):
+  global Encode_Safey_Audit_Details
   Suggestion_Safety_Audit_Detail = []
   Suggestion_Safety_Audit_Frequency = []
   Suggestion_Safety_Audit_Contractor = []
@@ -314,17 +320,17 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
   Temp_Safety_Audit_Topic = []
 
   if case == 1:
-    # start_time = time.time()
     for sentence in List_Input_Details:
       if len(Safety_Audit_Details) != 0:
         Translate_Input_Details = (GoogleTranslator(source='auto', target='en').translate(sentence))
         Translate_Input_Details = [Translate_Input_Details]*len(Safety_Audit_Details)
+        # List_Encode_Safey_Audit_Details = list(Encode_Safey_Audit_Details)
+        # Encode_Safey_Audit_Details = np.where(SA_Area[List_Encode_Safey_Audit_Details.index(i for i in range(len(Encode_Safey_Audit_Details)))] == Data_Area
+        #                                     and SA_Contractor[List_Encode_Safey_Audit_Details.index(i for i in range(len(Encode_Safey_Audit_Details)))] == Data_Contractor : Encode_Safey_Audit_Details[])
         Encode_Safey_Audit_Details = model.encode(Data_Details_Trans)
         Encode_Input_Details = model.encode(Translate_Input_Details)
         
-        # print("Old Algorithm : --- %s seconds ---" % (time.time() - start_time))
-
-        Cosine_Sim = util.cos_sim(Encode_Safey_Audit_Details, Encode_Input_Details) 
+        Cosine_Sim = util.pytorch_cos_sim(Encode_Safey_Audit_Details, Encode_Input_Details) 
         compare_work_with_Safety_Audit = []
         
         for i in range(len(Cosine_Sim)):
@@ -362,8 +368,7 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
     for sentence in List_Input_Details:
       if len(Safety_Audit_Details) != 0:
         Translate_Input_Details = (GoogleTranslator(source='auto', target='en').translate(sentence))
-        Translate_Input_Details = [Translate_Input_Details]*len(Safety_Audit_Details)
-        Encode_Safey_Audit_Details = model.encode(Data_Details_Trans)
+        Translate_Input_Details = [Translate_Input_Details]*len(Encode_Safey_Audit_Details)
         Encode_Input_Details = model.encode(Translate_Input_Details)
         
         Cosine_Sim = util.cos_sim(Encode_Safey_Audit_Details, Encode_Input_Details) 
@@ -376,7 +381,7 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
 
         run_Number = 1
 
-        for score, i, j, k, l, m, n, o in compare_work_with_Safety_Audit[:3]:        
+        for score, i, j, k, l, m, n, o in compare_work_with_Safety_Audit[:10]:        
           if Cosine_Sim[i][0] > 0.4:
             Temp_Safety_Audit_Details.append(Safety_Audit_Details[i])
             Temp_Safety_Audit_Frequency.append(Data_Frequency[i])
@@ -400,13 +405,13 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
                 }
                 return Form_Response_SafetyAudit
               break
-
-  Temp_Safety_Audit_Details = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Details), reverse=True)]
-  Temp_Safety_Audit_Contractor = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Contractor), reverse=True)]
-  Temp_Safety_Audit_Type_Of_Finding = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Type_Of_Finding), reverse=True)]
-  Temp_Safety_Audit_Area = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Area), reverse=True)]
-  Temp_Safety_Audit_Topic = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Topic), reverse=True)]
-  Temp_Safety_Audit_Frequency = sorted(Temp_Safety_Audit_Frequency, reverse=True)
+        
+  # Temp_Safety_Audit_Details = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Details), reverse=True)]
+  # Temp_Safety_Audit_Contractor = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Contractor), reverse=True)]
+  # Temp_Safety_Audit_Type_Of_Finding = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Type_Of_Finding), reverse=True)]
+  # Temp_Safety_Audit_Area = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Area), reverse=True)]
+  # Temp_Safety_Audit_Topic = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Topic), reverse=True)]
+  # Temp_Safety_Audit_Frequency = sorted(Temp_Safety_Audit_Frequency, reverse=True)
 
   for i in range(len(Temp_Safety_Audit_Details)):
     Create_List_Safety_Audit_Details = []
