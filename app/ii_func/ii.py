@@ -17,7 +17,7 @@ from typing import List # define input/output
 
 # from ..connect_db import con
 
-model_url = './Model/sentence-transformers_msmarco-distilbert-base-dot-prod-v3' # folder model
+model_url = './Model/SentenceTransformer' # folder model
 model_ii = SentenceTransformer(model_url) # load model
 
 # Dict to stored accident classification
