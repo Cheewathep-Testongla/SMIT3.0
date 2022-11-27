@@ -1,7 +1,7 @@
 # Dockerfile
 FROM python:3.10
 
-ENV LISTEN_PORT=80
+ENV LISTEN_PORT=443
 
 RUN mkdir /SMIT3.0
 WORKDIR /SMIT3.0
@@ -22,8 +22,8 @@ COPY . .
 
 RUN pip install -r python_lib.txt
 
-EXPOSE 80
+EXPOSE 443
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "443"]
 # 
 # CMD ["unicorn", "-w", "12","-k", "uvicorn.workers.UvicornWorker","-t","0", "wsgi:app", "--bind", "0.0.0.0:80"]

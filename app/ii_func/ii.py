@@ -121,345 +121,345 @@ form_ii = {
 }
 # -------------------------------------------------------
 
-# def update_ii() -> None:
-    # """
-    # use to update ii data
-    # (this method is the same as restart app service)
-    # """
-    # # ------------ set variable to use global ----------------------------------
-    # # -------------------ii data ------------------------------
-    # global df_case # Dataframe ii
-    # global case_DocNo # DocNo
-    # global case_capa_IINO # IINO
-    # global case_IncidentCat # IncidentCategory
-    # global case_Incidentlevel # Severity
-    # global case_name # IncidentName
-    # global case_detail # IncidentDetail
-    # global case_cause # Cause
-    # global case_human # HumanImpact
-    # global case_name_en  # IncidentName_en
-    # global case_detail_en # IncidentDetail_en
-    # global case_cause_en # Cause_en
-    # global case_name_display # IncidentName_display
-    # global case_detail_display # IncidentDetail_display
-    # global case_cause_display # Cause_display
-    # global case_prop # PropertyImpact
-    # global case_env # EnvironmentImpact
-    # global case_date_Y # Y
-    # global case_classification # IncidentClassification
-    # global case_companyLo # LocationCompanyName
-    # global case_IncidentType  # IncidentType
-    # global count_unique_Y # stored unique Y
-    # global count_unique_classification  # stored unique IncidentClassification
-    # # --------------- capa data -----------------------------------
-    # global df_capa # Dataframe capa
-    # global capa_IINO  # IINO
-    # global capa_LLNO # LLNO
-    # global capa_CauseName  # CauseName
-    # global capa_CauseType  # CauseType
-    # global capa_CAPAName  # CAPAName
-    # global capa_CAPAType  # CAPAType
-    # # ---------- embedding -------------------------------------------
-    # global corpus_embeddings
-    # # ----------------------------------------------------------------------------------------
-    # from ..connect_db import con # import data for connecting to database
+def update_ii() -> None:
+    """
+    use to update ii data
+    (this method is the same as restart app service)
+    """
+    # ------------ set variable to use global ----------------------------------
+    # -------------------ii data ------------------------------
+    global df_case # Dataframe ii
+    global case_DocNo # DocNo
+    global case_capa_IINO # IINO
+    global case_IncidentCat # IncidentCategory
+    global case_Incidentlevel # Severity
+    global case_name # IncidentName
+    global case_detail # IncidentDetail
+    global case_cause # Cause
+    global case_human # HumanImpact
+    global case_name_en  # IncidentName_en
+    global case_detail_en # IncidentDetail_en
+    global case_cause_en # Cause_en
+    global case_name_display # IncidentName_display
+    global case_detail_display # IncidentDetail_display
+    global case_cause_display # Cause_display
+    global case_prop # PropertyImpact
+    global case_env # EnvironmentImpact
+    global case_date_Y # Y
+    global case_classification # IncidentClassification
+    global case_companyLo # LocationCompanyName
+    global case_IncidentType  # IncidentType
+    global count_unique_Y # stored unique Y
+    global count_unique_classification  # stored unique IncidentClassification
+    # --------------- capa data -----------------------------------
+    global df_capa # Dataframe capa
+    global capa_IINO  # IINO
+    global capa_LLNO # LLNO
+    global capa_CauseName  # CauseName
+    global capa_CauseType  # CauseType
+    global capa_CAPAName  # CAPAName
+    global capa_CAPAType  # CAPAType
+    # ---------- embedding -------------------------------------------
+    global corpus_embeddings
+    # ----------------------------------------------------------------------------------------
+    from ..connect_db import con # import data for connecting to database
 
-    # # SQL query command (ii data) 
-    # query = "SELECT * FROM [dbo].[II_cleanData];"
-    # df_case = pd.read_sql(query, con)
+    # SQL query command (ii data) 
+    query = "SELECT * FROM [dbo].[II_cleanData];"
+    df_case = pd.read_sql(query, con)
 
-    # # stored data in variabled
-    # case_DocNo = df_case['DocNo'].to_numpy()
-    # case_capa_IINO = df_case['IINo'].to_numpy()
-    # case_IncidentCat = df_case['IncidentCategory'].to_numpy()
-    # case_Incidentlevel = df_case['Severity'].to_numpy()
-    # case_name = df_case['IncidentName'].to_numpy()
-    # case_detail = df_case['IncidentDetail'].to_numpy()
-    # case_cause = df_case['Cause'].to_numpy()
-    # case_human = df_case['HumanImpact'].to_numpy()
-    # case_prop = df_case['PropertyImpact'].to_numpy()
-    # case_env = df_case['EnvironmentImpact'].to_numpy()
-    # case_date_Y = df_case['Y'].to_numpy()
-    # # change Y data to int [user to detect error in excel file when Y = null (present: in database don't found this problem)]
-    # for i in range(len(case_date_Y)):
-    #     case_date_Y[i] = int(float(case_date_Y[i]))
-    # case_classification = df_case['IncidentClassification'].to_numpy()
-    # case_companyLo = df_case['LocationCompanyName'].to_numpy()
-    # case_IncidentType = df_case['IncidentType'].to_numpy()
-    # # removing duplicate IncidentClassification (count to calculate statistic in weight of classification type (fire/explotion = 1))
-    # count_unique_classification = list(set(case_classification))
-    # # removing duplicate Y (count to calculate statistic (find all accident in each year))
-    # count_unique_Y = list(set(case_date_Y))
-    # # sort smallest to maximum (eg. 2543,...,2564)
-    # count_unique_Y.sort()
+    # stored data in variabled
+    case_DocNo = df_case['DocNo'].to_numpy()
+    case_capa_IINO = df_case['IINo'].to_numpy()
+    case_IncidentCat = df_case['IncidentCategory'].to_numpy()
+    case_Incidentlevel = df_case['Severity'].to_numpy()
+    case_name = df_case['IncidentName'].to_numpy()
+    case_detail = df_case['IncidentDetail'].to_numpy()
+    case_cause = df_case['Cause'].to_numpy()
+    case_human = df_case['HumanImpact'].to_numpy()
+    case_prop = df_case['PropertyImpact'].to_numpy()
+    case_env = df_case['EnvironmentImpact'].to_numpy()
+    case_date_Y = df_case['Y'].to_numpy()
+    # change Y data to int [user to detect error in excel file when Y = null (present: in database don't found this problem)]
+    for i in range(len(case_date_Y)):
+        case_date_Y[i] = int(float(case_date_Y[i]))
+    case_classification = df_case['IncidentClassification'].to_numpy()
+    case_companyLo = df_case['LocationCompanyName'].to_numpy()
+    case_IncidentType = df_case['IncidentType'].to_numpy()
+    # removing duplicate IncidentClassification (count to calculate statistic in weight of classification type (fire/explotion = 1))
+    count_unique_classification = list(set(case_classification))
+    # removing duplicate Y (count to calculate statistic (find all accident in each year))
+    count_unique_Y = list(set(case_date_Y))
+    # sort smallest to maximum (eg. 2543,...,2564)
+    count_unique_Y.sort()
 
-    # from ..connect_db import con # connecting to db
-    # # ------- SQL query command (CAPA data)--------------
-    # query = "SELECT * FROM capa_Data"
-    # df_capa = pd.read_sql(query, con)
-    # # -----------------------------------------
-    # capa_IINO = df_capa['IINo'].to_numpy()
-    # capa_LLNO = df_capa['LLNo'].to_numpy()
-    # capa_CauseName = df_capa['CauseName'].to_numpy()
-    # capa_CauseType = df_capa['CauseType'].to_numpy()
-    # capa_CAPAName = df_capa['CAPAName'].to_numpy()
-    # capa_CAPAType = df_capa['CAPAType'].to_numpy()
+    from ..connect_db import con # connecting to db
+    # ------- SQL query command (CAPA data)--------------
+    query = "SELECT * FROM capa_Data"
+    df_capa = pd.read_sql(query, con)
+    # -----------------------------------------
+    capa_IINO = df_capa['IINo'].to_numpy()
+    capa_LLNO = df_capa['LLNo'].to_numpy()
+    capa_CauseName = df_capa['CauseName'].to_numpy()
+    capa_CauseType = df_capa['CauseType'].to_numpy()
+    capa_CAPAName = df_capa['CAPAName'].to_numpy()
+    capa_CAPAType = df_capa['CAPAType'].to_numpy()
 
-    # # --------- ii data --------------------------
-    # case_name_en = df_case['IncidentName_en'].to_numpy()
-    # case_detail_en = df_case['IncidentDetail_en'].to_numpy()
-    # case_cause_en = df_case['Cause_en'].to_numpy()
+    # --------- ii data --------------------------
+    case_name_en = df_case['IncidentName_en'].to_numpy()
+    case_detail_en = df_case['IncidentDetail_en'].to_numpy()
+    case_cause_en = df_case['Cause_en'].to_numpy()
 
-    # case_name_display = df_case['IncidentName_display'].to_numpy()
-    # case_detail_display = df_case['IncidentDetail_display'].to_numpy()
-    # case_cause_display = df_case['Cause_display'].to_numpy()
+    case_name_display = df_case['IncidentName_display'].to_numpy()
+    case_detail_display = df_case['IncidentDetail_display'].to_numpy()
+    case_cause_display = df_case['Cause_display'].to_numpy()
 
-    # with open('../../embeddings_ii_new_all.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
-    #     stored_data = pickle.load(fIn)
-    #     corpus_embeddings = stored_data['embeddings']
+    with open('../../embeddings_ii_new_all.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
+        stored_data = pickle.load(fIn)
+        corpus_embeddings = stored_data['embeddings']
     
-    # return {"message":"Completely update embedding file"}
+    return {"message":"Completely update embedding file"}
 
 
-# def terminate_ii_json() -> None:
-#     """
-#     reset variable to initial state
-#     """
-#     global store_classification  # Dict to stored accident classification
-#     global case_classification_to_store # Dict to stored in store_classification['case_classification']
-#     global store_stat_acc  # Dict stored statistic of accident (count year)
-#     global data_count_acc  # Dict to stored in store_stat_acc['data]
-#     global form_ii  # response model equal to search_engine_ii
+def terminate_ii_json() -> None:
+    """
+    reset variable to initial state
+    """
+    global store_classification  # Dict to stored accident classification
+    global case_classification_to_store # Dict to stored in store_classification['case_classification']
+    global store_stat_acc  # Dict stored statistic of accident (count year)
+    global data_count_acc  # Dict to stored in store_stat_acc['data]
+    global form_ii  # response model equal to search_engine_ii
 
-#     # -------------- same as line 22 -121 ---------------------------
-#     store_classification = {
-#         'case_classification': []
-#     }
+    # -------------- same as line 22 -121 ---------------------------
+    store_classification = {
+        'case_classification': []
+    }
 
-#     case_classification_to_store = {
-#         'name': "",
-#         'count': 0
-#     }
+    case_classification_to_store = {
+        'name': "",
+        'count': 0
+    }
 
-#     for i in range(len(count_unique_classification)):
-#         case_classification_to_store['name'] = count_unique_classification[i]
-#         case_classification_to_store['count'] = 0
-#         store_classification['case_classification'].append(
-#             case_classification_to_store)
-#         case_classification_to_store = {
-#             'name': "",
-#             'count': 0
-#         }
+    for i in range(len(count_unique_classification)):
+        case_classification_to_store['name'] = count_unique_classification[i]
+        case_classification_to_store['count'] = 0
+        store_classification['case_classification'].append(
+            case_classification_to_store)
+        case_classification_to_store = {
+            'name': "",
+            'count': 0
+        }
 
-#     store_stat_acc = {
-#         'data': []
-#     }
+    store_stat_acc = {
+        'data': []
+    }
 
-#     data_count_acc = {
-#         'year_th': 0,
-#         'year_en': 0,
-#         'all_count': 0,
-#         'nm': 0,
-#         'hnm': 0,
-#         'lv1': 0,
-#         'lv2': 0,
-#         'lv3': 0,
-#     }
+    data_count_acc = {
+        'year_th': 0,
+        'year_en': 0,
+        'all_count': 0,
+        'nm': 0,
+        'hnm': 0,
+        'lv1': 0,
+        'lv2': 0,
+        'lv3': 0,
+    }
 
-#     for i in range(len(count_unique_Y)):
-#         #     print(count_unique_Y[i])
-#         data_count_acc['year_th'] = count_unique_Y[i]
-#         data_count_acc['year_en'] = count_unique_Y[i]-543
-#         store_stat_acc['data'].append(data_count_acc)
-#         data_count_acc = {
-#             'year_th': 0,
-#             'year_en': 0,
-#             'all_count': 0,
-#             'nm': 0,
-#             'hnm': 0,
-#             'lv1': 0,
-#             'lv2': 0,
-#             'lv3': 0,
-#         }
+    for i in range(len(count_unique_Y)):
+        #     print(count_unique_Y[i])
+        data_count_acc['year_th'] = count_unique_Y[i]
+        data_count_acc['year_en'] = count_unique_Y[i]-543
+        store_stat_acc['data'].append(data_count_acc)
+        data_count_acc = {
+            'year_th': 0,
+            'year_en': 0,
+            'all_count': 0,
+            'nm': 0,
+            'hnm': 0,
+            'lv1': 0,
+            'lv2': 0,
+            'lv3': 0,
+        }
 
-#     form_ii = {
-#         'find_count': [],
-#         'risk_score': [],
-#         'all_ca': [],
-#         'all_pa': [],
-#         'most_similar': {
-#             "type_acc": "",
-#             "case": []
-#         },
-#         'nm': {
-#             'ii_count': [],
-#             'ii_count_real': [],
-#             'case': [],
-#             'relate': {
-#                 'case': []
-#             }
-#         },
-#         'hnm': {
-#             'ii_count': [],
-#             'ii_count_real': [],
-#             'case': [],
-#             'relate': {
-#                 'case': []
-#             }
-#         },
-#         'lv1': {
-#             'ii_count': [],
-#             'ii_count_real': [],
-#             'case': [],
-#             'relate': {
-#                 'case': []
-#             }
-#         },
-#         'lv2': {
-#             'ii_count': [],
-#             'ii_count_real': [],
-#             'case': [],
-#             'relate': {
-#                 'case': []
-#             }
-#         },
-#         'lv3': {
-#             'ii_count': [],
-#             'ii_count_real': [],
-#             'case': [],
-#             'relate': {
-#                 'case': []
-#             }
-#         }
-#     }
-    # --------------------------------------------------------------------
+    form_ii = {
+        'find_count': [],
+        'risk_score': [],
+        'all_ca': [],
+        'all_pa': [],
+        'most_similar': {
+            "type_acc": "",
+            "case": []
+        },
+        'nm': {
+            'ii_count': [],
+            'ii_count_real': [],
+            'case': [],
+            'relate': {
+                'case': []
+            }
+        },
+        'hnm': {
+            'ii_count': [],
+            'ii_count_real': [],
+            'case': [],
+            'relate': {
+                'case': []
+            }
+        },
+        'lv1': {
+            'ii_count': [],
+            'ii_count_real': [],
+            'case': [],
+            'relate': {
+                'case': []
+            }
+        },
+        'lv2': {
+            'ii_count': [],
+            'ii_count_real': [],
+            'case': [],
+            'relate': {
+                'case': []
+            }
+        },
+        'lv3': {
+            'ii_count': [],
+            'ii_count_real': [],
+            'case': [],
+            'relate': {
+                'case': []
+            }
+        }
+    }
+    --------------------------------------------------------------------
 
 
-# def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float], capa: List[List[int]], group_type: str):
-#     """
-#     update variable for response form_ii[(type of accident())]
-#     """
-#     global store_classification  # Dict to stored accident classification
-#     global case_classification_to_store # Dict to stored in store_classification['case_classification']
-#     global store_stat_acc  # Dict stored statistic of accident (count year)
-#     global data_count_acc  # Dict to stored in store_stat_acc['data]
-#     global form_ii  # response model equal to search_engine_ii
-#     # response model equal to case_Prop_search_engine_ii
-#     case = {
-#         'id': 0,
-#         'ii_incidentName': [],
-#         'ii_incidentDetail': [],
-#         'ii_incidentCause': [],
-#         'ii_capa_incidentCauseType': [],
-#         'ii_capa_incidentCauseName': [],
-#         'ii_ca': [],
-#         'ii_pa': [],
-#         'ii_humanImpact': [],
-#         'ii_propertyImpact': [],
-#         'ii_environmentImpact': [],
-#         'ii_classification': [],
-#         'ii_incidentType': [],
-#         'sim_score': []
-#     }
-#     # ----------------------------------------------
-#     capa_cause_name = []  # list to store CauseName (CAPA)
-#     capa_cause_type = []  # list to store CauseType (CAPA)
-#     capa_detail = []  # list to store CAPAName (CAPA)
-#     ca_pa_type = []  # list to store CAPAType (CAPA)
-#     for i in range(len(work)):
-#         # try to find capa from IINO
-#         try: 
-#             # loop store in list from line 365-368
-#             for list_capa in capa[i]:
-#                 capa_cause_type.append(capa_CauseType[list_capa]) 
-#                 capa_detail.append(capa_CAPAName[list_capa])
-#                 capa_cause_name.append(capa_CauseName[list_capa])
-#                 ca_pa_type.append(capa_CAPAType[list_capa])
-#             # replace NaN with '-'
-#             capa_cause_type = ['-' if x is np.nan else x for x in list(capa_cause_type[0])]
-#             capa_detail = ['-' if x is np.nan else x for x in list(capa_detail[0])]
-#             capa_cause_name = ['-' if x is np.nan else x for x in list(capa_cause_name[0])]
-#         except:
-#             # if not found use initial value
-#             capa_cause_type = []
-#             capa_detail = []
-#             capa_cause_name = []
-#         # store data in Dict 'case' by index
-#         case["id"] = i+1
-#         case["ii_incidentName"].append(case_name_display[work[i]])
-#         case["ii_incidentDetail"].append(case_detail_display[work[i]])
-#         case["ii_incidentCause"].append(case_cause_display[work[i]])
-#         case["ii_humanImpact"].append(case_human[work[i]])
-#         case["ii_propertyImpact"].append(case_prop[work[i]])
-#         case["ii_environmentImpact"].append(case_env[work[i]])
-#         case["ii_incidentType"].append(case_IncidentType[work[i]])
-#         case["ii_classification"].append(case_classification[work[i]])
-#         case["sim_score"].append(sim_work[i])
-#         # if find CAPA
-#         if(len(capa_cause_type) > 0):
-#             # stored unique CauseType(CAPA) , CauseName(CAPA)
-#             case["ii_capa_incidentCauseType"].append(list(dict.fromkeys(capa_cause_type)))
-#             case["ii_capa_incidentCauseName"].append(list(dict.fromkeys(capa_cause_name)))
-#             # loop in CAPAType
-#             for num in range(len(ca_pa_type[0])):
-#                 # stored CA (corrective action) of accident that pass search criteria
-#                 if(ca_pa_type[0][num] == 'CA'):
-#                     case["ii_ca"].append(capa_detail[num]) # of each case
-#                     if(not(work_relate[i])): # check if match case (pass criteria and have word matching)
-#                         form_ii['all_ca'].append(capa_detail[num]) # stored all CA case
-#                 # stored PA (preventive action) of accident that pass search criteria
-#                 elif(ca_pa_type[0][num] == 'PA'):
-#                     case["ii_pa"].append(capa_detail[num])  # of each case
-#                     # check if match case (pass criteria and have word matching)
-#                     if(not(work_relate[i])):
-#                         form_ii['all_pa'].append(capa_detail[num]) # stored all PA case
-#         # reset to initial
-#         capa_cause_type = []
-#         capa_detail = []
-#         capa_cause_name = []
-#         ca_pa_type = []
-#         if(not work_relate[i]):  # check if match case (pass criteria and have word matching)
-#             form_ii[group_type]["case"].append(case) # stored in main case (show in 'match case')
-#         else:
-#             # stored in relate case (show in 'relate case')
-#             form_ii[group_type]['relate']["case"].append(case)
-#         # reset to initial
-#         case = {
-#             'id': 0,
-#             'ii_incidentName': [],
-#             'ii_incidentDetail': [],
-#             'ii_incidentCause': [],
-#             'ii_capa_incidentCauseType': [],
-#             'ii_capa_incidentCauseName': [],
-#             'ii_ca': [],
-#             'ii_pa': [],
-#             'ii_humanImpact': [],
-#             'ii_propertyImpact': [],
-#             'ii_environmentImpact': [],
-#             'ii_classification': [],
-#             'ii_incidentType': [],
-#             'sim_score': []
-#         }
-#     # sort match case by similarity score
-#     if(len(form_ii[group_type]['case']) > 0):
-#         for i in range(len(form_ii[group_type]['case'])-1):
-#             for j in range(i+1, len(form_ii[group_type]['case'])):
-#                 if(form_ii[group_type]['case'][i]['sim_score'] < form_ii[group_type]['case'][j]['sim_score']):
-#                     temp = form_ii[group_type]['case'][i]
-#                     form_ii[group_type]['case'][i] = form_ii[group_type]['case'][j]
-#                     form_ii[group_type]['case'][j] = temp
-#             form_ii[group_type]['case'][i]['id'] = i+1 # change id to range (use to ranging top 3)
-#         form_ii[group_type]['case'][len(form_ii[group_type]['case'])-1]['id'] = len(form_ii[group_type]['case'])
-#     # sort relate case by similarity score
-#     if(len(form_ii[group_type]['relate']['case']) > 0):
-#         for i in range(len(form_ii[group_type]['relate']['case'])-1):
-#             for j in range(i+1, len(form_ii[group_type]['relate']['case'])):
-#                 if(form_ii[group_type]['relate']['case'][i]['sim_score'] < form_ii[group_type]['relate']['case'][j]['sim_score']):
-#                     temp = form_ii[group_type]['relate']['case'][i]
-#                     form_ii[group_type]['relate']['case'][i] = form_ii[group_type]['relate']['case'][j]
-#                     form_ii[group_type]['relate']['case'][j] = temp
-#             form_ii[group_type]['relate']['case'][i]['id'] = i+1 # change id to range (use to ranging top 3)
-#         form_ii[group_type]['relate']['case'][len(form_ii[group_type]['relate']['case'])-1]['id'] = len(form_ii[group_type]['relate']['case'])
+def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float], capa: List[List[int]], group_type: str):
+    """
+    update variable for response form_ii[(type of accident())]
+    """
+    global store_classification  # Dict to stored accident classification
+    global case_classification_to_store # Dict to stored in store_classification['case_classification']
+    global store_stat_acc  # Dict stored statistic of accident (count year)
+    global data_count_acc  # Dict to stored in store_stat_acc['data]
+    global form_ii  # response model equal to search_engine_ii
+    # response model equal to case_Prop_search_engine_ii
+    case = {
+        'id': 0,
+        'ii_incidentName': [],
+        'ii_incidentDetail': [],
+        'ii_incidentCause': [],
+        'ii_capa_incidentCauseType': [],
+        'ii_capa_incidentCauseName': [],
+        'ii_ca': [],
+        'ii_pa': [],
+        'ii_humanImpact': [],
+        'ii_propertyImpact': [],
+        'ii_environmentImpact': [],
+        'ii_classification': [],
+        'ii_incidentType': [],
+        'sim_score': []
+    }
+    # ----------------------------------------------
+    capa_cause_name = []  # list to store CauseName (CAPA)
+    capa_cause_type = []  # list to store CauseType (CAPA)
+    capa_detail = []  # list to store CAPAName (CAPA)
+    ca_pa_type = []  # list to store CAPAType (CAPA)
+    for i in range(len(work)):
+        # try to find capa from IINO
+        try: 
+            # loop store in list from line 365-368
+            for list_capa in capa[i]:
+                capa_cause_type.append(capa_CauseType[list_capa]) 
+                capa_detail.append(capa_CAPAName[list_capa])
+                capa_cause_name.append(capa_CauseName[list_capa])
+                ca_pa_type.append(capa_CAPAType[list_capa])
+            # replace NaN with '-'
+            capa_cause_type = ['-' if x is np.nan else x for x in list(capa_cause_type[0])]
+            capa_detail = ['-' if x is np.nan else x for x in list(capa_detail[0])]
+            capa_cause_name = ['-' if x is np.nan else x for x in list(capa_cause_name[0])]
+        except:
+            # if not found use initial value
+            capa_cause_type = []
+            capa_detail = []
+            capa_cause_name = []
+        # store data in Dict 'case' by index
+        case["id"] = i+1
+        case["ii_incidentName"].append(case_name_display[work[i]])
+        case["ii_incidentDetail"].append(case_detail_display[work[i]])
+        case["ii_incidentCause"].append(case_cause_display[work[i]])
+        case["ii_humanImpact"].append(case_human[work[i]])
+        case["ii_propertyImpact"].append(case_prop[work[i]])
+        case["ii_environmentImpact"].append(case_env[work[i]])
+        case["ii_incidentType"].append(case_IncidentType[work[i]])
+        case["ii_classification"].append(case_classification[work[i]])
+        case["sim_score"].append(sim_work[i])
+        # if find CAPA
+        if(len(capa_cause_type) > 0):
+            # stored unique CauseType(CAPA) , CauseName(CAPA)
+            case["ii_capa_incidentCauseType"].append(list(dict.fromkeys(capa_cause_type)))
+            case["ii_capa_incidentCauseName"].append(list(dict.fromkeys(capa_cause_name)))
+            # loop in CAPAType
+            for num in range(len(ca_pa_type[0])):
+                # stored CA (corrective action) of accident that pass search criteria
+                if(ca_pa_type[0][num] == 'CA'):
+                    case["ii_ca"].append(capa_detail[num]) # of each case
+                    if(not(work_relate[i])): # check if match case (pass criteria and have word matching)
+                        form_ii['all_ca'].append(capa_detail[num]) # stored all CA case
+                # stored PA (preventive action) of accident that pass search criteria
+                elif(ca_pa_type[0][num] == 'PA'):
+                    case["ii_pa"].append(capa_detail[num])  # of each case
+                    # check if match case (pass criteria and have word matching)
+                    if(not(work_relate[i])):
+                        form_ii['all_pa'].append(capa_detail[num]) # stored all PA case
+        # reset to initial
+        capa_cause_type = []
+        capa_detail = []
+        capa_cause_name = []
+        ca_pa_type = []
+        if(not work_relate[i]):  # check if match case (pass criteria and have word matching)
+            form_ii[group_type]["case"].append(case) # stored in main case (show in 'match case')
+        else:
+            # stored in relate case (show in 'relate case')
+            form_ii[group_type]['relate']["case"].append(case)
+        # reset to initial
+        case = {
+            'id': 0,
+            'ii_incidentName': [],
+            'ii_incidentDetail': [],
+            'ii_incidentCause': [],
+            'ii_capa_incidentCauseType': [],
+            'ii_capa_incidentCauseName': [],
+            'ii_ca': [],
+            'ii_pa': [],
+            'ii_humanImpact': [],
+            'ii_propertyImpact': [],
+            'ii_environmentImpact': [],
+            'ii_classification': [],
+            'ii_incidentType': [],
+            'sim_score': []
+        }
+    # sort match case by similarity score
+    if(len(form_ii[group_type]['case']) > 0):
+        for i in range(len(form_ii[group_type]['case'])-1):
+            for j in range(i+1, len(form_ii[group_type]['case'])):
+                if(form_ii[group_type]['case'][i]['sim_score'] < form_ii[group_type]['case'][j]['sim_score']):
+                    temp = form_ii[group_type]['case'][i]
+                    form_ii[group_type]['case'][i] = form_ii[group_type]['case'][j]
+                    form_ii[group_type]['case'][j] = temp
+            form_ii[group_type]['case'][i]['id'] = i+1 # change id to range (use to ranging top 3)
+        form_ii[group_type]['case'][len(form_ii[group_type]['case'])-1]['id'] = len(form_ii[group_type]['case'])
+    # sort relate case by similarity score
+    if(len(form_ii[group_type]['relate']['case']) > 0):
+        for i in range(len(form_ii[group_type]['relate']['case'])-1):
+            for j in range(i+1, len(form_ii[group_type]['relate']['case'])):
+                if(form_ii[group_type]['relate']['case'][i]['sim_score'] < form_ii[group_type]['relate']['case'][j]['sim_score']):
+                    temp = form_ii[group_type]['relate']['case'][i]
+                    form_ii[group_type]['relate']['case'][i] = form_ii[group_type]['relate']['case'][j]
+                    form_ii[group_type]['relate']['case'][j] = temp
+            form_ii[group_type]['relate']['case'][i]['id'] = i+1 # change id to range (use to ranging top 3)
+        form_ii[group_type]['relate']['case'][len(form_ii[group_type]['relate']['case'])-1]['id'] = len(form_ii[group_type]['relate']['case'])
 
 
 def prepare_data_search_ii(data):

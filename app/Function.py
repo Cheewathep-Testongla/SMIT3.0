@@ -324,7 +324,7 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
         
         # print("Old Algorithm : --- %s seconds ---" % (time.time() - start_time))
 
-        Cosine_Sim = util.pytorch_cos_sim(Encode_Safey_Audit_Details, Encode_Input_Details) 
+        Cosine_Sim = util.cos_sim(Encode_Safey_Audit_Details, Encode_Input_Details) 
         compare_work_with_Safety_Audit = []
         
         for i in range(len(Cosine_Sim)):

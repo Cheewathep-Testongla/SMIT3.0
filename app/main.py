@@ -202,6 +202,7 @@ async def Suggest_Safety_Audit(request: Input_WPM_Details, auth: str = Depends(B
     # if time_in_range(current_time) == False:
     #   return "API In maintenance", 400
     # else:
+      st = time.time()
       data = request.json()
       data = json.loads(data)
 
@@ -215,7 +216,8 @@ async def Suggest_Safety_Audit(request: Input_WPM_Details, auth: str = Depends(B
 
       Data_Contractor_2, Data_Area_2, Data_Tof_2, Data_Details_2, Data_Details_Trans_2, Data_Topic_2, Data_Frequency_2 = Search_Safety_Audit(2, Input_Location, Input_Coworker)
       Suggestion_Safety_Audit_2 = Compare_Cosine_Similarity(2, Data_Details_2, Data_Details_Trans_2, Collected_Input, Input_Details, Data_Frequency_2, Data_Contractor_2, Data_Tof_2, Data_Area_2, Data_Topic_2)
-
+      et = time.time()
+      print(et-st)
       result = {'case_1': Suggestion_Safety_Audit_1, 'case_2': Suggestion_Safety_Audit_2}
       return JSONResponse(result)
 
@@ -346,4 +348,4 @@ async def Corrected_input(request: WPM_Details, auth: str = Depends(BasicAuth)):
 #              "Please pass a properly formatted JSON object to the API"
 #         }  
 if __name__ == '__main__':
-  uvicorn.run("main:app", host='0.0.0.0', port=80, reload=True, debug=True)
+  uvicorn.run("main:app", host='0.0.0.0', port=443, reload=True, debug=True)
