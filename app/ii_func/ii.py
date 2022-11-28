@@ -1,7 +1,7 @@
 # import data and function
 from .data_ii import *
 from .embed_text_ii import *
-from clean_func import clean
+from ..clean_func import clean
 #import library
 import re # regex
 from deep_translator import GoogleTranslator # translate th -> en
@@ -17,7 +17,7 @@ from typing import List # define input/output
 
 # from ..connect_db import con
 
-model_url = './Model/SentenceTransformer' # folder model
+model_url = './Model/sentence-transformers_msmarco-distilbert-base-dot-prod-v3' # folder model
 model_ii = SentenceTransformer(model_url) # load model
 
 # Dict to stored accident classification

@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer
 import pickle
 
 # Call model
-model_url = './Model/SentenceTransformer'
+model_url = './Model/sentence-transformers_msmarco-distilbert-base-dot-prod-v3'
 model_ii = SentenceTransformer(model_url)
 # Select data from database
 df_relate_case = pd.read_csv("./SMIT_Data/data/ii/ii_split_column_translate_all_display.csv", encoding='utf-8')

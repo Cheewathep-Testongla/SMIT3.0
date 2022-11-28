@@ -2,6 +2,8 @@ cryptography
 deepcut
 deep_translator
 fastapi
+fuzzywuzzy
+nltk
 regex
 sentence_transformers
 pandas

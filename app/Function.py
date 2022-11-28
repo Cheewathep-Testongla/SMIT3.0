@@ -7,7 +7,6 @@ import pandas as pd
 from pythainlp import sent_tokenize, word_tokenize, correct, spell
 from pythainlp.tag import pos_tag, pos_tag_sents
 from pythainlp.util import Trie
-import embedding_SafetyAudit
 import pickle
 import torch
 import tensorflow as tf

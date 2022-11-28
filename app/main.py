@@ -4,8 +4,8 @@ from datetime import datetime
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.responses import JSONResponse
-from ii_func.ii import search_ii, update_ii
-from Function import *
+from .ii_func.ii import search_ii, update_ii
+from .Function import *
 import json
 from pydantic import BaseModel
 import secrets
@@ -186,22 +186,12 @@ def time_in_range(current):
 
 @app.get('/') 
 def Hello(auth: str = Depends(BasicAuth)):
-  # now = datetime.now().time()
-  # current_time = now.strftime("%H:%M")
-  # if time_in_range(current_time) == False:
-  #   return "API In maintenance!!!", 400
-  # else:
     if auth == True:
       return "Welcome to SMIT3.0 API"
 
 @app.post('/WPMDetails', status_code=status.HTTP_200_OK, response_model=Form_Response_SafetyAudit)
 async def Suggest_Safety_Audit(request: Input_WPM_Details, auth: str = Depends(BasicAuth)):
   if auth == True:
-    # now = datetime.now().time()
-    # current_time = now.strftime("%H:%M")
-    # if time_in_range(current_time) == False:
-    #   return "API In maintenance", 400
-    # else:
       st = time.time()
       data = request.json()
       data = json.loads(data)
@@ -224,11 +214,6 @@ async def Suggest_Safety_Audit(request: Input_WPM_Details, auth: str = Depends(B
 @app.post('/SpellCheck', status_code=status.HTTP_200_OK, response_model=Response_SpellChecker)
 async def Corrected_input(request: WPM_Details, auth: str = Depends(BasicAuth)):
   if auth == True:
-    # now = datetime.now().time()
-    # current_time = now.strftime("%H:%M")
-    # if time_in_range(current_time) == False:
-    #   return "API In maintenance", 400
-    # else:
       data = request.json()
       data = json.loads(data)
       Input_Details = data['WorkPermitDetails']
@@ -238,21 +223,18 @@ async def Corrected_input(request: WPM_Details, auth: str = Depends(BasicAuth)):
 
 @app.post("/ii", status_code=status.HTTP_200_OK ,response_model= search_engine_ii)
 async def ii_api(request: input_api, auth: str = Depends(BasicAuth)):
-
+  if auth == True:
     data = request.json() # change input(request model) to Json
     data = json.loads(data) # change Json to Dict
 
     if data is not None:
 
         form_ii = search_ii(data)  # call function search_ii
-        # print(sum_acc)
-        # out_form_ii = json.dumps(form_ii)
-        # out_form_ii = json.loads(out_form_ii)
-        #!------------------------
         return JSONResponse(form_ii) # change Dict to Json in response
     else:
         return {
              "Please pass a properly formatted JSON object to the API"
         }  
-if __name__ == '__main__':
-  uvicorn.run("main:app", host='0.0.0.0', port=443, reload=True, debug=True)
+
+# if __name__ == '__main__':
+#   uvicorn.run("main:app", host='0.0.0.0', port=443, reload=True, debug=True)
