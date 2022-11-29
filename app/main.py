@@ -103,43 +103,43 @@ class NewFindingDetails(BaseModel):
   Status : List[str] 
 
 class case_Prop_search_engine_ii(BaseModel):
-  id:int
-  ii_incidentName:List[str]
-  ii_incidentDetail:List[str]
-  ii_incidentCause:List[str]
-  ii_capa_incidentCauseType:List[List[str]]
-  ii_capa_incidentCauseName:List[List[str]]
-  ii_ca:List[str]
-  ii_pa:List[str]
-  ii_humanImpact:List[str]
-  ii_propertyImpact:List[str]
-  ii_environmentImpact:List[str]
-  ii_classification:List[str]
-  ii_incidentType:List[str]
-  sim_score:List[float]
+  id : int
+  ii_incidentName : List[str]
+  ii_incidentDetail : List[str]
+  ii_incidentCause : List[str]
+  ii_capa_incidentCauseType : List[List[str]]
+  ii_capa_incidentCauseName : List[List[str]]
+  ii_ca : List[str]
+  ii_pa : List[str]
+  ii_humanImpact : List[str]
+  ii_propertyImpact : List[str]
+  ii_environmentImpact : List[str]
+  ii_classification : List[str]
+  ii_incidentType : List[str]
+  sim_score : List[float]
 
 class Prop_search_engine_ii(BaseModel):
-  ii_count: List[float]
+  ii_count : List[float]
   ii_count_real : List[int]
-  case:List[case_Prop_search_engine_ii]
-  relate:case_Prop_search_engine_ii
+  case : List[case_Prop_search_engine_ii]
+  relate : case_Prop_search_engine_ii
 
 class relate_Prop_search_engine_ii(BaseModel):
-  case:List[case_Prop_search_engine_ii]
+  case : List[case_Prop_search_engine_ii]
 
 class most_similar_ii(BaseModel):
-  type_acc:str
-  case:List[case_Prop_search_engine_ii] 
+  type_acc : str
+  case : List[case_Prop_search_engine_ii] 
 
 class search_engine_ii(BaseModel):
-  find_count:List[float]
-  risk_score:List[float]
-  most_similar:most_similar_ii
-  nm:Prop_search_engine_ii
-  hnm:Prop_search_engine_ii
-  lv1:Prop_search_engine_ii
-  lv2:Prop_search_engine_ii
-  lv3:Prop_search_engine_ii
+  find_count : List[float]
+  risk_score : List[float]
+  most_similar : most_similar_ii
+  nm : Prop_search_engine_ii
+  hnm : Prop_search_engine_ii
+  lv1 : Prop_search_engine_ii
+  lv2 : Prop_search_engine_ii
+  lv3 : Prop_search_engine_ii
 # Get BasicAuth Username & Password
 f = open('./Authentication/userAuthen.json')
 data = json.load(f)
@@ -192,24 +192,21 @@ def Hello(auth: str = Depends(BasicAuth)):
 @app.post('/WPMDetails', status_code=status.HTTP_200_OK, response_model=Form_Response_SafetyAudit)
 async def Suggest_Safety_Audit(request: Input_WPM_Details, auth: str = Depends(BasicAuth)):
   if auth == True:
-      st = time.time()
-      data = request.json()
-      data = json.loads(data)
+    data = request.json()
+    data = json.loads(data)
 
-      Input_Details = data['Detail']
-      Input_Location = data['Area']
-      Input_Coworker = data['Coworker']
-      Collected_Input = data['Collected_Input']
+    Input_Details = data['Detail']
+    Input_Location = data['Area']
+    Input_Coworker = data['Coworker']
+    Collected_Input = data['Collected_Input']
 
-      Data_Contractor_1, Data_Area_1, Data_Tof_1, Data_Details_1, Data_Details_Trans_1, Data_Topic_1, Data_Frequency_1 = Search_Safety_Audit(1, Input_Location, Input_Coworker)
-      Suggestion_Safety_Audit_1 = Compare_Cosine_Similarity(1, Data_Details_1, Data_Details_Trans_1, Collected_Input, Input_Details, Data_Frequency_1, Data_Contractor_1, Data_Tof_1, Data_Area_1, Data_Topic_1)
+    Data_Contractor_1, Data_Area_1, Data_Tof_1, Data_Details_1, Data_Details_Trans_1, Data_Topic_1, Data_Frequency_1 = Search_Safety_Audit(1, Input_Location, Input_Coworker)
+    Suggestion_Safety_Audit_1 = Compare_Cosine_Similarity(1, Data_Details_1, Data_Details_Trans_1, Collected_Input, Input_Details, Data_Frequency_1, Data_Contractor_1, Data_Tof_1, Data_Area_1, Data_Topic_1)
 
-      Data_Contractor_2, Data_Area_2, Data_Tof_2, Data_Details_2, Data_Details_Trans_2, Data_Topic_2, Data_Frequency_2 = Search_Safety_Audit(2, Input_Location, Input_Coworker)
-      Suggestion_Safety_Audit_2 = Compare_Cosine_Similarity(2, Data_Details_2, Data_Details_Trans_2, Collected_Input, Input_Details, Data_Frequency_2, Data_Contractor_2, Data_Tof_2, Data_Area_2, Data_Topic_2)
-      et = time.time()
-      print(et-st)
-      result = {'case_1': Suggestion_Safety_Audit_1, 'case_2': Suggestion_Safety_Audit_2}
-      return JSONResponse(result)
+    Data_Contractor_2, Data_Area_2, Data_Tof_2, Data_Details_2, Data_Details_Trans_2, Data_Topic_2, Data_Frequency_2 = Search_Safety_Audit(2, Input_Location, Input_Coworker)
+    Suggestion_Safety_Audit_2 = Compare_Cosine_Similarity(2, Data_Details_2, Data_Details_Trans_2, Collected_Input, Input_Details, Data_Frequency_2, Data_Contractor_2, Data_Tof_2, Data_Area_2, Data_Topic_2)
+    result = {'case_1': Suggestion_Safety_Audit_1, 'case_2': Suggestion_Safety_Audit_2}
+    return JSONResponse(result)
 
 @app.post('/SpellCheck', status_code=status.HTTP_200_OK, response_model=Response_SpellChecker)
 async def Corrected_input(request: WPM_Details, auth: str = Depends(BasicAuth)):
