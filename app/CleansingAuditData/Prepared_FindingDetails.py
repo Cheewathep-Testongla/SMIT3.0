@@ -2,7 +2,7 @@ import csv
 from deep_translator import GoogleTranslator               
 from ..Function import * 
 from ..connection_db import *     
-from .embedding_SafetyAudit import embedding_SafetyAudit           
+from .embedding_SafetyAudit import embedding_SafetyAudit       
 # from Function import * 
 # from connection_db import *     
 # from CleansingAuditData.embedding_SafetyAudit import embedding_SafetyAudit    
@@ -11,13 +11,37 @@ import pandas as pd
 import re                                                  
 from sentence_transformers import SentenceTransformer, util
 
+RiskCount = {
+    "UnsafeAction": 0,
+    "UnsafeCondition": 0,
+    "NearMiss": 0,
+    "HNM": 0,
+    "Accident": 0
+}
 
 modelPath = "./Model/SentenceTransformer"
 
 model = SentenceTransformer(modelPath)
 
+def ResetRiskCount():
+
+    global RiskCount
+
+    RiskCount = {
+        "UnsafeAction": 0,
+        "UnsafeCondition": 0,
+        "NearMiss": 0,
+        "HNM": 0,
+        "Accident": 0
+    }
+
 def Prepared_FindingDetails():
     print("[Start Prepared FindingDetails]...")
+
+    global RiskCount
+
+    ResetRiskCount()
+
     Cleansing_FindingDetails = pd.read_sql("SELECT * FROM [Cleansing_FindingDetails]", connection_SMIT3)
 
     FindingNo = Cleansing_FindingDetails['FindingNo'].tolist()
@@ -168,5 +192,7 @@ def Prepared_FindingDetails():
         write = csv.writer(f)
         write.writerow(Head)
         write.writerows(Prepared_Safety_Audit)
+
     print("[Finished Prepared FindingDetails]...")
+    
     return embedding_SafetyAudit()

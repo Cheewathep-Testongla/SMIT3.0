@@ -10,7 +10,7 @@ import secrets
 from typing import List
 import uvicorn
 # from ii_func.ii import *
-# from Function import Cleansing_Input, Compare_Cosine_Similarity, Search_Safety_Audit, CleansingAuditData
+# from Function import *
 from .ii_func.ii import *
 from .Function import *
 app = FastAPI(title="SMIT API",
@@ -31,6 +31,13 @@ class input_api(BaseModel):
   company : str
   correct : bool
 
+class FindingScore(BaseModel):
+  UnsafeAction: float
+  UnsafeCondition: float
+  NearMiss: float
+  HNM: float
+  Accident: float
+
 class Form_Response_SafetyAudit(BaseModel):
   Safety_Audit_Details : List[str]
   Safety_Audit_Frequency : List[int]
@@ -40,6 +47,7 @@ class Form_Response_SafetyAudit(BaseModel):
   Safety_Audit_Topic : List[str]
   CA : List[str]
   PA : List[str]
+  Risk_Score : FindingScore
 
 class Response_SafetyAudit(BaseModel):
   case_1 : Form_Response_SafetyAudit

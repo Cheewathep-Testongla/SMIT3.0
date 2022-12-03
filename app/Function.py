@@ -8,15 +8,19 @@ from pythainlp import word_tokenize
 from pythainlp.tag import pos_tag
 from pythainlp.util import Trie
 
+# from CleansingAuditData.getRiskScore import getRiskCount
 # from ii_func.embed_text_ii import *
 # from ii_func.ii import *
 # from CleansingAuditData.Classification_tbFinding import *
+# from connection_db import *
 
 from .ii_func.embed_text_ii import *
 from .ii_func.ii import *
 from .CleansingAuditData.Classification_tbFinding import *
 from .CleansingAuditData.Cleansing_FindingDetails import *
 from .CleansingAuditData.Prepared_FindingDetails import *
+from .CleansingAuditData.getRiskScore import getRiskCount
+from .connection_db import *
 
 modelPath = "./Model/SentenceTransformer"
 
@@ -30,6 +34,7 @@ SA_Tof = SafetyAudit['TypeOfFinding'].tolist()
 SA_Topic = SafetyAudit['Topic'].tolist()
 SA_Frequency = SafetyAudit['Frequency'].tolist()
 SA_Details_Trans = SafetyAudit['TranslateFinding'].tolist()
+
 
 with open('./SMIT_Data/Encode_SafeyAudit.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
   Encode_Safey_Audit_Details = pickle.load(fIn)
@@ -371,6 +376,49 @@ def Search_Safety_Audit(case, Input_Location, Input_Coworker):
 #   print(top_results)
 # เพิ่มการคิด % ของแต่ละงานตามหมวดหมู่ Type of finding
 # 
+def Calculate_Risk_Score(Tof, Frequency):
+  if(len(Tof) > 0 and len(Frequency) > 0):
+    SumFrequencyFinding = {
+        "Unsafe Action": 0,
+        "Unsafe Condition": 0,
+        "Near Miss": 0,
+        "HNM": 0,
+        "Accident": 0
+    }
+    
+    for i in range(len(Tof)):
+      if(Tof[i] != '-'):
+        SumFrequencyFinding[Tof[i]] += Frequency[i]
+
+    TotalRiskCount = {
+        "Unsafe Action": getRiskCount("Unsafe Action"),
+        "Unsafe Condition": getRiskCount("Unsafe Condition"),
+        "Near Miss": getRiskCount("Near Miss"),
+        "HNM": getRiskCount("HNM"),
+        "Accident": getRiskCount("Accident")
+    }
+
+    print(SumFrequencyFinding, TotalRiskCount)
+    RiskScore = {
+      "Unsafe Action": round((SumFrequencyFinding["Unsafe Action"]*100)/TotalRiskCount["Unsafe Action"], 2),
+      "Unsafe Condition": round((SumFrequencyFinding["Unsafe Condition"]*100)/TotalRiskCount["Unsafe Condition"], 2),
+      "Near Miss": round((SumFrequencyFinding["Near Miss"]*100)/TotalRiskCount["Near Miss"], 2),
+      "HNM": round((SumFrequencyFinding["HNM"]*100)/TotalRiskCount["HNM"], 2),
+      "Accident": round((SumFrequencyFinding["Accident"]*100)/TotalRiskCount["Accident"], 2)
+    }
+
+    return RiskScore
+
+  else:
+    RiskScore = {
+      "Unsafe Action": 0,
+      "Unsafe Condition": 0,
+      "Near Miss": 0,
+      "HNM": 0,
+      "Accident": 0
+    }
+    return RiskScore
+
 def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, Input_Details, List_Input_Details, Data_Frequency, Data_Contractor, Data_Tof, Data_Area, Data_Topic):
   global Encode_Safey_Audit_Details
   Suggestion_Safety_Audit_Detail = []
@@ -408,7 +456,7 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
 
         run_Number = 1
 
-        for score, i, j, k, l, m, n, o in compare_work_with_Safety_Audit[:2]:        
+        for score, i, j, k, l, m, n, o in compare_work_with_Safety_Audit[:5]:        
             if Cosine_Sim[i][0] > 0.4:
               Temp_Safety_Audit_Details.append(Safety_Audit_Details[i])
               Temp_Safety_Audit_Frequency.append(Data_Frequency[i])
@@ -434,6 +482,7 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
                   }
                   return Form_Response_SafetyAudit
                 break
+
   elif case == 2:
     for sentence in List_Input_Details:
       if len(Safety_Audit_Details) != 0:
@@ -451,8 +500,8 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
 
         run_Number = 1
 
-        for score, i, j, k, l, m, n, o in compare_work_with_Safety_Audit[:10]:        
-          if Cosine_Sim[i][0] > 0.4:
+        for score, i, j, k, l, m, n, o in compare_work_with_Safety_Audit[:5]:        
+          if Cosine_Sim[i][0] > 0.6:
             Temp_Safety_Audit_Details.append(Safety_Audit_Details[i])
             Temp_Safety_Audit_Frequency.append(Data_Frequency[i])
             Temp_Safety_Audit_Contractor.append(Data_Contractor[i])
@@ -478,12 +527,12 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
                 return Form_Response_SafetyAudit
               break
         
-  # Temp_Safety_Audit_Details = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Details), reverse=True)]
-  # Temp_Safety_Audit_Contractor = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Contractor), reverse=True)]
-  # Temp_Safety_Audit_Type_Of_Finding = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Type_Of_Finding), reverse=True)]
-  # Temp_Safety_Audit_Area = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Area), reverse=True)]
-  # Temp_Safety_Audit_Topic = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Topic), reverse=True)]
-  # Temp_Safety_Audit_Frequency = sorted(Temp_Safety_Audit_Frequency, reverse=True)
+  Temp_Safety_Audit_Details = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Details), reverse=True)]
+  Temp_Safety_Audit_Contractor = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Contractor), reverse=True)]
+  Temp_Safety_Audit_Type_Of_Finding = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Type_Of_Finding), reverse=True)]
+  Temp_Safety_Audit_Area = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Area), reverse=True)]
+  Temp_Safety_Audit_Topic = [frequency for _, frequency in sorted(zip(Temp_Safety_Audit_Frequency, Temp_Safety_Audit_Topic), reverse=True)]
+  Temp_Safety_Audit_Frequency = sorted(Temp_Safety_Audit_Frequency, reverse=True)
 
   for i in range(len(Temp_Safety_Audit_Details)):
     Create_List_Safety_Audit_Details = []
@@ -524,6 +573,8 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
     Suggestion_Safety_Audit_CA.append(Create_List_Safety_Audit_CA)
     Suggestion_Safety_Audit_PA.append(Create_List_Safety_Audit_PA)
   
+  RiskScore = Calculate_Risk_Score(Temp_Safety_Audit_Type_Of_Finding, Temp_Safety_Audit_Frequency)
+
   Form_Response_SafetyAudit = {
     "Safety_Audit_Details" : Suggestion_Safety_Audit_Detail,
     "Safety_Audit_Frequency" : Suggestion_Safety_Audit_Frequency,
@@ -532,8 +583,10 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
     "Safety_Audit_Area" : Suggestion_Safety_Audit_Area,
     "Safety_Audit_Topic" : Suggestion_Safety_Audit_Topic,
     "Safety_Audit_CA": Suggestion_Safety_Audit_CA,
-    "Safety_Audit_PA": Suggestion_Safety_Audit_PA
+    "Safety_Audit_PA": Suggestion_Safety_Audit_PA,
+    "RiskScore" : RiskScore
   }
+
   if len(Data_Details_Trans) == 0:
     Form_Response_SafetyAudit = {
       "Safety_Audit_Details": [["No Data about "+Input_Details+" was found"]],
@@ -543,7 +596,8 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
       "Safety_Audit_Area" : [["No Data"]],
       "Safety_Audit_Topic" : [["No Data"]],
       "Safety_Audit_CA": [["No Data"]],
-      "Safety_Audit_PA": [["No Data"]]
+      "Safety_Audit_PA": [["No Data"]],
+      "RiskScore" : RiskScore
     }
   return Form_Response_SafetyAudit
 

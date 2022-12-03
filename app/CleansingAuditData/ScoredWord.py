@@ -1,4 +1,3 @@
-
 def CreateFrequencyTypeOfFinding(word, ListWords_UnsafeAction, ListWords_UnsafeCondition, ListWords_NearMiss, ListWords_HNM, ListWords_Accident):
     Value = 6
     if word in ListWords_UnsafeAction:
