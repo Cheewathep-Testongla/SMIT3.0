@@ -4,23 +4,15 @@ from datetime import datetime
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.responses import JSONResponse
-from .ii_func.ii import search_ii, update_ii
-from .Function import *
 import json
 from pydantic import BaseModel
 import secrets
 from typing import List
 import uvicorn
-# from smit_create_dict import Start_API
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_credentials=True,
-#     allow_origins=["*"],
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
+# from ii_func.ii import *
+# from Function import Cleansing_Input, Compare_Cosine_Similarity, Search_Safety_Audit, CleansingAuditData
+from .ii_func.ii import *
+from .Function import *
 app = FastAPI(title="SMIT API",
                 debug=True,
                 version="0.0.1")
@@ -46,6 +38,8 @@ class Form_Response_SafetyAudit(BaseModel):
   Safety_Audit_Type_Of_Finding : List[str]
   Safety_Audit_Area : List[str]
   Safety_Audit_Topic : List[str]
+  CA : List[str]
+  PA : List[str]
 
 class Response_SafetyAudit(BaseModel):
   case_1 : Form_Response_SafetyAudit
@@ -140,6 +134,7 @@ class search_engine_ii(BaseModel):
   lv1 : Prop_search_engine_ii
   lv2 : Prop_search_engine_ii
   lv3 : Prop_search_engine_ii
+
 # Get BasicAuth Username & Password
 f = open('./Authentication/userAuthen.json')
 data = json.load(f)
@@ -177,12 +172,6 @@ def BasicAuth(credentials: HTTPBasicCredentials = Depends(security)):
         headers={"WWW-Authenticate": "Basic"},
       )
     return True
-
-def time_in_range(current):
-    if current >= "00:00" and current <= "04:00":
-      return False
-    else:
-      return True
 
 @app.get('/') 
 def Hello(auth: str = Depends(BasicAuth)):
@@ -223,15 +212,18 @@ async def ii_api(request: input_api, auth: str = Depends(BasicAuth)):
   if auth == True:
     data = request.json() # change input(request model) to Json
     data = json.loads(data) # change Json to Dict
-
     if data is not None:
-
-        form_ii = search_ii(data)  # call function search_ii
+        form_ii = search_ii(data, "All ii")  # call function search_ii
         return JSONResponse(form_ii) # change Dict to Json in response
     else:
         return {
              "Please pass a properly formatted JSON object to the API"
         }  
+
+@app.get('/PreparedAuditData', status_code=status.HTTP_200_OK)
+async def Corrected_input(auth: str = Depends(BasicAuth)):
+  if auth == True:
+    return CleansingAuditData()
 
 # if __name__ == '__main__':
 #   uvicorn.run("main:app", host='0.0.0.0', port=443, reload=True, debug=True)

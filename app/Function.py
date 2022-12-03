@@ -1,47 +1,48 @@
 from deep_translator import GoogleTranslator
 from difflib import get_close_matches
-import numpy as np
 import re
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
-from pythainlp import sent_tokenize, word_tokenize, correct, spell
-from pythainlp.tag import pos_tag, pos_tag_sents
-from pythainlp.util import Trie
 import pickle
-import torch
-import tensorflow as tf
-import time
-import csv
-import pyodbc
+from pythainlp import word_tokenize
+from pythainlp.tag import pos_tag
+from pythainlp.util import Trie
+
+# from ii_func.embed_text_ii import *
+# from ii_func.ii import *
+# from CleansingAuditData.Classification_tbFinding import *
+
+from .ii_func.embed_text_ii import *
+from .ii_func.ii import *
+from .CleansingAuditData.Classification_tbFinding import *
+from .CleansingAuditData.Cleansing_FindingDetails import *
+from .CleansingAuditData.Prepared_FindingDetails import *
 
 modelPath = "./Model/SentenceTransformer"
-# Test
+
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 SafetyAudit = pd.read_csv('./SMIT_Data/Prepared_Safety_Audit.csv', encoding='utf-8')
-SA_Details = SafetyAudit['Details'].tolist()
+SA_Details = SafetyAudit['Finding'].tolist()
 SA_Area = SafetyAudit['Area'].tolist()
 SA_Contractor = SafetyAudit['Contractor'].tolist()
 SA_Tof = SafetyAudit['TypeOfFinding'].tolist()
 SA_Topic = SafetyAudit['Topic'].tolist()
 SA_Frequency = SafetyAudit['Frequency'].tolist()
-SA_Details_Trans = SafetyAudit['TranslateDetails'].tolist()
+SA_Details_Trans = SafetyAudit['TranslateFinding'].tolist()
 
 with open('./SMIT_Data/Encode_SafeyAudit.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
   Encode_Safey_Audit_Details = pickle.load(fIn)
 
 def Cleansing_Input(Data, Case) :
-
+  
   Data = Data.lower()
 
   Custom_Dict = pd.read_csv('./SMIT_Data/DataForModel/Raw_Dictionary.csv',encoding='utf-8')
 
   DictTokenize = Custom_Dict['words'].tolist()
   DictCorrect = Custom_Dict['correct'].tolist()
-
-  Custom_Dict = pd.read_csv('./SMIT_Data/DataForModel/Thai_Dictionary.csv',encoding='utf-8')
-  THDictTokenize = Custom_Dict['words'].tolist()
-  THDictCorrect = Custom_Dict['correct'].tolist()
+  AllDict = DictCorrect+DictTokenize
 
   Data = re.sub(' +',' ', Data)
   Data = re.sub('^ +','', Data)
@@ -51,11 +52,200 @@ def Cleansing_Input(Data, Case) :
   Data = re.sub(' +',' ', Data)
 
   if Case == 1:
+    ListUnwantedText = [
+                        'no. [0-9-/]+',
+                        '[a-z]+-[a-z]+[0-9]+[a-z0-9-/]+[a-z0-9]*',
+                        '[0-9]+-[0-9]+/[0-9]+',
+                        '\#|\(|\)|\@|^[ ]|:|\"|M\.|=',
+                        '\?',
+                        '\[|\]|\{|\}'
+                        ]
+
+    ListCutText = []
+    for index in ListUnwantedText:
+        Find_Text = re.findall(index, Data) 
+        if len(Find_Text) != 0: 
+            for words in Find_Text:
+                if (words != ' ' and (words not in DictCorrect or words not in DictTokenize)):
+                    Data = Data.replace(words,' ')
+                    ListCutText.append(words)
+        else : 
+            Data = Data
+
+    ListSplitCharacter = "\/\/+|\/|\+|,|&|and|และ|กับ|เพื่อ|\n"
+    FindSplitCharecter = re.findall(ListSplitCharacter, Data) 
+
+    Tokenize_Input = Data
+    Collected_Input = Data
+
+    for words in FindSplitCharecter:
+        Tokenize_Input = Tokenize_Input.replace(words, ' , ')
+
+    ListUnwantedText = [
+                        '[a-z]+-[0-9a-z]+-[a-z0-9]+',               #a-a0-a0     
+                        '[a-z]+-[0-9]+[a-z]+[0-9]+[a-z]+',          #a-a0 
+                        '[a-z]+-[0-9]+[a-z]+[a-z]+[0-9]+',          #
+                        '[a-z]+-[a-z]+[0-9]+[0-9]+[a-z]+',          #
+                        '[a-z]+-[a-z]+[0-9]+[a-z]+[0-9]+',          #
+                        '[a-z]+[0-9]+[a-z-]+',                      #                          
+                        '[a-z]+ [0-9]+ [a-z]+',                     # PIT 3060 ABC                         
+                        '[a-z]+-[0-9]+-[a-z]+',                     #a-0-a                                               
+                        '[a-z]+-[a-z]+-[0-9]+',                     #a-a-0
+                        '[a-z]+-[0-9]+[a-z]+',                      # TT-8006BA
+                        '[a-z]+-[0-9]+',                            #a-0
+                        '[0-9]+[a-z]+',                             #0a
+                        '[a-z]+[0-9]+',                             #a0                        
+                        '[0-9]+ เมตร',                              #12 เมตร
+                        '[0-9]+ ชม.',
+                        '[0-9]+ ชั่วโมง',
+                        '[0-9][0-9]+',                              #00 
+                        ' [0-9] ',                                  # 0 
+                        ' [a-z] ',                                  # a
+                        '\#|\(|\)|\@|^[ ]|:|\"|M\.|-',              
+                        'group',
+                        'class',
+                        'ฯ'
+                        ]
+
+    ListCutText = []
+    for index in ListUnwantedText:
+        Find_Text = re.findall(index, Tokenize_Input) 
+        if len(Find_Text) != 0: 
+            for words in Find_Text:
+                if (words != ' ' and (words not in DictCorrect or words not in DictTokenize)):
+                    Tokenize_Input = Tokenize_Input.replace(words,' ')
+                    Collected_Input = Collected_Input.replace(words,' ')
+                    ListCutText.append(words)
+        else : 
+            Tokenize_Input = Tokenize_Input
+            Collected_Input = Collected_Input
+
+    Tokenize_Input = Tokenize_Input.split(',')
+
+    ResultTokenizeInput = []
+    ResultCorrectedInput = ''
+
+    trie = Trie(AllDict)
+
+    for sentence in Tokenize_Input:
+        TempListTokenize = word_tokenize(sentence, custom_dict=trie, engine='newmm')
+        GetPos_TagListTokenize = pos_tag(TempListTokenize, corpus="orchid_ud")
+        
+        TempResult = []
+        CheckIfTempResultisAlready = []
+        PROPNListTokenize = []
+        ListTokenize = []
+
+        for index in range(len(GetPos_TagListTokenize)):
+            temp = []
+            if (
+                # GetPos_TagListTokenize[index][1] == "SCONJ" or 
+                GetPos_TagListTokenize[index][1] == "ADP" or 
+                GetPos_TagListTokenize[index][1] == "CCONJ" or
+                GetPos_TagListTokenize[index][1] == "PUNCT"):
+                temp.append(GetPos_TagListTokenize[index][0])
+                temp.append(index)
+                PROPNListTokenize.append(temp)
+            else: 
+                ListTokenize.append(GetPos_TagListTokenize[index][0])
+
+        for i in range(len(ListTokenize)):    
+            FinalJoinString = ''
+            if(re.findall('(^[\u0E30-\u0E3A\u0E47-\u0E4E]+)', ListTokenize[i]) or len(re.findall('[\u0E01-\u0E4E]', ListTokenize[i])) == 1):
+                continue
+            elif(len(re.findall(' [a-z][a-z][a-z] | [a-z][a-z] ', ListTokenize[i])) > 1):
+                TempResult.append(ListTokenize[i])     
+
+            elif(len(re.findall('([A-Za-z])\w+', ListTokenize[i])) > 0):
+                if ListTokenize[i] in DictTokenize:
+                    TempResult.append(DictCorrect[DictTokenize.index(ListTokenize[i])])
+                else:
+                    try:
+                        TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0])
+                    except:
+                        TempResult.append(ListTokenize[i])        
+            else:    
+                if(ListTokenize[i] in DictTokenize):
+                    IndexRepeatDictTokenize = []
+                    # Get all duplicate value in DictTokenize that match with ListTokenize[i]
+                    for idx, val in enumerate(DictTokenize):
+                        if ListTokenize[i] == val and idx not in IndexRepeatDictTokenize:
+                            IndexRepeatDictTokenize.append(idx)
+                    if (len(IndexRepeatDictTokenize) > 1):
+                        for index in IndexRepeatDictTokenize:
+                            for j in range(i, len(ListTokenize)):
+                                if ListTokenize[j] != ' ':
+                                    try:
+                                        # TempJoinString = DictCorrect[DictTokenize.index(ListTokenize[j])]+DictCorrect[index]
+                                        TempJoinString = TempResult[len(TempResult)-1]+DictCorrect[DictTokenize.index(ListTokenize[j])]
+                                        if TempJoinString in DictCorrect:
+                                            CheckIfTempResultisAlready.append(DictCorrect[index])
+                                            CheckIfTempResultisAlready.append(TempResult[len(TempResult)-1])
+                                            CheckIfTempResultisAlready.append(TempJoinString)
+                                            FinalJoinString = TempJoinString
+                                    except:     
+                                        FinalJoinString = ListTokenize[j]
+                            if FinalJoinString not in CheckIfTempResultisAlready:
+                                TempResult.append(FinalJoinString)   
+                                CheckIfTempResultisAlready.append(FinalJoinString)
+                            elif FinalJoinString == '':
+                                TempResult.append(ListTokenize[i])  
+
+                    else:
+                        index = DictTokenize.index(ListTokenize[i])
+                        # if DictCorrect[index] not in CheckIfTempResultisAlready:
+                        TempResult.append(DictCorrect[index])
+                        CheckIfTempResultisAlready.append(DictCorrect[index])
+
+                else:
+                    if ListTokenize[i] != ' ':
+                        try:
+                            if get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0] not in CheckIfTempResultisAlready:
+                                TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
+                                CheckIfTempResultisAlready.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
+                        except: 
+                            if ListTokenize[i] not in CheckIfTempResultisAlready:
+                                TempResult.append(ListTokenize[i])
+                                CheckIfTempResultisAlready.append(ListTokenize[i])
+                    else:
+                        TempResult.append(' ')
+        
+        for i in range(len(PROPNListTokenize)):
+            TempResult.insert(PROPNListTokenize[i][1], PROPNListTokenize[i][0])
+
+        Result = []
+        TempResultTokenizeInput = ''
+        # Remove first and last empty space in list
+        for i in range(len(TempResult)):
+            if(i == 0 and len(TempResult) > 1):
+                ResultCorrectedInput = ' '+ResultCorrectedInput+TempResult[i]
+            if (TempResult[i] == '') or (i == 0 and TempResult[i] == ' ') or (i == len(TempResult)-1 and TempResult[len(TempResult)-1] == ' ') or (TempResult[i] == ' ' and TempResult[i+1] == ' '):
+                continue
+            else:
+                if(i == 0):
+                    ResultCorrectedInput = ' '+ResultCorrectedInput
+                Result.append(TempResult[i])
+                TempResultTokenizeInput = TempResultTokenizeInput+TempResult[i]
+
+        TempResultTokenizeInput = TempResultTokenizeInput+' '
+        TempResultTokenizeInput = re.sub(' +', ' ',TempResultTokenizeInput)
+        TempResultTokenizeInput = re.sub('^ ', '',TempResultTokenizeInput)
+
+        if TempResultTokenizeInput not in ResultTokenizeInput and len(TempResultTokenizeInput) > 1: 
+            ResultTokenizeInput.append(TempResultTokenizeInput)
+            ResultCorrectedInput = ""+', '.join(ResultTokenizeInput)
+    
+    ResultCorrectedInput = re.sub(' +', ' ',ResultCorrectedInput)
+    ResultCorrectedInput = re.sub('^ | $', '',ResultCorrectedInput)
+
+
+  elif Case == 2:
     ListUnwantedText =  [
                         'no. [0-9-/]+',
                         '[a-z]+-[a-z]+[0-9]+[a-z0-9-/]+[a-z0-9]*',
                         '[0-9]+-[0-9]+/[0-9]+',
-                        '\#|\(|\)|\@|^[ ]|:|\"|M\.|='
+                        '\#|\(|\)|\@|^[ ]|:|\"|M\.|=',
+                        '\?|\[|\]|\{|\}',
                         ]
 
     ListCutText = []
@@ -64,7 +254,7 @@ def Cleansing_Input(Data, Case) :
       if len(Find_Text) != 0: 
         for words in Find_Text:
           if (words != ' ' and (words not in DictCorrect or words not in DictTokenize)):
-            Data = Data.replace(words,' ')
+            Data = Data.replace(words,'')
             ListCutText.append(words)
       else : 
         Data = Data
@@ -105,153 +295,22 @@ def Cleansing_Input(Data, Case) :
       if len(Find_Text) != 0: 
         for words in Find_Text:
           if (words != ' ' and (words not in DictCorrect or words not in DictTokenize)):
-            Tokenize_Input = Tokenize_Input.replace(words,' ')
-            Collected_Input = Collected_Input.replace(words,' ')
+            ResultTokenizeInput = Tokenize_Input.replace(words,' ')
+            ResultCorrectedInput = Collected_Input.replace(words,' ')
       else : 
-        Tokenize_Input = Tokenize_Input
-        Collected_Input = Collected_Input
+        ResultTokenizeInput = Tokenize_Input
+        ResultCorrectedInput = Collected_Input
 
-    Tokenize_Input = Tokenize_Input.split(',')
+    ResultTokenizeInput = Tokenize_Input.split(',')
 
-    ResultTokenizeInput = []
-    ResultCorrectedInput = ''
-
-    trie = Trie(THDictTokenize)
-
-    for sentence in Tokenize_Input:
-      TempListTokenize = word_tokenize(sentence, custom_dict=trie, engine='newmm')
-      GetPos_TagListTokenize = pos_tag(TempListTokenize, corpus="orchid_ud")
-
-      PROPNListTokenize = []
-      ListTokenize = []
-
-      for index in range(len(GetPos_TagListTokenize)):
-        temp = []
-        if (
-          # GetPos_TagListTokenize[index][1] == "SCONJ" or 
-          GetPos_TagListTokenize[index][1] == "ADP" or 
-          GetPos_TagListTokenize[index][1] == "CCONJ" or
-          GetPos_TagListTokenize[index][1] == "PUNCT"):
-          temp.append(GetPos_TagListTokenize[index][0])
-          temp.append(index)
-          PROPNListTokenize.append(temp)
-        else: 
-          ListTokenize.append(GetPos_TagListTokenize[index][0])
-
-        TempResult = []
-        CheckIfTempResultisAlready = []
-
-        for i in range(len(ListTokenize)):    
-          FinalJoinString = ''
-          if(len(re.findall(' [a-z][a-z][a-z] | [a-z][a-z] ', ListTokenize[i])) > 1):
-              TempResult.append(ListTokenize[i])     
-
-          elif(len(re.findall('([A-Za-z])\w+', ListTokenize[i])) > 0):
-              if ListTokenize[i] in DictTokenize:
-                TempResult.append(DictCorrect[DictTokenize.index(ListTokenize[i])])
-              else:
-                try:
-                  TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0])
-                  # CheckIfTempResultisAlready.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
-                except:
-                  TempResult.append(ListTokenize[i])            
-          # print('ListTokenize', ListTokenize[i])
-          else:
-            if(ListTokenize[i] in DictTokenize):
-              IndexRepeatDictTokenize = []
-              # Get all duplicate value in DictTokenize that match with ListTokenize[i]
-              for idx, val in enumerate(DictTokenize):
-                if ListTokenize[i] == val and idx not in IndexRepeatDictTokenize:
-                  IndexRepeatDictTokenize.append(idx)
-              if (len(IndexRepeatDictTokenize) > 1):
-                for index in IndexRepeatDictTokenize:
-                  for j in range(i, len(ListTokenize)):
-                    if ListTokenize[j] != ' ':
-                      try:
-                        TempJoinString = TempResult[len(TempResult)-1]+DictCorrect[DictTokenize.index(ListTokenize[j])]
-                        if TempJoinString in DictCorrect:
-                          CheckIfTempResultisAlready.append(DictCorrect[index])
-                          CheckIfTempResultisAlready.append(TempResult[len(TempResult)-1])
-                          CheckIfTempResultisAlready.append(TempJoinString)
-                          FinalJoinString = TempJoinString
-                      except:     
-                        FinalJoinString = ListTokenize[j]
-                  if FinalJoinString not in CheckIfTempResultisAlready:
-                    TempResult.append(FinalJoinString)   
-                    CheckIfTempResultisAlready.append(FinalJoinString)
-                  elif FinalJoinString == '':
-                    TempResult.append(ListTokenize[i])  
-              else:
-                  index = DictTokenize.index(ListTokenize[i])
-                  if DictCorrect[index] not in CheckIfTempResultisAlready:
-                    TempResult.append(DictCorrect[index])
-                    CheckIfTempResultisAlready.append(DictCorrect[index])
-            else:
-              if ListTokenize[i] != ' ':
-                try:
-                  if get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0] not in CheckIfTempResultisAlready:
-                    TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
-                    CheckIfTempResultisAlready.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
-                except: 
-                  if ListTokenize[i] not in CheckIfTempResultisAlready:
-                    TempResult.append(ListTokenize[i])
-                    CheckIfTempResultisAlready.append(ListTokenize[i])
-              else:
-                TempResult.append(' ')
-
-        for i in range(len(PROPNListTokenize)):
-          TempResult.insert(PROPNListTokenize[i][1], PROPNListTokenize[i][0])
-
-        Result = []
-        TempResultTokenizeInput = ''
-        for i in range(len(TempResult)):
-          if(i == 0 and len(TempResult) > 1):
-            ResultCorrectedInput = ' '+ResultCorrectedInput+TempResult[i]
-          if (TempResult[i] == '') or (i == 0 and TempResult[i] == ' ') or (i == len(TempResult)-1 and TempResult[len(TempResult)-1] == ' ') or (TempResult[i] == ' ' and TempResult[i+1] == ' '):
-            continue
-          else:
-            if(i == 0):
-              ResultCorrectedInput = ' '+ResultCorrectedInput
-            Result.append(TempResult[i])
-            TempResultTokenizeInput = TempResultTokenizeInput+TempResult[i]
-
-      TempResultTokenizeInput = TempResultTokenizeInput+' '
-      TempResultTokenizeInput = re.sub(' +', ' ',TempResultTokenizeInput)
-      TempResultTokenizeInput = re.sub('^ | $', '',TempResultTokenizeInput)
-
-      if TempResultTokenizeInput not in ResultTokenizeInput and len(TempResultTokenizeInput) > 1: 
-        ResultTokenizeInput.append(TempResultTokenizeInput)
-        ResultCorrectedInput = ""+', '.join(ResultTokenizeInput)
-      
-    ResultCorrectedInput = re.sub(' +', ' ',ResultCorrectedInput)
-    ResultCorrectedInput = re.sub('^ | $', '',ResultCorrectedInput)
-
-  elif Case == 2:
-    ListSplitCharacter = "\/\/+|\/|\+|,|&| and | and|และ|กับ|เพื่อ|\n"
-    FindSplitCharecter = re.findall(ListSplitCharacter, Data) 
-
-    Data = re.sub(' +', ' ', Data)
-    Data = re.sub('^ | $', '', Data)
-
-    ResultTokenizeInput = Data
-    ResultCorrectedInput = Data
-
-    for words in FindSplitCharecter:
-      ResultTokenizeInput = ResultTokenizeInput.replace(words, ', ')
-
-    ResultTokenizeInput = re.sub(' +', ' ', ResultTokenizeInput)
-    ResultTokenizeInput = re.sub('^ | $', '', ResultTokenizeInput)
-
-    ResultCorrectedInput = ResultTokenizeInput
-    ResultTokenizeInput = ResultTokenizeInput.split(',')
-    
     for index in range(len(ResultTokenizeInput)):
       ResultTokenizeInput[index] = re.sub('^ ', '', ResultTokenizeInput[index])
-
+      
   Response_SpellChecker = {
     "Collected_Input" : ResultCorrectedInput,
     "Result" : ResultTokenizeInput
   }
+
   return Response_SpellChecker
 
 def RemoveText(words, sentence):
@@ -301,7 +360,17 @@ def Search_Safety_Audit(case, Input_Location, Input_Coworker):
       return [], [], [], [], [], [], []
     else:
       return Data_Contractor_2, Data_Area_2, Data_Tof, Data_Details, Data_Details_Trans, Data_Topic, Data_Frequency
-    
+
+# def FindCA_PA(Data):
+#   Translate_Input_Details = [Data]*len(corpus_embeddings)
+#   Encode_Input_Details = model.encode(Translate_Input_Details)
+        
+#   Cosine_Sim = util.pytorch_cos_sim(corpus_embeddings, Encode_Input_Details) 
+#   top_results = torch.topk(Cosine_Sim, k=5)
+  
+#   print(top_results)
+# เพิ่มการคิด % ของแต่ละงานตามหมวดหมู่ Type of finding
+# 
 def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, Input_Details, List_Input_Details, Data_Frequency, Data_Contractor, Data_Tof, Data_Area, Data_Topic):
   global Encode_Safey_Audit_Details
   Suggestion_Safety_Audit_Detail = []
@@ -310,6 +379,8 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
   Suggestion_Safety_Audit_Type_Of_Finding = []
   Suggestion_Safety_Audit_Area = []
   Suggestion_Safety_Audit_Topic = []
+  Suggestion_Safety_Audit_CA = []
+  Suggestion_Safety_Audit_PA = []
 
   Temp_Safety_Audit_Details = []
   Temp_Safety_Audit_Frequency = []
@@ -323,9 +394,7 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
       if len(Safety_Audit_Details) != 0:
         Translate_Input_Details = (GoogleTranslator(source='auto', target='en').translate(sentence))
         Translate_Input_Details = [Translate_Input_Details]*len(Safety_Audit_Details)
-        # List_Encode_Safey_Audit_Details = list(Encode_Safey_Audit_Details)
-        # Encode_Safey_Audit_Details = np.where(SA_Area[List_Encode_Safey_Audit_Details.index(i for i in range(len(Encode_Safey_Audit_Details)))] == Data_Area
-        #                                     and SA_Contractor[List_Encode_Safey_Audit_Details.index(i for i in range(len(Encode_Safey_Audit_Details)))] == Data_Contractor : Encode_Safey_Audit_Details[])
+
         Encode_Safey_Audit_Details = model.encode(Data_Details_Trans)
         Encode_Input_Details = model.encode(Translate_Input_Details)
         
@@ -360,6 +429,8 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
                     "Safety_Audit_Type_Of_Finding" : [["No Data"]],
                     "Safety_Audit_Area" : [["No Data"]],
                     "Safety_Audit_Topic" : [["No Data"]],
+                    "Safety_Audit_CA": [["No Data"]],
+                    "Safety_Audit_PA": [["No Data"]]
                   }
                   return Form_Response_SafetyAudit
                 break
@@ -401,6 +472,8 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
                   "Safety_Audit_Type_Of_Finding" : [["No Data"]],
                   "Safety_Audit_Area" : [["No Data"]],
                   "Safety_Audit_Topic" : [["No Data"]],
+                  "Safety_Audit_CA": [["No Data"]],
+                  "Safety_Audit_PA": [["No Data"]]
                 }
                 return Form_Response_SafetyAudit
               break
@@ -419,6 +492,8 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
     Create_List_Safety_Audit_Type_Of_Finding = []
     Create_List_Safety_Audit_Area = []
     Create_List_Safety_Audit_Topic = []
+    Create_List_Safety_Audit_CA = []
+    Create_List_Safety_Audit_PA = []
 
     Create_List_Safety_Audit_Details.append(Temp_Safety_Audit_Details[i])
     Create_List_Safety_Audit_Frequency.append(Temp_Safety_Audit_Frequency[i])
@@ -426,14 +501,29 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
     Create_List_Safety_Audit_Type_Of_Finding.append(Temp_Safety_Audit_Type_Of_Finding[i]) 
     Create_List_Safety_Audit_Area.append(Temp_Safety_Audit_Area[i]) 
     Create_List_Safety_Audit_Topic.append(Temp_Safety_Audit_Topic[i]) 
-    
+
+    if(Temp_Safety_Audit_Type_Of_Finding[i] == "Accident"):
+      tempResultCAPA = {
+          "name": Temp_Safety_Audit_Details[i],
+          "tag_equip": "",
+          "area": Temp_Safety_Audit_Area[i],
+          "tool": "",
+          "company": "",
+          "correct": False
+      }
+      Response_CAPA = search_ii(tempResultCAPA, "Only CAPA")
+      Create_List_Safety_Audit_CA.append(Response_CAPA['all_ca'])
+      Create_List_Safety_Audit_PA.append(Response_CAPA['all_pa'])
+
     Suggestion_Safety_Audit_Detail.append(Create_List_Safety_Audit_Details)
     Suggestion_Safety_Audit_Frequency.append(Create_List_Safety_Audit_Frequency)
     Suggestion_Safety_Audit_Contractor.append(Create_List_Safety_Audit_Contractor)
     Suggestion_Safety_Audit_Type_Of_Finding.append(Create_List_Safety_Audit_Type_Of_Finding)
     Suggestion_Safety_Audit_Area.append(Create_List_Safety_Audit_Area)
     Suggestion_Safety_Audit_Topic.append(Create_List_Safety_Audit_Topic)
-
+    Suggestion_Safety_Audit_CA.append(Create_List_Safety_Audit_CA)
+    Suggestion_Safety_Audit_PA.append(Create_List_Safety_Audit_PA)
+  
   Form_Response_SafetyAudit = {
     "Safety_Audit_Details" : Suggestion_Safety_Audit_Detail,
     "Safety_Audit_Frequency" : Suggestion_Safety_Audit_Frequency,
@@ -441,6 +531,8 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
     "Safety_Audit_Type_Of_Finding" : Suggestion_Safety_Audit_Type_Of_Finding,
     "Safety_Audit_Area" : Suggestion_Safety_Audit_Area,
     "Safety_Audit_Topic" : Suggestion_Safety_Audit_Topic,
+    "Safety_Audit_CA": Suggestion_Safety_Audit_CA,
+    "Safety_Audit_PA": Suggestion_Safety_Audit_PA
   }
   if len(Data_Details_Trans) == 0:
     Form_Response_SafetyAudit = {
@@ -450,71 +542,271 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
       "Safety_Audit_Type_Of_Finding" : [["No Data"]],
       "Safety_Audit_Area" : [["No Data"]],
       "Safety_Audit_Topic" : [["No Data"]],
+      "Safety_Audit_CA": [["No Data"]],
+      "Safety_Audit_PA": [["No Data"]]
     }
   return Form_Response_SafetyAudit
 
-def Upload_Audit_To_Database(Data):
-  with open('./SMIT_Data/Audit_Result/SMIT3_Audit_Result.csv', 'a', newline='', encoding="utf-8") as f:
-    write = csv.writer(f)
-    write.writerow(Data)
-  return "Success"
+def CleansingAuditData():
+  print("[Started Classification tbFinding]...")
+  return StartCleansingtbFinding()
 
-# def Response_WPM_Detail(Primary_Key):
+
+
+
+
+
+
+
+
+#----------Old Algorithm-----------#
+# Cleansing_Input
+# def Cleansing_Input(Data, Case) :
+
+#   Data = Data.lower()
+
+#   Custom_Dict = pd.read_csv('./SMIT_Data/DataForModel/Raw_Dictionary.csv',encoding='utf-8')
+
+#   DictTokenize = Custom_Dict['words'].tolist()
+#   DictCorrect = Custom_Dict['correct'].tolist()
+#   AllDict = DictCorrect+DictTokenize
+
+#   trie = Trie(AllDict)
+
+#   Data = re.sub(' +',' ', Data)
+#   Data = re.sub('^ +','', Data)
+#   Data = re.sub('^ | $','', Data)
+  
+#   Data = re.sub(',| ,|, | , ',' , ', Data)
+#   Data = re.sub(' +',' ', Data)
+#   Data = re.sub('ชม|ชม.','ชั่วโมง', Data)
+
+#   if Case == 1:
+#     ListUnwantedText =  [
+#                         '\/|\.|\#|\(|\)|\@|^[ ]|:|\"|M\.|-|\?|\[|\]|\{|\}',                   
+#                         '[0-9]+ เมตร',                              #12 เมตร
+#                         '[0-9]+ ชั่วโมง',
+#                         'ชั่วโมง',
+#                         'no. [0-9-/]+',
+#                         '[a-z]+-[a-z]+[0-9]+[a-z0-9-/]+[a-z0-9]*',
+#                         '[0-9]+-[0-9]+/[0-9]+',
+#                         '[a-z]+-[0-9a-z]+-[a-z0-9]+',               #a-a0-a0     
+#                         '[a-z]+-[0-9]+[a-z]+[0-9]+[a-z]+',          #a-a0 
+#                         '[a-z]+-[0-9]+[a-z]+[a-z]+[0-9]+',          #
+#                         '[a-z]+-[a-z]+[0-9]+[0-9]+[a-z]+',          #
+#                         '[a-z]+-[a-z]+[0-9]+[a-z]+[0-9]+',          #
+#                         '[a-z]+[0-9]+[a-z-]+',                      #                          
+#                         '[a-z]+ [0-9]+ [a-z]+',                     # PIT 3060 ABC                         
+#                         '[a-z]+-[0-9]+-[a-z]+',                     #a-0-a                                               
+#                         '[a-z]+-[a-z]+-[0-9]+',                     #a-a-0
+#                         '[a-z]+-[0-9]+[a-z]+',                      # TT-8006BA
+#                         '[a-z]+-[0-9]+',                            #a-0
+#                         '[0-9]+[a-z]+',                             #0a
+#                         '[a-z]+[0-9]+',                             #a0                        
+#                         '[0-9][0-9]+',                              #00 
+#                         ' [0-9] ',                                  # 0 
+#                         ' [a-z] ',                                  # a
+#                         'group',
+#                         'class'
+#                         ]
+
+#     ListCutText = []
+
+#     for index in ListUnwantedText:
+
+#       Find_Text = re.findall(index, Data) 
+
+#       if len(Find_Text) != 0: 
+#         for words in Find_Text:
+#           if (words != ' ' and (words not in DictCorrect or words not in DictTokenize)):
+#             Data = Data.replace(words,' ')
+#             ListCutText.append(words)
+#       else : 
+#         Data = Data
+
+#     ListSplitCharacter = "\/\/+|\/|\+|,|&| and | and|และ|กับ|เพื่อ|\n"
+#     FindSplitCharecter = re.findall(ListSplitCharacter, Data) 
+
+#     Tokenize_Input = Data
+
+#     for words in FindSplitCharecter:
+#       Tokenize_Input = Tokenize_Input.replace(words, ' , ')
+
+#     Tokenize_Input = Tokenize_Input.split(',')
+
+#     ResultTokenizeInput = []
+#     ResultCorrectedInput = ''
+
+#     for sentence in Tokenize_Input:
+#       TempListTokenize = word_tokenize(sentence, custom_dict=trie, engine='newmm')
+#       GetPos_TagListTokenize = pos_tag(TempListTokenize, corpus="orchid_ud")
+#       ListTokenize = [GetPos_TagListTokenize[i][0] for i in range(len(GetPos_TagListTokenize))]
+#       TempResult = []
+#       for i in range(len(ListTokenize)):
+#         if(len(re.findall(' [a-z][a-z][a-z] | [a-z][a-z] ', ListTokenize[i])) > 1):
+#             TempResult.append(ListTokenize[i])     
+
+#         elif(len(re.findall('([A-Za-z])\w+', ListTokenize[i])) > 0):
+#             if ListTokenize[i] in DictTokenize:
+#               TempResult.append(DictCorrect[DictTokenize.index(ListTokenize[i])])
+#             else:
+#               try:
+#                 TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0])
+#               except:
+#                 TempResult.append(ListTokenize[i])            
+#         else:
+#           try:
+#               TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0])
+#           except: 
+#               TempResult.append(ListTokenize[i])
+    
+#     Result = []
+#     TempResultTokenizeInput = ''
+
+#     for i in range(len(TempResult)):
+#       if (i == 0 and len(TempResult) > 1):
+#         ResultCorrectedInput = ' '+ResultCorrectedInput+TempResult[i]
+#       if (TempResult[i] == '') or (i == 0 and TempResult[i] == ' ') or (i == len(TempResult)-1 and TempResult[len(TempResult)-1] == ' ') or (TempResult[i] == ' ' and TempResult[i+1] == ' '):
+#         continue
+#       else:
+#         if(i == 0):
+#           ResultCorrectedInput = ' '+ResultCorrectedInput
+#         Result.append(TempResult[i])
+#         TempResultTokenizeInput = TempResultTokenizeInput+TempResult[i]
+
+#     TempResultTokenizeInput = TempResultTokenizeInput+' '
+#     TempResultTokenizeInput = re.sub(' +', ' ',TempResultTokenizeInput)
+#     TempResultTokenizeInput = re.sub('^ | $', '',TempResultTokenizeInput)
+
+#     if TempResultTokenizeInput not in ResultTokenizeInput and len(TempResultTokenizeInput) > 1: 
+#       ResultTokenizeInput.append(TempResultTokenizeInput)
+#       ResultCorrectedInput = ""+', '.join(ResultTokenizeInput)
+    
+#     ResultCorrectedInput = re.sub(' +', ' ',ResultCorrectedInput)
+#     ResultCorrectedInput = re.sub('^ | $', '',ResultCorrectedInput)
+
+#   elif Case == 2:
+#     ListUnwantedText =  [
+#                         'no. [0-9-/]+',
+#                         '[a-z]+-[a-z]+[0-9]+[a-z0-9-/]+[a-z0-9]*',
+#                         '[0-9]+-[0-9]+/[0-9]+',
+#                         '\#|\(|\)|\@|^[ ]|:|\"|M\.|=',
+#                         '\?|\[|\]|\{|\}',
+#                         ]
+
+#     ListCutText = []
+#     for index in ListUnwantedText:
+#       Find_Text = re.findall(index, Data) 
+#       if len(Find_Text) != 0: 
+#         for words in Find_Text:
+#           if (words != ' ' and (words not in DictCorrect or words not in DictTokenize)):
+#             Data = Data.replace(words,'')
+#             ListCutText.append(words)
+#       else : 
+#         Data = Data
+
+#     ListSplitCharacter = "\/\/+|\/|\+|,|&| and | and|และ|กับ|เพื่อ|\n"
+#     FindSplitCharecter = re.findall(ListSplitCharacter, Data) 
+
+#     Tokenize_Input = Data
+#     Collected_Input = Data
+
+#     for words in FindSplitCharecter:
+#       Tokenize_Input = Tokenize_Input.replace(words, ' , ')
+
+#     ListUnwantedText =  [
+#                         '[a-z]+-[0-9a-z]+-[a-z0-9]+',               #a-a0-a0     
+#                         '[a-z]+-[0-9]+[a-z]+[0-9]+[a-z]+',          #a-a0 
+#                         '[a-z]+-[0-9]+[a-z]+[a-z]+[0-9]+',          #
+#                         '[a-z]+-[a-z]+[0-9]+[0-9]+[a-z]+',          #
+#                         '[a-z]+-[a-z]+[0-9]+[a-z]+[0-9]+',          #
+#                         '[a-z]+[0-9]+[a-z-]+',                      #                          
+#                         '[a-z]+ [0-9]+ [a-z]+',                     # PIT 3060 ABC                         
+#                         '[a-z]+-[0-9]+-[a-z]+',                     #a-0-a                                               
+#                         '[a-z]+-[a-z]+-[0-9]+',                     #a-a-0
+#                         '[a-z]+-[0-9]+[a-z]+',                      # TT-8006BA
+#                         '[a-z]+-[0-9]+',                            #a-0
+#                         '[0-9]+[a-z]+',                             #0a
+#                         '[a-z]+[0-9]+',                             #a0                        
+#                         '[0-9]+ เมตร',                              #12 เมตร
+#                         '[0-9][0-9]+',                              #00 
+#                         ' [0-9] ',                                  # 0 
+#                         ' [a-z] ',                                  # a
+#                         '\#|\(|\)|\@|^[ ]|:|\"|M\.|-',              
+#                         'group'
+#                         ]
+
+#     for index in ListUnwantedText:
+#       Find_Text = re.findall(index, Tokenize_Input) 
+#       if len(Find_Text) != 0: 
+#         for words in Find_Text:
+#           if (words != ' ' and (words not in DictCorrect or words not in DictTokenize)):
+#             ResultTokenizeInput = Tokenize_Input.replace(words,' ')
+#             ResultCorrectedInput = Collected_Input.replace(words,' ')
+#       else : 
+#         ResultTokenizeInput = Tokenize_Input
+#         ResultCorrectedInput = Collected_Input
+
+#     ResultTokenizeInput = Tokenize_Input.split(',')
+
+#     for index in range(len(ResultTokenizeInput)):
+#       ResultTokenizeInput[index] = re.sub('^ ', '', ResultTokenizeInput[index])
+      
+#   Response_SpellChecker = {
+#     "Collected_Input" : ResultCorrectedInput,
+#     "Result" : ResultTokenizeInput
+#   }
+#   return Response_SpellChecker
+
+# UploadFinding
+# def UploadFinding(FindingData):
+#   # connect_db = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
+#   #             Server = "smitazure.database.windows.net",
+#   #             Database = "Smit1",
+#   #             uid = 'smitadmin',
+#   #             pwd = 'Abc12345',
+#   #             Trusted_Connection = 'no')
   
 #   connect_db = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
-#             Server = "smitazure.database.windows.net",
-#             Database = "Smit1",
-#             uid = 'smitadmin',
-#             pwd = 'Abc12345',
-#             Trusted_Connection = 'no') 
+#                             Server = "TONY",
+#                             Database = "SMIT3",
+#                             uid = 'Local_SMIT3.0',
+#                             pwd = 'Tony123456',
+#                             Trusted_Connection = 'yes')  
+#   cursor = connect_db.cursor()
 
-#   WorkPermit = pd.read_sql("SELECT [RequestLocation], [Cocompany], [WorkName] FROM [WPR_OneDoc] WHERE DocID = '"+Primary_Key+"';", connect_db)
-#   Detail = WorkPermit.sort_values('WorkName')
-#   Area = WorkPermit.sort_values('RequestLocation')
-#   Coworker = WorkPermit.sort_values('Cocompany')
-
-#   return Detail, Area, Coworker
-
-def GetFindingDetail(Orderby):
-  # connect_db = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
-  #             Server = "smitazure.database.windows.net",
-  #             Database = "Smit1",
-  #             uid = 'smitadmin',
-  #             pwd = 'Abc12345',
-  #             Trusted_Connection = 'no') 
+#   Query = "INSERT INTO [FindingDetails] VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
   
-  connect_db = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
-                          Server = "TONY",
-                          Database = "SMIT3",
-                          uid = 'Local_SMIT3.0',
-                          pwd = 'Tony123456',
-                          Trusted_Connection = 'yes')  
+#   if len(FindingData) == 0:
+#     return "All Finding Detail is existed!", 200
+#   else:
+#     cursor.executemany(Query, FindingData)
+#     connect_db.commit()
+#     return "Upload Data Success", 200
 
-  ResponseFindingDetail = pd.read_sql("SELECT * FROM FindingDetails ORDER BY FindingNo "+Orderby, connect_db)
-
-  return ResponseFindingDetail
-
-def UploadFinding(FindingData):
-  # connect_db = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
-  #             Server = "smitazure.database.windows.net",
-  #             Database = "Smit1",
-  #             uid = 'smitadmin',
-  #             pwd = 'Abc12345',
-  #             Trusted_Connection = 'no')
+# GetFindingDetail
+# def GetFindingDetail(Orderby):
+#   # connect_db = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
+#   #             Server = "smitazure.database.windows.net",
+#   #             Database = "Smit1",
+#   #             uid = 'smitadmin',
+#   #             pwd = 'Abc12345',
+#   #             Trusted_Connection = 'no') 
   
-  connect_db = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
-                            Server = "TONY",
-                            Database = "SMIT3",
-                            uid = 'Local_SMIT3.0',
-                            pwd = 'Tony123456',
-                            Trusted_Connection = 'yes')  
-  cursor = connect_db.cursor()
+#   connect_db = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
+#                           Server = "TONY",
+#                           Database = "SMIT3",
+#                           uid = 'Local_SMIT3.0',
+#                           pwd = 'Tony123456',
+#                           Trusted_Connection = 'yes')  
 
-  Query = "INSERT INTO [FindingDetails] VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-  
-  if len(FindingData) == 0:
-    return "All Finding Detail is existed!", 200
-  else:
-    cursor.executemany(Query, FindingData)
-    connect_db.commit()
-    return "Upload Data Success", 200
+#   ResponseFindingDetail = pd.read_sql("SELECT * FROM FindingDetails ORDER BY FindingNo "+Orderby, connect_db)
+
+#   return ResponseFindingDetail
+
+# Upload_Audit_To_Database
+# def Upload_Audit_To_Database(Data):
+#   with open('./SMIT_Data/Audit_Result/SMIT3_Audit_Result.csv', 'a', newline='', encoding="utf-8") as f:
+#     write = csv.writer(f)
+#     write.writerow(Data)
+#   return "Success"

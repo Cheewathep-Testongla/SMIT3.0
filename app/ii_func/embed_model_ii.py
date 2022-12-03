@@ -9,7 +9,7 @@ import pickle
 model_url = './Model/sentence-transformers_msmarco-distilbert-base-dot-prod-v3'
 model_ii = SentenceTransformer(model_url)
 # Select data from database
-df_relate_case = pd.read_csv("./SMIT_Data/data/ii/ii_split_column_translate_all_display.csv", encoding='utf-8')
+df_relate_case = pd.read_csv("./SMIT_Data/SMIT2_Data/ii/ii_split_column_translate_all_display.csv", encoding='utf-8')
 
 # corpus
 df_corpus = df_relate_case.assign(incident_all_detail_en=df_relate_case.IncidentName_en.astype(str) + ', ' +

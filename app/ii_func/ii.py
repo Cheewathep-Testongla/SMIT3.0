@@ -1,4 +1,7 @@
 # import data and function
+# from ii_func.data_ii import *
+# from ii_func.embed_text_ii import *
+# from clean_func.clean import *
 from .data_ii import *
 from .embed_text_ii import *
 from ..clean_func import clean
@@ -71,6 +74,11 @@ for i in range(len(count_unique_Y)):
         'lv3': 0,
     }
 # ------------ response model equal to search_engine_ii -----------------------
+ca_pa = {
+    'all_ca': [],
+    'all_pa': []
+}
+
 form_ii = {
     'find_count': [],
     'risk_score': [],
@@ -167,7 +175,7 @@ def update_ii() -> None:
     # from ..connect_db import con # import data for connecting to database
 
     # SQL query command (ii data) 
-    df_case = pd.read_csv("./SMIT_Data/data/ii/ii_split_column_translate_all_display.csv", encoding='utf-8')
+    df_case = pd.read_csv("./SMIT_Data/SMIT2_Data/ii/ii_split_column_translate_all_display.csv", encoding='utf-8')
 
     # stored data in variabled
     case_DocNo = df_case['DocNo'].to_numpy()
@@ -197,7 +205,7 @@ def update_ii() -> None:
     # from ..connect_db import con # connecting to db
     # ------- SQL query command (CAPA data)--------------
     # query = "SELECT * FROM capa_Data"
-    df_capa =  pd.read_csv("./SMIT_Data/data/ii/capa.csv", encoding='utf-8')
+    df_capa =  pd.read_csv("./SMIT_Data/SMIT2_Data/ii/capa.csv", encoding='utf-8')
     # -----------------------------------------
     capa_IINO = df_capa['IINo'].to_numpy()
     capa_LLNO = df_capa['LLNo'].to_numpy()
@@ -215,7 +223,7 @@ def update_ii() -> None:
     case_detail_display = df_case['IncidentDetail_display'].to_numpy()
     case_cause_display = df_case['Cause_display'].to_numpy()
 
-    with open('./SMIT_Data/data/embeddings_ii_new_all.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
+    with open('./SMIT_Data/SMIT2_Data/embeddings_ii_new_all.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
         stored_data = pickle.load(fIn)
         corpus_embeddings = stored_data['embeddings']
     
@@ -231,7 +239,7 @@ def terminate_ii_json() -> None:
     global store_stat_acc  # Dict stored statistic of accident (count year)
     global data_count_acc  # Dict to stored in store_stat_acc['data]
     global form_ii  # response model equal to search_engine_ii
-
+    global ca_pa
     # -------------- same as line 22 -121 ---------------------------
     store_classification = {
         'case_classification': []
@@ -282,6 +290,11 @@ def terminate_ii_json() -> None:
             'lv2': 0,
             'lv3': 0,
         }
+
+    ca_pa = {
+    'all_ca': [],
+    'all_pa': []
+    }
 
     form_ii = {
         'find_count': [],
@@ -522,9 +535,9 @@ def prepare_data_search_ii(data):
     return queries, token, split_task, token_eng
 
 
-def search_ii(data):
+def search_ii(data, case):
     global form_ii # use global variable
-    # terminate_ii_json() # reset to initial value
+    terminate_ii_json() # reset to initial value
     queries, token, split_task, token_eng = prepare_data_search_ii(data) #preprocess data
 
     # company = data["company"].upper()
@@ -971,6 +984,17 @@ def search_ii(data):
     except:
         form_ii = form_ii
     # ----------------------------------------------------------------------
-    form_ii['all_ca'] = list(dict.fromkeys(form_ii['all_ca']))
-    form_ii['all_pa'] = list(dict.fromkeys(form_ii['all_pa']))
-    return(form_ii)
+    if(case == 'All ii'):
+        form_ii['all_ca'] = list(dict.fromkeys(form_ii['all_ca']))
+        form_ii['all_pa'] = list(dict.fromkeys(form_ii['all_pa']))
+
+        return(form_ii)
+    elif(case == 'Only CAPA'):
+        if len(list(dict.fromkeys(form_ii['all_ca']))) == 0 and list(dict.fromkeys(form_ii['all_ca'])) == 0:
+            form_ii['all_ca'] = ["No Data"]
+            form_ii['all_pa'] = ["No Data"]
+        else:
+            ca_pa['all_ca'] = list(dict.fromkeys(form_ii['all_ca']))
+            ca_pa['all_pa'] = list(dict.fromkeys(form_ii['all_pa']))
+        
+        return(ca_pa)

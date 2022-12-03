@@ -12,11 +12,11 @@ def remove_space(text):
     text = text.strip()
     return text
 # -----------------------------------------------------------------------------------------
-correct_data = pd.read_csv("./SMIT_Data/data/dictionary/correct_word_th.csv", encoding='utf-8').to_numpy() # call file correct data - for normalization
-initial_data = pd.read_csv("./SMIT_Data/data/dictionary/initial.csv", encoding='utf-8').to_numpy() # call file stored initial -> full text
+correct_data = pd.read_csv("./SMIT_Data/SMIT2_Data/dictionary/correct_word_th.csv", encoding='utf-8').to_numpy() # call file correct data - for normalization
+initial_data = pd.read_csv("./SMIT_Data/SMIT2_Data/dictionary/initial.csv", encoding='utf-8').to_numpy() # call file stored initial -> full text
 # --------- thai dict for tokenizing -------------------
 thai_dict = []
-f = open("./SMIT_Data/data/dictionary/dictionary.txt", "r",encoding='utf-8')
+f = open("./SMIT_Data/SMIT2_Data/dictionary/dictionary.txt", "r",encoding='utf-8')
 Lines = f.readlines()
 f.close()
 count = 0
@@ -26,7 +26,7 @@ for line in Lines:
     thai_dict.append(line.strip())
 # ----------- stored quantity word to remove -----------------------
 quantity_dict = []
-f = open("./SMIT_Data/data/dictionary/quantity.txt", "r",encoding='utf-8')
+f = open("./SMIT_Data/SMIT2_Data/dictionary/quantity.txt", "r",encoding='utf-8')
 Lines = f.readlines()
 f.close()
 count = 0
@@ -35,24 +35,24 @@ for line in Lines:
     count += 1
     quantity_dict.append(line.strip())
 # normal dictionary (from public dictionary + word from screen in ii data) use regex find word and count word (Counter) (English)
-WORDS_one = Counter(re.findall(r'\w+', (open('./SMIT_Data/data/dictionary/en_dict.txt',encoding='utf-8').read()).lower()))
+WORDS_one = Counter(re.findall(r'\w+', (open('./SMIT_Data/SMIT2_Data/dictionary/en_dict.txt',encoding='utf-8').read()).lower()))
 # normal dictionary (from public dictionary + word from screen in ii data) use regex find word and count word (Counter) (Thai)
-dic_th_one = Counter(re.findall(r'([\u0E00-\u0E7F]+)', (open('./SMIT_Data/data/dictionary/th_dict.txt',encoding='utf-8').read()).lower()))
+dic_th_one = Counter(re.findall(r'([\u0E00-\u0E7F]+)', (open('./SMIT_Data/SMIT2_Data/dictionary/th_dict.txt',encoding='utf-8').read()).lower()))
 # specific dictionary (from WPR_OneDoc.Work name) use regex find word and count word (Counter) (English)
-work_freq_en = Counter(re.findall(r'\w+', (open('./SMIT_Data/data/dictionary/dataset_not_clean_syllable_freq.txt',encoding='utf-8').read()).lower()))
+work_freq_en = Counter(re.findall(r'\w+', (open('./SMIT_Data/SMIT2_Data/dictionary/dataset_not_clean_syllable_freq.txt',encoding='utf-8').read()).lower()))
 # specific dictionary (from WPR_OneDoc.Work name) use regex find word and count word (Counter) (Thai)
-work_freq_th = Counter(re.findall(r'([\u0E00-\u0E7F]+)', (open('./SMIT_Data/data/dictionary/dataset_not_clean_syllable_freq.txt',encoding='utf-8').read()).lower()))
+work_freq_th = Counter(re.findall(r'([\u0E00-\u0E7F]+)', (open('./SMIT_Data/SMIT2_Data/dictionary/dataset_not_clean_syllable_freq.txt',encoding='utf-8').read()).lower()))
 # combine normal and specific dictionary (English) - to correct data
 WORDS = WORDS_one + work_freq_en
 # combine normal and specific dictionary (Thai) - to correct data
 dic_th = dic_th_one + work_freq_th
 # ------ tag equipment data ----------------------------------
 # !!! (currently use) !!!
-data_elec = pd.read_csv('./SMIT_Data/data/tag/Electrical List Report Temp.csv') # use Tag Name,Tag Description,Tag Type
-data_equip = pd.read_csv('./SMIT_Data/data/tag/Equipment List Report Temp.csv') # use Tag Name,Tag Description,Tag Type
-data_instru = pd.read_csv('./SMIT_Data/data/tag/Instrument Index Report Temp.csv') # use Tag No(->Tag Name),Tag Description,Tag Type
+data_elec = pd.read_csv('./SMIT_Data/SMIT2_Data/tag/Electrical List Report Temp.csv') # use Tag Name,Tag Description,Tag Type
+data_equip = pd.read_csv('./SMIT_Data/SMIT2_Data/tag/Equipment List Report Temp.csv') # use Tag Name,Tag Description,Tag Type
+data_instru = pd.read_csv('./SMIT_Data/SMIT2_Data/tag/Instrument Index Report Temp.csv') # use Tag No(->Tag Name),Tag Description,Tag Type
 # !!! (don't use)
-data_line = pd.read_csv('./SMIT_Data/data/tag/Line List Report Temp.csv') # use Tag Name, Fluid (usually don't found : present -> don't use)
+data_line = pd.read_csv('./SMIT_Data/SMIT2_Data/tag/Line List Report Temp.csv') # use Tag Name, Fluid (usually don't found : present -> don't use)
 # data_moc = pd.read_csv('data/tag/Tag_List_MOC.csv')# use TagName(->Tag Name),Description(->Tag Description),Area  (form don't math with data in currently use)
 
 data_instru.rename({'Tag No': 'Tag Name'}, axis=1, inplace=True) # change name to the same as other data
@@ -87,7 +87,7 @@ tag_dict = Counter(tag_name_dict) # count tag equipment (each tag have 1) - for 
 # -------- Work name -for levenshtein distance (correct sentences by find similar Work name) ----------------
 # !!! SQL query command
 # select_sql = "SELECT WorkName FROM [dbo].[WPR_OneDoc]"
-df_work_name_db = pd.read_csv("./SMIT_Data/data/work permit/Permit Data.csv", encoding='utf-8')
+df_work_name_db = pd.read_csv("./SMIT_Data/SMIT2_Data/work permit/Permit Data.csv", encoding='utf-8')
 # drop empty
 df_work_name_db = df_work_name_db.dropna()
 # stored work name in list

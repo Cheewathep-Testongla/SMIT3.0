@@ -1,12 +1,11 @@
-CREATE TABLE Prepared_FindingDetails (
-	FindingNo INT,
+CREATE TABLE Cleansing_FindingDetails (
+	FindingNo INT NOT NULL PRIMARY KEY,
 	Area VARCHAR(max) ,
 	SubArea VARCHAR(max),
 	Contractor VARCHAR(max),
 	TypeOfFinding VARCHAR(max),
 	Topic VARCHAR(max),
-	Details VARCHAR(max),
-	Frequency int,
-	CleansingDetails VARCHAR(max),
-	TranslateDetails VARCHAR(max)
+	Finding VARCHAR(max),
+	CleansingFinding VARCHAR(max),
+	TranslateFinding VARCHAR(max)
 );

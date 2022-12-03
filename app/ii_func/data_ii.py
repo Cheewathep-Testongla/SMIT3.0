@@ -5,7 +5,7 @@ model_url = './Model/sentence-transformers_msmarco-distilbert-base-dot-prod-v3' 
 model_ii = SentenceTransformer(model_url) # load model
 # --- SQL query command ---------------------
 # query = "SELECT * FROM [dbo].[II_cleanData];"
-df_case = pd.read_csv("./SMIT_Data/data/ii/ii_split_column_translate_all_display.csv", encoding='utf-8')
+df_case = pd.read_csv("./SMIT_Data/SMIT2_Data/ii/ii_split_column_translate_all_display.csv", encoding='utf-8')
 # ---------------stored data in numpy ----------------------------
 case_DocNo = df_case['DocNo'].to_numpy()
 case_capa_IINO = df_case['IINo'].to_numpy()
@@ -33,7 +33,7 @@ count_unique_Y.sort()
 
 # ------- SQL query command (CAPA data)--------------
 
-df_capa = pd.read_csv("./SMIT_Data/data/ii/capa.csv", encoding='utf-8')
+df_capa = pd.read_csv("./SMIT_Data/SMIT2_Data/ii/capa.csv", encoding='utf-8')
 # -----------------------------------------
 capa_IINO = df_capa['IINo'].to_numpy()
 capa_LLNO = df_capa['LLNo'].to_numpy()
