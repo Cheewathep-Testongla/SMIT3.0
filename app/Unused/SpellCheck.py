@@ -217,6 +217,10 @@ def TestSpellCheck(Data):
     DictCorrect = Custom_Dict['correct'].tolist()
     Unwanted_Dict = Unwanted_Dict['words'].tolist()
 
+    Thai_Dict = pd.read_csv('./SMIT_Data/DataForModel/TH_Raw_Dictionary.csv',encoding='utf-8')
+    THDictTokenize = Thai_Dict['words'].tolist()
+    THDictTrie = Trie(THDictTokenize)
+
     Data = re.sub(' +',' ', Data)
     Data = re.sub('^ +','', Data)
     Data = re.sub('^ | $','', Data)
@@ -307,7 +311,7 @@ def TestSpellCheck(Data):
     trie = Trie(DictTokenize)
 
     for sentence in Tokenize_Input:
-        TempListTokenize = word_tokenize(sentence, custom_dict=trie, engine='newmm')
+        TempListTokenize = word_tokenize(sentence, custom_dict=THDictTrie, engine='newmm')
         GetPos_TagListTokenize = pos_tag(TempListTokenize, corpus="orchid_ud")
         
         TempResult = []
@@ -315,7 +319,7 @@ def TestSpellCheck(Data):
         PROPNListTokenize = []
         ListTokenize = []
 
-        print(TempListTokenize)
+        # print(TempListTokenize)
 
         for index in range(len(GetPos_TagListTokenize)):
             temp = []
@@ -338,6 +342,7 @@ def TestSpellCheck(Data):
                 TempResult.append(ListTokenize[i])     
 
             elif(len(re.findall('([A-Za-z])\w+', ListTokenize[i])) > 0):
+                # print(re.findall('([A-Za-z])\w+', ListTokenize[i]))
                 if ListTokenize[i] in DictTokenize:
                     TempResult.append(DictCorrect[DictTokenize.index(ListTokenize[i])])
                 else:
@@ -444,7 +449,7 @@ def TestSpellCheck(Data):
 # test = 'remove/install scaff' # คำนามไม่ครบประโยค ['remove', 'install scaffolding'] : ผ่าน
 # test = '5ส Oiler+ Lifting Oil' # ผ่าน
 # test = 'ขนยายอุปกรนตังนังล้าน' # ผ่าน
-# test = 'ขยายอุกรณ์อุปกรณ์นังล้านและอุกรณ์ติดตั้ง insul / velding' # ผ่าน
+test = 'ขยายอุกรณ์อุปกรณ์นังล้านและอุกรณ์ติดตั้ง insul / velding' # ผ่าน
 # test = 'ติดตั้งทุนรอยน้ำและแผงโซล่าเซลล์, ขยายอุกรณ์' # ผ่าน
 # test = "ยก ขนย้ายอุปกรณ์เครื่องมือ, เครื่อง Gen, Pipe Spool เข้าหน้างาน" # ผ่าน
 # test = ' งานตัด เจียร เชื่อม Support Conduit, งานติดตั้งท่อ Conduit, ลากสาย' # ผ่าน
@@ -537,14 +542,17 @@ def TestSpellCheck(Data):
 # test = 'install scafffolding'
 # test = 'ตัด เชื่อ  เจียร ์์pipe support '
 # test = 'ตัด เจียร์ รื้อรางTray'
-test = 'ตัดเชื่อม เจียระ ประกอบ Pipe support'
-test = 'จรวจสอบ CUS Pipe'
-test = 'งาานรื้อนั่งร้าน Project Unicat.'
-test = 'งานนั้งร้าน'
-test = 'งานยกติดตั้งเครื่อง Gen ฯ ,ห้องน้ำ และ ติดตั้งนั่งร้าน'
-test = 'งานสกัดปูน-่กออิฐ-ฉาบปูน-ทาสี'
-test = 'จาะติดตั้งsupport  ทาสี ลากสาย'
-test = 'งานหุ้ม Insuฯ'
+# test = 'ตัดเชื่อม เจียระ ประกอบ Pipe support'
+# test = 'จรวจสอบ CUS Pipe'
+# test = 'งาานรื้อนั่งร้าน Project Unicat.'
+# test = 'งานนั้งร้าน'
+# test = 'งานยกติดตั้งเครื่อง Gen ฯ ,ห้องน้ำ และ ติดตั้งนั่งร้าน'
+# test = 'งานสกัดปูน-่กออิฐ-ฉาบปูน-ทาสี'
+# test = 'จาะติดตั้งsupport  ทาสี ลากสาย'
+# test = 'งานหุ้ม Insuฯ'
+# test = 'insaall insult'
+# test = 'weddding, pant'
+# test = 'ตัดเชือม และ weding'
 # ---------------------------------------------- #
 
 TestSpellCheck(test)

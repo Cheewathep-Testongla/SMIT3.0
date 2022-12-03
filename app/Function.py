@@ -49,6 +49,11 @@ def Cleansing_Input(Data, Case) :
   DictCorrect = Custom_Dict['correct'].tolist()
   AllDict = DictCorrect+DictTokenize
 
+  
+  Thai_Dict = pd.read_csv('./SMIT_Data/DataForModel/TH_Raw_Dictionary.csv',encoding='utf-8')
+  THDictTokenize = Thai_Dict['words'].tolist()
+  THDictTrie = Trie(THDictTokenize)
+
   Data = re.sub(' +',' ', Data)
   Data = re.sub('^ +','', Data)
   Data = re.sub('^ | $','', Data)
@@ -130,10 +135,10 @@ def Cleansing_Input(Data, Case) :
     ResultTokenizeInput = []
     ResultCorrectedInput = ''
 
-    trie = Trie(AllDict)
+    # trie = Trie(AllDict)
 
     for sentence in Tokenize_Input:
-        TempListTokenize = word_tokenize(sentence, custom_dict=trie, engine='newmm')
+        TempListTokenize = word_tokenize(sentence, custom_dict=THDictTrie, engine='newmm')
         GetPos_TagListTokenize = pos_tag(TempListTokenize, corpus="orchid_ud")
         
         TempResult = []
@@ -551,7 +556,7 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
     Create_List_Safety_Audit_Area.append(Temp_Safety_Audit_Area[i]) 
     Create_List_Safety_Audit_Topic.append(Temp_Safety_Audit_Topic[i]) 
 
-    if(Temp_Safety_Audit_Type_Of_Finding[i] == "Accident"):
+    if(Temp_Safety_Audit_Type_Of_Finding[i] == "Accident" or Temp_Safety_Audit_Type_Of_Finding[i] == "HNM" or Temp_Safety_Audit_Type_Of_Finding[i] == "Near Miss"):
       tempResultCAPA = {
           "name": Temp_Safety_Audit_Details[i],
           "tag_equip": "",
