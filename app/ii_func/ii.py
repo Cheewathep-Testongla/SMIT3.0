@@ -1034,7 +1034,6 @@ def search_ii(data, ResponseCase):
     index_type_most_sim = ''
     # ------------------- sort ---------------------------------
     for i in range(len(temp_most_sim)):
-        print(temp_most_sim[i] , type(temp_most_sim[i]))
         if(temp_most_sim[i] > index_most_sim):
             index_most_sim = temp_most_sim[i]
             index_type_most_sim = type_most_sim[i]
