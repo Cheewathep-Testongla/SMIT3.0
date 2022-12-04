@@ -1,7 +1,8 @@
 # import data and function
 # from ii_func.data_ii import *
 # from ii_func.embed_text_ii import *
-# from clean_func.clean import *
+# from clean import *
+
 from .data_ii import *
 from .embed_text_ii import *
 from ..clean_func import clean
@@ -17,7 +18,6 @@ from sentence_transformers import SentenceTransformer, util # embed file
 import pickle # load pickle file
 
 from typing import List # define input/output
-
 
 model_url = './Model/sentence-transformers_msmarco-distilbert-base-dot-prod-v3' # folder model
 model_ii = SentenceTransformer(model_url) # load model
@@ -379,6 +379,7 @@ def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float
     capa_cause_type = []  # list to store CauseType (CAPA)
     capa_detail = []  # list to store CAPAName (CAPA)
     ca_pa_type = []  # list to store CAPAType (CAPA)
+
     for i in range(len(work)):
         # try to find capa from IINO
         try: 
@@ -420,17 +421,25 @@ def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float
                     case["ii_ca"].append(capa_detail[num]) # of each case
                     if(not(work_relate[i])): # check if match case (pass criteria and have word matching)
                         form_ii['all_ca'].append(capa_detail[num]) # stored all CA case
+
                 # stored PA (preventive action) of accident that pass search criteria
                 elif(ca_pa_type[0][num] == 'PA'):
                     case["ii_pa"].append(capa_detail[num])  # of each case
                     # check if match case (pass criteria and have word matching)
                     if(not(work_relate[i])):
                         form_ii['all_pa'].append(capa_detail[num]) # stored all PA case
+
         # reset to initial
         capa_cause_type = []
         capa_detail = []
         capa_cause_name = []
         ca_pa_type = []
+
+        if(len(case['ii_pa']) == 0):
+            case['ii_pa'].append("-")
+        if(len(case['ii_ca']) == 0):
+            case['ii_ca'].append("-")
+
         if(not work_relate[i]):  # check if match case (pass criteria and have word matching)
             form_ii[group_type]["case"].append(case) # stored in main case (show in 'match case')
         else:
@@ -463,6 +472,23 @@ def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float
                     form_ii[group_type]['case'][j] = temp
             form_ii[group_type]['case'][i]['id'] = i+1 # change id to range (use to ranging top 3)
         form_ii[group_type]['case'][len(form_ii[group_type]['case'])-1]['id'] = len(form_ii[group_type]['case'])
+    else:
+        form_ii[group_type]['case'] = {
+           'id': -1,
+           'ii_incidentName': ["-"],
+           'ii_incidentDetail': ["-"],
+           'ii_incidentCause': ["-"],
+           'ii_capa_incidentCauseType': ["-"],
+           'ii_capa_incidentCauseName': ["-"],
+           'ii_ca': ["-"],
+           'ii_pa': ["-"],
+           'ii_humanImpact': ["-"],
+           'ii_propertyImpact': ["-"],
+           'ii_environmentImpact': ["-"],
+           'ii_classification': ["-"],
+           'ii_incidentType': ["-"],
+           'sim_score': ["-"]
+       }
     # sort relate case by similarity score
     if(len(form_ii[group_type]['relate']['case']) > 0):
         for i in range(len(form_ii[group_type]['relate']['case'])-1):
@@ -473,7 +499,23 @@ def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float
                     form_ii[group_type]['relate']['case'][j] = temp
             form_ii[group_type]['relate']['case'][i]['id'] = i+1 # change id to range (use to ranging top 3)
         form_ii[group_type]['relate']['case'][len(form_ii[group_type]['relate']['case'])-1]['id'] = len(form_ii[group_type]['relate']['case'])
-
+    else:
+         form_ii[group_type]['relate']['case'] = {
+           'id': -1,
+           'ii_incidentName': ["-"],
+           'ii_incidentDetail': ["-"],
+           'ii_incidentCause': ["-"],
+           'ii_capa_incidentCauseType': ["-"],
+           'ii_capa_incidentCauseName': ["-"],
+           'ii_ca': ["-"],
+           'ii_pa': ["-"],
+           'ii_humanImpact': ["-"],
+           'ii_propertyImpact': ["-"],
+           'ii_environmentImpact': ["-"],
+           'ii_classification': ["-"],
+           'ii_incidentType': ["-"],
+           'sim_score': ["-"]
+       }
 
 def prepare_data_search_ii(data):
     # remove quantity from text (eg. เมตร, กิโลมตร etc.)
@@ -792,6 +834,14 @@ def search_ii(data, case):
                             work_lv_2_is_relate.append(False)
                         else:
                             work_lv_2_is_relate.append(True)
+                    elif(len(index_capa[0]) == 0):
+                        work_lv_2.append(['-'])
+                        capa_lv_2.append(['-'])
+                        sim_work_lv_2.append(['-'])
+                        if(pass_flag):
+                            work_lv_2_is_relate.append(False)
+                        else:
+                            work_lv_2_is_relate.append(True)
                     if(pass_flag):
                         num_2 = num_2 + 1
                         num_all = num_all+1
@@ -893,18 +943,24 @@ def search_ii(data, case):
         
         if not work_lv_3:
             print('\nไม่มีอุบัติเหตุ level 3')
+            update_ii_json(work_lv_3, work_lv_3_is_relate,
+                           sim_work_lv_3, capa_lv_3, "lv3")
         else: # call function update case that pass criteria to update form_ii 
             update_ii_json(work_lv_3, work_lv_3_is_relate,
                            sim_work_lv_3, capa_lv_3, "lv3")
         # ------------------- accident level 2 -----------------------------------
         if not work_lv_2:
             print('\nไม่มีอุบัติเหตุ level 2')
+            update_ii_json(work_lv_2, work_lv_2_is_relate,
+                           sim_work_lv_2, capa_lv_2, "lv2")
         else:
             update_ii_json(work_lv_2, work_lv_2_is_relate,
                            sim_work_lv_2, capa_lv_2, "lv2")
         # ------------------- accident level 1 -----------------------------------
         if not work_lv_1:
             print('\nไม่มีอุบัติเหตุ level 1')
+            update_ii_json(work_lv_1, work_lv_1_is_relate,
+                           sim_work_lv_1, capa_lv_1, "lv1")
         else:
             update_ii_json(work_lv_1, work_lv_1_is_relate,
                            sim_work_lv_1, capa_lv_1, "lv1")

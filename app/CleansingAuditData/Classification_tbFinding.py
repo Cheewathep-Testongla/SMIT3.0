@@ -5,13 +5,15 @@ import pandas as pd
 import pyodbc
 from pythainlp import word_tokenize
 from pythainlp.util import Trie     
-# import .py                                         
-from .ScoredWord import *
-from .Cleansing_FindingDetails import Cleansing_FindingDetails
-from ..connection_db import *
+# import .py   
 # from CleansingAuditData.ScoredWord import *
 # from CleansingAuditData.Cleansing_FindingDetails import *
 # from connection_db import * 
+
+from .ScoredWord import *
+from .Cleansing_FindingDetails import Cleansing_FindingDetails
+from ..connection_db import *
+
 
 def StartCleansingtbFinding():
     Custom_Dict = pd.read_csv('./SMIT_Data/DataForModel/Raw_Dictionary.csv', encoding='utf-8')

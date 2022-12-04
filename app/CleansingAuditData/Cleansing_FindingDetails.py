@@ -4,14 +4,20 @@ from deep_translator import GoogleTranslator
 import pandas as pd                                        
 import pyodbc                                          
 from sentence_transformers import SentenceTransformer, util
+from difflib import get_close_matches
+import re
+import pandas as pd
+import pickle
+from pythainlp import word_tokenize
+from pythainlp.tag import pos_tag
+from pythainlp.util import Trie
 # import .py
-from ..connection_db import *   
-from .Prepared_FindingDetails import *
-
-# import app.Function
 # from CleansingAuditData.Prepared_FindingDetails import *           
 # from CleansingAuditData.Prepared_FindingDetails import Prepared_FindingDetails
 # from connection_db import *                      
+
+from ..connection_db import *   
+from .Prepared_FindingDetails import *
 
 modelPath = "./Model/SentenceTransformer"
 

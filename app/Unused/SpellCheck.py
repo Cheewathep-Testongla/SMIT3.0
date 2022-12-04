@@ -313,7 +313,7 @@ def TestSpellCheck(Data):
     for sentence in Tokenize_Input:
         TempListTokenize = word_tokenize(sentence, custom_dict=THDictTrie, engine='newmm')
         GetPos_TagListTokenize = pos_tag(TempListTokenize, corpus="orchid_ud")
-        
+        print(TempListTokenize)
         TempResult = []
         CheckIfTempResultisAlready = []
         PROPNListTokenize = []
@@ -401,7 +401,6 @@ def TestSpellCheck(Data):
 
         Result = []
         TempResultTokenizeInput = ''
-        print(TempResult)
         # Remove first and last empty space in list
         for i in range(len(TempResult)):
             if(i == 0 and len(TempResult) > 1):
@@ -448,8 +447,8 @@ def TestSpellCheck(Data):
 # test = 'เปลี่ยน อะไหร่ air com' # แก้เป็น air com : air
 # test = 'remove/install scaff' # คำนามไม่ครบประโยค ['remove', 'install scaffolding'] : ผ่าน
 # test = '5ส Oiler+ Lifting Oil' # ผ่าน
-# test = 'ขนยายอุปกรนตังนังล้าน' # ผ่าน
-test = 'ขยายอุกรณ์อุปกรณ์นังล้านและอุกรณ์ติดตั้ง insul / velding' # ผ่าน
+test = 'ขนยายอุปกรนตังนังล้าน' # ผ่าน
+# test = 'ขยายอุกรณ์อุปกรณ์นังล้านและอุกรณ์ติดตั้ง insul / velding' # ผ่าน
 # test = 'ติดตั้งทุนรอยน้ำและแผงโซล่าเซลล์, ขยายอุกรณ์' # ผ่าน
 # test = "ยก ขนย้ายอุปกรณ์เครื่องมือ, เครื่อง Gen, Pipe Spool เข้าหน้างาน" # ผ่าน
 # test = ' งานตัด เจียร เชื่อม Support Conduit, งานติดตั้งท่อ Conduit, ลากสาย' # ผ่าน

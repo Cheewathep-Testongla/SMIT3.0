@@ -506,7 +506,7 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
         run_Number = 1
 
         for score, i, j, k, l, m, n, o in compare_work_with_Safety_Audit[:5]:        
-          if Cosine_Sim[i][0] > 0.6:
+          if Cosine_Sim[i][0] > 0.5:
             Temp_Safety_Audit_Details.append(Safety_Audit_Details[i])
             Temp_Safety_Audit_Frequency.append(Data_Frequency[i])
             Temp_Safety_Audit_Contractor.append(Data_Contractor[i])
