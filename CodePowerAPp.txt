@@ -1,0 +1,117 @@
+
+ClearCollect(
+    Collect_ii_lv2,
+    AddColumns(
+        RenameColumns(
+            FirstN(
+                [
+                    1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+                ],
+                CountRows(Response_ii.lv2.case)
+            ),
+            "Value",
+            "Index"
+        ),
+        "id", Index(Response_ii.lv2.case, Index).id,
+        "ii_incidentName", Index(Response_ii.lv2.case, Index).ii_incidentName,
+        "ii_incidentDetail", Index(Response_ii.lv2.case, Index).ii_incidentDetail,
+        "ii_incidentCause", Index(Response_ii.lv2.case, Index).ii_incidentCause,
+        "ii_capa_incidentCauseType", Index(Response_ii.lv2.case, Index).ii_capa_incidentCauseType,
+        "ii_capa_incidentCauseName", Index(Response_ii.lv2.case, Index).ii_capa_incidentCauseName,
+        "ii_ca", Index(Response_ii.lv2.case, Index).id_ca,
+        "ii_pa", Index(Response_ii.lv1.case, Index).ii_pa,
+        "ii_humanImpact", Index(Response_ii.lv1.case, Index).ii_humanImpact,
+        "ii_propertyImpact", Index(Response_ii.lv1.case, Index).ii_propertyImpact,
+        "ii_environmentImpact", Index(Response_ii.lv1.case, Index).ii_environmentImpact,
+        "ii_classification", Index(Response_ii.lv1.case, Index).ii_classification,
+        "ii_incidentType", Index(Response_ii.lv1.case, Index).ii_incidentType
+    )
+);
+
+ClearCollect(
+    Collect_ii_relate_lv2,
+    AddColumns(
+        RenameColumns(
+            FirstN(
+                [
+                    1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+                ],
+                CountRows(Response_ii.lv2.relate.case)
+            ),
+            "Value",
+            "Index"
+        ),
+        "id", Index(Response_ii.lv2.relate.case, Index).id,
+        "ii_incidentName", Index(Response_ii.lv2.relate.case, Index).ii_incidentName,
+        "ii_incidentDetail", Index(Response_ii.lv2.relate.case, Index).ii_incidentDetail,
+        "ii_incidentCause", Index(Response_ii.lv2.relate.case, Index).ii_incidentCause,
+        "ii_capa_incidentCauseType", Index(Response_ii.lv2.relate.case, Index).ii_capa_incidentCauseType,
+        "ii_capa_incidentCauseName", Index(Response_ii.lv2.relate.case, Index).ii_capa_incidentCauseName,
+        "ii_ca", Index(Response_ii.lv2.relate.case, Index).ii_ca,
+        "ii_pa", Index(Response_ii.lv2.relate.case, Index).ii_pa,
+        "ii_humanImpact", Index(Response_ii.lv2.relate.case, Index).ii_humanImpact,
+        "ii_propertyImpact", Index(Response_ii.lv2.relate.case, Index).ii_propertyImpact,
+        "ii_environmentImpact", Index(Response_ii.lv2.relate.case, Index).ii_environmentImpact,
+        "ii_classification", Index(Response_ii.lv2.relate.case, Index).ii_classification,
+        "ii_incidentType", Index(Response_ii.lv2.relate.case, Index).ii_incidentType
+    )
+);
+
+
+ClearCollect(
+    Collect_ii_lv3,
+    AddColumns(
+        RenameColumns(
+            FirstN(
+                [
+                    1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+                ],
+                CountRows(Response_ii.lv3.case)
+            ),
+            "Value",
+            "Index"
+        ),
+        "id", Index(Response_ii.lv3.case, Index).id,
+        "ii_incidentName", Index(Response_ii.lv3.case, Index).ii_incidentName,
+        "ii_incidentDetail", Index(Response_ii.lv3.case, Index).ii_incidentDetail,
+        "ii_incidentCause", Index(Response_ii.lv3.case, Index).ii_incidentCause,
+        "ii_capa_incidentCauseType", Index(Response_ii.lv3.case, Index).ii_capa_incidentCauseType,
+        "ii_capa_incidentCauseName", Index(Response_ii.lv3.case, Index).ii_capa_incidentCauseName,
+        "ii_ca", Index(Response_ii.lv3.case, Index).id_ca,
+        "ii_pa", Index(Response_ii.lv3.case, Index).ii_pa,
+        "ii_humanImpact", Index(Response_ii.lv3.case, Index).ii_humanImpact,
+        "ii_propertyImpact", Index(Response_ii.lv3.case, Index).ii_propertyImpact,
+        "ii_environmentImpact", Index(Response_ii.lv3.case, Index).ii_environmentImpact,
+        "ii_classification", Index(Response_ii.lv3.case, Index).ii_classification,
+        "ii_incidentType", Index(Response_ii.lv3.case, Index).ii_incidentType
+    )
+);
+
+ClearCollect(
+    Collect_ii_relate_lv3,
+    AddColumns(
+        RenameColumns(
+            FirstN(
+                [
+                    1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+                ],
+                CountRows(Response_ii.lv3.relate.case)
+            ),
+            "Value",
+            "Index"
+        ),
+        "id", Index(Response_ii.lv3.relate.case, Index).id,
+        "ii_incidentName", Index(Response_ii.lv3.relate.case, Index).ii_incidentName,
+        "ii_incidentDetail", Index(Response_ii.lv3.relate.case, Index).ii_incidentDetail,
+        "ii_incidentCause", Index(Response_ii.lv3.relate.case, Index).ii_incidentCause,
+        "ii_capa_incidentCauseType", Index(Response_ii.lv3.relate.case, Index).ii_capa_incidentCauseType,
+        "ii_capa_incidentCauseName", Index(Response_ii.lv3.relate.case, Index).ii_capa_incidentCauseName,
+        "ii_ca", Index(Response_ii.lv3.relate.case, Index).ii_ca,
+        "ii_pa", Index(Response_ii.lv3.relate.case, Index).ii_pa,
+        "ii_humanImpact", Index(Response_ii.lv3.relate.case, Index).ii_humanImpact,
+        "ii_propertyImpact", Index(Response_ii.lv3.relate.case, Index).ii_propertyImpact,
+        "ii_environmentImpact", Index(Response_ii.lv3.relate.case, Index).ii_environmentImpact,
+        "ii_classification", Index(Response_ii.lv3.relate.case, Index).ii_classification,
+        "ii_incidentType", Index(Response_ii.lv3.relate.case, Index).ii_incidentType
+    )
+);

@@ -473,22 +473,24 @@ def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float
             form_ii[group_type]['case'][i]['id'] = i+1 # change id to range (use to ranging top 3)
         form_ii[group_type]['case'][len(form_ii[group_type]['case'])-1]['id'] = len(form_ii[group_type]['case'])
     else:
-        form_ii[group_type]['case'] = {
-           'id': -1,
-           'ii_incidentName': ["-"],
-           'ii_incidentDetail': ["-"],
-           'ii_incidentCause': ["-"],
-           'ii_capa_incidentCauseType': ["-"],
-           'ii_capa_incidentCauseName': ["-"],
-           'ii_ca': ["-"],
-           'ii_pa': ["-"],
-           'ii_humanImpact': ["-"],
-           'ii_propertyImpact': ["-"],
-           'ii_environmentImpact': ["-"],
-           'ii_classification': ["-"],
-           'ii_incidentType': ["-"],
-           'sim_score': ["-"]
-       }
+        form_ii[group_type]['case'] = [
+            {
+            'id': -1,
+            'ii_incidentName': ["-"],
+            'ii_incidentDetail': ["-"],
+            'ii_incidentCause': ["-"],
+            'ii_capa_incidentCauseType': ["-"],
+            'ii_capa_incidentCauseName': ["-"],
+            'ii_ca': ["-"],
+            'ii_pa': ["-"],
+            'ii_humanImpact': ["-"],
+            'ii_propertyImpact': ["-"],
+            'ii_environmentImpact': ["-"],
+            'ii_classification': ["-"],
+            'ii_incidentType': ["-"],
+            'sim_score': [0]
+            }
+        ]
     # sort relate case by similarity score
     if(len(form_ii[group_type]['relate']['case']) > 0):
         for i in range(len(form_ii[group_type]['relate']['case'])-1):
@@ -500,22 +502,24 @@ def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float
             form_ii[group_type]['relate']['case'][i]['id'] = i+1 # change id to range (use to ranging top 3)
         form_ii[group_type]['relate']['case'][len(form_ii[group_type]['relate']['case'])-1]['id'] = len(form_ii[group_type]['relate']['case'])
     else:
-         form_ii[group_type]['relate']['case'] = {
-           'id': -1,
-           'ii_incidentName': ["-"],
-           'ii_incidentDetail': ["-"],
-           'ii_incidentCause': ["-"],
-           'ii_capa_incidentCauseType': ["-"],
-           'ii_capa_incidentCauseName': ["-"],
-           'ii_ca': ["-"],
-           'ii_pa': ["-"],
-           'ii_humanImpact': ["-"],
-           'ii_propertyImpact': ["-"],
-           'ii_environmentImpact': ["-"],
-           'ii_classification': ["-"],
-           'ii_incidentType': ["-"],
-           'sim_score': ["-"]
-       }
+        form_ii[group_type]['relate']['case'] = [
+            {
+            'id': -1,
+            'ii_incidentName': ["-"],
+            'ii_incidentDetail': ["-"],
+            'ii_incidentCause': ["-"],
+            'ii_capa_incidentCauseType': ["-"],
+            'ii_capa_incidentCauseName': ["-"],
+            'ii_ca': ["-"],
+            'ii_pa': ["-"],
+            'ii_humanImpact': ["-"],
+            'ii_propertyImpact': ["-"],
+            'ii_environmentImpact': ["-"],
+            'ii_classification': ["-"],
+            'ii_incidentType': ["-"],
+            'sim_score': [0]
+            }
+        ]
 
 def prepare_data_search_ii(data):
     # remove quantity from text (eg. เมตร, กิโลมตร etc.)
@@ -576,7 +580,7 @@ def prepare_data_search_ii(data):
     return queries, token, split_task, token_eng
 
 
-def search_ii(data, case):
+def search_ii(data, ResponseCase):
     global form_ii # use global variable
     terminate_ii_json() # reset to initial value
     queries, token, split_task, token_eng = prepare_data_search_ii(data) #preprocess data
@@ -1030,6 +1034,7 @@ def search_ii(data, case):
     index_type_most_sim = ''
     # ------------------- sort ---------------------------------
     for i in range(len(temp_most_sim)):
+        print(temp_most_sim[i] , type(temp_most_sim[i]))
         if(temp_most_sim[i] > index_most_sim):
             index_most_sim = temp_most_sim[i]
             index_type_most_sim = type_most_sim[i]
@@ -1039,12 +1044,12 @@ def search_ii(data, case):
     except:
         form_ii = form_ii
     # ----------------------------------------------------------------------
-    if(case == 'All ii'):
+    if(ResponseCase == 'All ii'):
         form_ii['all_ca'] = list(dict.fromkeys(form_ii['all_ca']))
         form_ii['all_pa'] = list(dict.fromkeys(form_ii['all_pa']))
 
         return(form_ii)
-    elif(case == 'Only CAPA'):
+    elif(ResponseCase == 'Only CAPA'):
         if len(list(dict.fromkeys(form_ii['all_ca']))) == 0 and list(dict.fromkeys(form_ii['all_ca'])) == 0:
             form_ii['all_ca'] = ["No Data"]
             form_ii['all_pa'] = ["No Data"]
