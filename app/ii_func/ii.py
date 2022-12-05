@@ -412,8 +412,11 @@ def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float
         # if find CAPA
         if(len(capa_cause_type) > 0):
             # stored unique CauseType(CAPA) , CauseName(CAPA)
-            case["ii_capa_incidentCauseType"].append(list(dict.fromkeys(capa_cause_type)))
-            case["ii_capa_incidentCauseName"].append(list(dict.fromkeys(capa_cause_name)))
+            for cause_type in list(dict.fromkeys(capa_cause_type)):
+                case["ii_capa_incidentCauseType"].append(cause_type)
+
+            for cause_name in list(dict.fromkeys(capa_cause_name)):
+                case["ii_capa_incidentCauseName"].append(cause_name)
             # loop in CAPAType
             for num in range(len(ca_pa_type[0])):
                 # stored CA (corrective action) of accident that pass search criteria
