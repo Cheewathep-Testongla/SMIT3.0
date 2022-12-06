@@ -15,7 +15,6 @@ def CreateFrequencyTypeOfFinding(word, ListWords_UnsafeAction, ListWords_UnsafeC
     else:
         return Value
 
-
 def CreateFrequencyTopic(word, ListWords_LOTO, ListWords_WAH, ListWords_Scaffolding, ListWords_Transportation, ListWords_PTW_JSA, 
                                ListWords_ProcessOperation, ListWords_Radiation, ListWords_Others, ListWords_Lifting, ListWords_Housekeeping,
                                ListWords_ToolsEquipment, ListWords_HotWork, ListWords_Excavation, ListWords_CSE, ListWords_ElectricalGrounding,

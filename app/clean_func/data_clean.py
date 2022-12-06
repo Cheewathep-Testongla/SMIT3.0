@@ -2,8 +2,6 @@ import pandas as pd
 import re
 from collections import Counter
 
-# from ..connect_db import con
-
 # ----- function remove space (start,end), carriage return(\r), new line/enter(\n), tab(\t)
 def remove_space(text):
     text = text.replace('\r', '')

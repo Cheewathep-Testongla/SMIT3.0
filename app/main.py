@@ -52,8 +52,8 @@ class Form_Response_SafetyAudit(BaseModel):
   Risk_Score : FindingScore
 
 class Response_SafetyAudit(BaseModel):
-  case_1 : Form_Response_SafetyAudit
-  case_2 : Form_Response_SafetyAudit
+  case : Form_Response_SafetyAudit
+  case : Form_Response_SafetyAudit
 
 class Response_SpellChecker(BaseModel):
   Collected_Input : str
@@ -198,13 +198,25 @@ async def Suggest_Safety_Audit(request: Input_WPM_Details, auth: str = Depends(B
     Input_Location = data['Area']
     Input_Coworker = data['Coworker']
     Collected_Input = data['Collected_Input']
+    
+    if(Input_Coworker == "All" and Input_Location == "All"):
 
-    Data_Contractor_1, Data_Area_1, Data_Tof_1, Data_Details_1, Data_Details_Trans_1, Data_Topic_1, Data_Frequency_1 = Search_Safety_Audit(1, Input_Location, Input_Coworker)
-    Suggestion_Safety_Audit_1 = Compare_Cosine_Similarity(1, Data_Details_1, Data_Details_Trans_1, Collected_Input, Input_Details, Data_Frequency_1, Data_Contractor_1, Data_Tof_1, Data_Area_1, Data_Topic_1)
+      DataNo, Data_Contractor, Data_Area, Data_Tof, Data_Details, Data_Details_Trans, Data_Topic, Data_Frequency = Search_Safety_Audit(2, Input_Location, Input_Coworker)
+      Suggestion_Safety_Audit_2 = Compare_Cosine_Similarity(2, DataNo, Data_Details, Data_Details_Trans, Collected_Input, Input_Details, Data_Frequency, Data_Contractor, Data_Tof, Data_Area, Data_Topic)
+      Suggestion_Safety_Audit_1 = Suggestion_Safety_Audit_2
+    
+    elif(((Input_Coworker == "All" and Input_Coworker == "-") and Input_Location != "All") or 
+        ((Input_Coworker != "All" and Input_Coworker != "-") and Input_Location == "All") or 
+        ((Input_Coworker != "All" and Input_Coworker != "-") and Input_Location != "All")):
 
-    Data_Contractor_2, Data_Area_2, Data_Tof_2, Data_Details_2, Data_Details_Trans_2, Data_Topic_2, Data_Frequency_2 = Search_Safety_Audit(2, Input_Location, Input_Coworker)
-    Suggestion_Safety_Audit_2 = Compare_Cosine_Similarity(2, Data_Details_2, Data_Details_Trans_2, Collected_Input, Input_Details, Data_Frequency_2, Data_Contractor_2, Data_Tof_2, Data_Area_2, Data_Topic_2)
+      Data_No, Data_Contractor, Data_Area, Data_Tof, Data_Details, Data_Details_Trans, Data_Topic, Data_Frequency = Search_Safety_Audit(1, Input_Location, Input_Coworker)
+      Suggestion_Safety_Audit_1 = Compare_Cosine_Similarity(1, Data_No, Data_Details, Data_Details_Trans, Collected_Input, Input_Details, Data_Frequency, Data_Contractor, Data_Tof, Data_Area, Data_Topic)
+
+      Data_No, Data_Contractor, Data_Area, Data_Tof, Data_Details, Data_Details_Trans, Data_Topic, Data_Frequency = Search_Safety_Audit(2, Input_Location, Input_Coworker)
+      Suggestion_Safety_Audit_2 = Compare_Cosine_Similarity(2, Data_No, Data_Details, Data_Details_Trans, Collected_Input, Input_Details, Data_Frequency, Data_Contractor, Data_Tof, Data_Area, Data_Topic)
+
     result = {'case_1': Suggestion_Safety_Audit_1, 'case_2': Suggestion_Safety_Audit_2}
+
     return JSONResponse(result)
 
 @app.post('/SpellCheck', status_code=status.HTTP_200_OK, response_model=Response_SpellChecker)
@@ -215,6 +227,7 @@ async def Corrected_input(request: WPM_Details, auth: str = Depends(BasicAuth)):
       Input_Details = data['WorkPermitDetails']
       Cleansing_Case = data['Case']
       ResponseSpellCheck = Cleansing_Input(Input_Details, Cleansing_Case)
+
       return JSONResponse(ResponseSpellCheck)
 
 @app.post("/ii", status_code=status.HTTP_200_OK ,response_model= search_engine_ii)
@@ -230,10 +243,10 @@ async def ii_api(request: input_api, auth: str = Depends(BasicAuth)):
              "Please pass a properly formatted JSON object to the API"
         }  
 
-@app.get('/PreparedAuditData', status_code=status.HTTP_200_OK)
+@app.get('/PreparedAuditData', status_code=status.HTTP00_OK)
 async def Corrected_input(auth: str = Depends(BasicAuth)):
   if auth == True:
     return CleansingAuditData()
 
-# if __name__ == '__main__':
-#   uvicorn.run("main:app", host='0.0.0.0', port=443, reload=True, debug=True)
+if __name__ == '__main__':
+  uvicorn.run("main:app", host='0.0.0.0', port=443, reload=True, debug=True)

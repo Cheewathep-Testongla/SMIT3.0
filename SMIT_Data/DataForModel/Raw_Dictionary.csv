@@ -1,4 +1,6 @@
 ﻿words,spell,correct,frequency
+กระชอน,['strainer'],strainer,20
+เครื่องกรอง,['strainer'],strainer,20
 abnormal,"['abnormal', 'normal', 'handrail']",abnormal,18
 ac,"['air compressor', 'apc', 'rack', 'pact']",air compressor,4
 accesories,"['accesories', 'accessories', 'accessories']",accesories,4
@@ -2734,6 +2736,9 @@ zone,"['zone', 'one', 'on']",zone,3
 จุด,['จุด'],จุด,261
 จุดต่อ,"['จุดต่อ', 'ติดต่อ', 'จุดอ่อน', 'จดจ่อ', 'จต่อ']",จุดต่อ,3
 จุดยืน,['จุดยืน'],จุดยืน,6
+เชื่อม,['welding'],welding,20
+นั่งร้าน,['scaffolding'],scaffolding,20
+ฉนวน,['ฉนวน'],insulation,20
 ฉนวน,['ฉนวน'],ฉนวน,16
 ฉบับ,['ฉบับ'],ฉบับ,4
 ฉาก,['ฉาก'],ฉาก,2

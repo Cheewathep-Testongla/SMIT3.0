@@ -13,7 +13,7 @@ from pythainlp.util import Trie
 # from ii_func.ii import *
 # from CleansingAuditData.Classification_tbFinding import *
 # from connection_db import *
-
+# 
 from .ii_func.embed_text_ii import *
 from .ii_func.ii import *
 from .CleansingAuditData.Classification_tbFinding import *
@@ -24,7 +24,7 @@ from .connection_db import *
 
 modelPath = "./Model/SentenceTransformer"
 
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+model = SentenceTransformer(modelPath)
 
 SafetyAudit = pd.read_csv('./SMIT_Data/Prepared_Safety_Audit.csv', encoding='utf-8')
 SA_Details = SafetyAudit['Finding'].tolist()
@@ -35,9 +35,8 @@ SA_Topic = SafetyAudit['Topic'].tolist()
 SA_Frequency = SafetyAudit['Frequency'].tolist()
 SA_Details_Trans = SafetyAudit['TranslateFinding'].tolist()
 
-
 with open('./SMIT_Data/Encode_SafeyAudit.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
-  Encode_Safey_Audit_Details = pickle.load(fIn)
+  Encode_Safety_Audit_Details = pickle.load(fIn)
 
 def Cleansing_Input(Data, Case) :
   
@@ -48,7 +47,6 @@ def Cleansing_Input(Data, Case) :
   DictTokenize = Custom_Dict['words'].tolist()
   DictCorrect = Custom_Dict['correct'].tolist()
   AllDict = DictCorrect+DictTokenize
-
   
   Thai_Dict = pd.read_csv('./SMIT_Data/DataForModel/TH_Raw_Dictionary.csv',encoding='utf-8')
   THDictTokenize = Thai_Dict['words'].tolist()
@@ -323,64 +321,57 @@ def Cleansing_Input(Data, Case) :
 
   return Response_SpellChecker
 
-def RemoveText(words, sentence):
-  for i in words:
-    sentence = sentence.replace(i, '')
-  return sentence
-
 def Search_Safety_Audit(case, Input_Location, Input_Coworker):
-  Data_Contractor_1 = ''
-  Data_Area_1 = ''
-  Data_Contractor_2 = []
-  Data_Area_2 = []
+  Data_Contractor = []
+  Data_Area = []
   Data_Tof = []
   Data_Details = []
   Data_Details_Trans = []
   Data_Topic = []
   Data_Frequency = []
+  Data_No = []
 
   if case == 1:
     for i in range(len(SA_Details)):
-      if Input_Location == SA_Area[i]:
-        Data_Area_1 = SA_Area[i]
-        if Input_Coworker == SA_Contractor[i]:
-          Data_Topic.append(SA_Topic[i])
-          Data_Contractor_1 = SA_Contractor[i]
-          Data_Details.append(RemoveText(re.findall('[A-Z-]+[0-9]+[A-Z]*|เวลา[ 0-9:]+น.|>>.*|   |[A-Z]+-[A-Z][0-9]+ ของ [A-Z]+-[A-Z][0-9]+| [0-9]* เมตร |"|^ ', SA_Details[i]),SA_Details[i]))
-          Data_Details_Trans.append(SA_Details_Trans[i])
-          Data_Tof.append(SA_Tof[i])
-          Data_Frequency.append(SA_Frequency[i])
+      if Input_Location == "All" and (Input_Coworker != "All" and Input_Coworker != "-") and Input_Coworker == SA_Contractor[i]:
+        Data_Contractor.append(SA_Contractor[i])
+        Data_Area.append(SA_Area[i])
+        Data_Topic.append(SA_Topic[i])
+        Data_Details.append(SA_Details[i])
+        Data_Details_Trans.append(SA_Details_Trans[i])
+        Data_Tof.append(SA_Tof[i])
+        Data_Frequency.append(SA_Frequency[i])
+        Data_No.append(i)
+
+      elif Input_Location != "All" and (Input_Coworker == "All" and Input_Coworker == "-") and Input_Location == SA_Area[i]:  
+        Data_Area.append(SA_Area[i])
+        Data_Topic.append(SA_Topic[i])
+        Data_Contractor.append(SA_Contractor[i])
+        Data_Details.append(SA_Details[i])
+        Data_Details_Trans.append(SA_Details_Trans[i])
+        Data_Tof.append(SA_Tof[i])
+        Data_Frequency.append(SA_Frequency[i])
+        Data_No.append(i)
+
+      elif Input_Location != "All" and (Input_Coworker != "All" and Input_Coworker != "-") and Input_Coworker == SA_Contractor[i] and Input_Location == SA_Area[i]:
+        Data_Area.append(SA_Area[i])
+        Data_Topic.append(SA_Topic[i])
+        Data_Contractor.append(SA_Contractor[i])
+        Data_Details.append(SA_Details[i])
+        Data_Details_Trans.append(SA_Details_Trans[i])
+        Data_Tof.append(SA_Tof[i])
+        Data_Frequency.append(SA_Frequency[i])
+        Data_No.append(i)
       
     if len(Data_Details) == 0:
-      return '', '', [], [], [], [], []
+      return [], [], [], [], [], [], [], []
     else:
-      return Data_Contractor_1, Data_Area_1, Data_Tof, Data_Details, Data_Details_Trans, Data_Topic, Data_Frequency
+      return Data_No, Data_Contractor, Data_Area, Data_Tof, Data_Details, Data_Details_Trans, Data_Topic, Data_Frequency
 
   elif case == 2:
-    for i in range(len(SA_Details)):
-      Data_Area_2.append(SA_Area[i])
-      Data_Topic.append(SA_Topic[i])
-      Data_Contractor_2.append(SA_Contractor[i])
-      Data_Details.append(RemoveText(re.findall('[A-Z-]+[0-9]+[A-Z]*|เวลา[ 0-9:]+น.|>>.*|   |[A-Z]+-[A-Z][0-9]+ ของ [A-Z]+-[A-Z][0-9]+| [0-9]* เมตร |"|^ ', SA_Details[i]),SA_Details[i]))
-      Data_Details_Trans.append(SA_Details_Trans[i])
-      Data_Tof.append(SA_Tof[i])
-      Data_Frequency.append(SA_Frequency[i])
+    return Data_No, SA_Contractor, SA_Area, SA_Tof, SA_Details, SA_Details_Trans, SA_Topic, SA_Frequency
 
-    if len(Data_Details) == 0:
-      return [], [], [], [], [], [], []
-    else:
-      return Data_Contractor_2, Data_Area_2, Data_Tof, Data_Details, Data_Details_Trans, Data_Topic, Data_Frequency
 
-# def FindCA_PA(Data):
-#   Translate_Input_Details = [Data]*len(corpus_embeddings)
-#   Encode_Input_Details = model.encode(Translate_Input_Details)
-        
-#   Cosine_Sim = util.pytorch_cos_sim(corpus_embeddings, Encode_Input_Details) 
-#   top_results = torch.topk(Cosine_Sim, k=5)
-  
-#   print(top_results)
-# เพิ่มการคิด % ของแต่ละงานตามหมวดหมู่ Type of finding
-# 
 def Calculate_Risk_Score(Tof, Frequency):
   if(len(Tof) > 0 and len(Frequency) > 0):
     SumFrequencyFinding = {
@@ -424,8 +415,8 @@ def Calculate_Risk_Score(Tof, Frequency):
     }
     return RiskScore
 
-def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, Input_Details, List_Input_Details, Data_Frequency, Data_Contractor, Data_Tof, Data_Area, Data_Topic):
-  global Encode_Safey_Audit_Details
+def Compare_Cosine_Similarity(case, Data_No, Safety_Audit_Details, Data_Details_Trans, Input_Details, List_Input_Details, Data_Frequency, Data_Contractor, Data_Tof, Data_Area, Data_Topic):
+  global Encode_Safety_Audit_Details
   Suggestion_Safety_Audit_Detail = []
   Suggestion_Safety_Audit_Frequency = []
   Suggestion_Safety_Audit_Contractor = []
@@ -447,27 +438,27 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
       if len(Safety_Audit_Details) != 0:
         Translate_Input_Details = (GoogleTranslator(source='auto', target='en').translate(sentence))
         Translate_Input_Details = [Translate_Input_Details]*len(Safety_Audit_Details)
-
-        Encode_Safey_Audit_Details = model.encode(Data_Details_Trans)
         Encode_Input_Details = model.encode(Translate_Input_Details)
         
-        Cosine_Sim = util.pytorch_cos_sim(Encode_Safey_Audit_Details, Encode_Input_Details) 
+        Encode_Safety_Audit_Details_New = [Encode_Safety_Audit_Details[i] for i in Data_No]
+        
+        Cosine_Sim = util.pytorch_cos_sim(Encode_Safety_Audit_Details_New, Encode_Input_Details) 
         compare_work_with_Safety_Audit = []
         
         for i in range(len(Cosine_Sim)):
           j = 0
-          compare_work_with_Safety_Audit.append([Cosine_Sim[i][j], i, j, Data_Frequency[i], Data_Contractor, Data_Tof[i], Data_Area, Data_Topic[i]])
+          compare_work_with_Safety_Audit.append([Cosine_Sim[i][j], i, j, Data_Frequency[i], Data_Contractor[i], Data_Tof[i], Data_Area[i], Data_Topic[i]])
         compare_work_with_Safety_Audit = sorted(compare_work_with_Safety_Audit, key=lambda x: x[0], reverse=True)
 
         run_Number = 1
 
         for score, i, j, k, l, m, n, o in compare_work_with_Safety_Audit[:5]:        
-            if Cosine_Sim[i][0] > 0.4:
+            if Cosine_Sim[i][0] > 0.5:
               Temp_Safety_Audit_Details.append(Safety_Audit_Details[i])
               Temp_Safety_Audit_Frequency.append(Data_Frequency[i])
-              Temp_Safety_Audit_Contractor.append(Data_Contractor)
+              Temp_Safety_Audit_Contractor.append(Data_Contractor[i])
               Temp_Safety_Audit_Type_Of_Finding.append(Data_Tof[i])
-              Temp_Safety_Audit_Area.append(Data_Area)
+              Temp_Safety_Audit_Area.append(Data_Area[i])
               Temp_Safety_Audit_Topic.append(Data_Topic[i])
               run_Number += 1
             elif (len(Temp_Safety_Audit_Details) == 0):
@@ -488,14 +479,14 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
                   return Form_Response_SafetyAudit
                 break
 
-  elif case == 2:
+  elif case == 2: 
     for sentence in List_Input_Details:
       if len(Safety_Audit_Details) != 0:
         Translate_Input_Details = (GoogleTranslator(source='auto', target='en').translate(sentence))
-        Translate_Input_Details = [Translate_Input_Details]*len(Encode_Safey_Audit_Details)
+        Translate_Input_Details = [Translate_Input_Details]*len(Encode_Safety_Audit_Details)
         Encode_Input_Details = model.encode(Translate_Input_Details)
         
-        Cosine_Sim = util.cos_sim(Encode_Safey_Audit_Details, Encode_Input_Details) 
+        Cosine_Sim = util.pytorch_cos_sim(Encode_Safety_Audit_Details, Encode_Input_Details) 
         compare_work_with_Safety_Audit = []
         
         for i in range(len(Cosine_Sim)):
@@ -566,8 +557,8 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
           "correct": False
       }
       Response_CAPA = search_ii(tempResultCAPA, "Only CAPA")
-      Create_List_Safety_Audit_CA.append(Response_CAPA['all_ca'])
-      Create_List_Safety_Audit_PA.append(Response_CAPA['all_pa'])
+      Create_List_Safety_Audit_CA = (Response_CAPA['all_ca'])
+      Create_List_Safety_Audit_PA = (Response_CAPA['all_pa'])
 
     Suggestion_Safety_Audit_Detail.append(Create_List_Safety_Audit_Details)
     Suggestion_Safety_Audit_Frequency.append(Create_List_Safety_Audit_Frequency)
@@ -609,6 +600,12 @@ def Compare_Cosine_Similarity(case, Safety_Audit_Details, Data_Details_Trans, In
 def CleansingAuditData():
   print("[Started Classification tbFinding]...")
   return StartCleansingtbFinding()
+
+
+
+
+
+
 
 
 
