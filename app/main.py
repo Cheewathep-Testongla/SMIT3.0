@@ -243,10 +243,10 @@ async def ii_api(request: input_api, auth: str = Depends(BasicAuth)):
              "Please pass a properly formatted JSON object to the API"
         }  
 
-@app.get('/PreparedAuditData', status_code=status.HTTP00_OK)
+@app.get('/PreparedAuditData', status_code=status.HTTP_200_OK)
 async def Corrected_input(auth: str = Depends(BasicAuth)):
   if auth == True:
     return CleansingAuditData()
 
-if __name__ == '__main__':
-  uvicorn.run("main:app", host='0.0.0.0', port=443, reload=True, debug=True)
+# if __name__ == '__main__':
+#   uvicorn.run("main:app", host='0.0.0.0', port=443, reload=True, debug=True)

@@ -25,5 +25,5 @@ RUN pip install -r python_lib.txt
 EXPOSE 443
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "443"]
-# 
+
 # CMD ["unicorn", "-w", "12","-k", "uvicorn.workers.UvicornWorker","-t","0", "wsgi:app", "--bind", "0.0.0.0:80"]

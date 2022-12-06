@@ -526,20 +526,20 @@ def update_ii_json(work: List[int], work_relate: List[int], sim_work: List[float
 
 def prepare_data_search_ii(data):
     # remove quantity from text (eg. เมตร, กิโลมตร etc.)
-    remove_quan = remove_quantity(data["name"])
+    remove_quan = clean.remove_quantity(data["name"])
     # replace connect word with comma(,)
     regex_replaceSW = re.compile(r"\s(and)\s|(และ)")
     clean_SW = regex_replaceSW.sub(",", remove_quan.strip())
 
     # if user confirm function correct is correct use it
     if(data['correct']):
-        clean_text = cleaning([clean_SW])
+        clean_text = clean.cleaning([clean_SW])
     else:
         clean_text = [clean_SW]
     # remove tag equipment from text
-    clean_text = remove_tag(clean_text[0])
+    clean_text = clean.remove_tag(clean_text[0])
     # remove symbol
-    clean_text = remove_data_parentheses(clean_text)
+    clean_text = clean.remove_data_parentheses(clean_text)
     # split work
     split_task = re.split(r'\,|\/', clean_text)
     temp_split_task = []
@@ -557,7 +557,7 @@ def prepare_data_search_ii(data):
     for split_word in split_task:
         try:
             queries.append(GoogleTranslator(source='auto', target='en').translate(split_word))
-            tag = find_tag(split_word)
+            tag = clean.find_tag(split_word)
             tag_all = tag_all + tag
         except:
             queries = queries
@@ -565,19 +565,19 @@ def prepare_data_search_ii(data):
     token_eng = [] # token (English)
     # loop check part-of-speech (English)
     for sentences in queries:
-        token_eng.append(check_pos_en(sentences))
+        token_eng.append(clean.check_pos_en(sentences))
     # loop tokenize thai Work name
     for split_word in split_task:
-        token.append(tokenize_deepcut(split_word, tag_all))
+        token.append(clean.tokenize_deepcut(split_word, tag_all))
     # remove token that only have number/symbol
     token_remove_num = []
     for i in range(len(token)):
-        token_remove_num.append(remove_num(token[i]))
+        token_remove_num.append(clean.remove_num(token[i]))
     token = token_remove_num
     # loop check part-of-speech (Thai)
     pos_token = []
     for i in range(len(token)):
-        pos_token.append(check_pos_th([token[i]]))
+        pos_token.append(clean.check_pos_th([token[i]]))
     token = pos_token
     # return
     return queries, token, split_task, token_eng
@@ -658,7 +658,7 @@ def search_ii(data, ResponseCase):
             # if similarity score greater or equal to 0.3 and length of work name > 1 (block error when work name have 1 character (eg. str-a,b(block)))
             elif(float(top_results[0][i]) >= 0.3 and len(split_task[query]) > 1):
                 # if find Thai language in work name
-                if(contain_thai_word(split_task[query])):
+                if(clean.contain_thai_word(split_task[query])):
                     token[query] = list(dict.fromkeys(token[query])) # remove duplicate data (same order(สนใจลำดับโดยถ้าเจอคำซ้ำตัดด้านหลังออก))
                     # temporary variable detail
                     temp_detail = 0 # present position
