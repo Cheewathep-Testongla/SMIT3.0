@@ -16,6 +16,15 @@ from ..connection_db import *
 
 
 def StartCleansingtbFinding():
+    # global Custom_Dict, DictCorrect, trie
+    # global tbFindingArea, tbFindingSubArea, tbFindingContractor, tbFindingTof, tbFindingTopic, tbFindingDetail, tbFindingTranslateDetail, tbFindingAuditResult, tbFindingFinding, tbFindingTranslateFinding
+    # global ListWords_UnsafeAction, ListWords_UnsafeCondition, ListWords_NearMiss, ListWords_HNM, ListWords_Accident
+    # global Cluster_UnsafeAction, Cluster_UnsafeCondition, Cluster_NearMiss, Cluster_HNM, Cluster_Accident
+    # global ListWords_LOTO, ListWords_WAH, ListWords_Scaffolding, ListWords_Transportation, ListWords_PTW_JSA, ListWords_ProcessOperation, ListWords_Radiation, ListWords_Others
+    # global ListWords_Lifting, ListWords_Housekeeping, ListWords_ToolsEquipment, ListWords_HotWork, ListWords_Excavation, ListWords_CSE, ListWords_ElectricalGrounding, ListWords_PaintCoatBlast
+    # global ListWords_ChemicalWork, ListWords_SafetyManagement, ListWords_PPE, ListWords_WaterJet, ListWords_PressureTest, ListWords_SLPerformance, ListWords_WorkProcedure, ListWords_Civil 
+    # global ListWords_Insulation, ListWords_Environmental, ListWords_InstallationAlignment, ListWords_Security
+
     Custom_Dict = pd.read_csv('./SMIT_Data/DataForModel/Raw_Dictionary.csv', encoding='utf-8')
     DictCorrect = Custom_Dict['correct'].tolist()
 
@@ -105,27 +114,27 @@ def StartCleansingtbFinding():
     TotalData = pd.read_csv('./SMIT_Data/TotalData.csv', encoding='utf-8')
 
     LatestDate = TotalData['LatestDate'].tolist()[0]
-    try:
-        Query = '''
-                    SELECT (CAST([dbo].[LOG_Finding].[ID] AS int)),
-                        [dbo].[LOG_Finding].[ID],
-                        [dbo].[LOG_Finding].[Area],
-                        [dbo].[LOG_Finding].[Finding],
-                        [dbo].[LOG_Permit].[Detail],
-                        [dbo].[LOG_Finding].[AuditResult]
-                    FROM [dbo].[LOG_Finding]
-                    JOIN [dbo].[LOG_Permit]
-                    ON   [dbo].[LOG_Finding].[Title] = [dbo].[LOG_Permit].[Title]
-                    WHERE [dbo].[LOG_Finding].ID > 113   AND [dbo].[LOG_Finding].ID != 131  AND [dbo].[LOG_Finding].ID != 5057 AND 
-                        [dbo].[LOG_Finding].ID != 5058 AND [dbo].[LOG_Finding].ID != 190  AND [dbo].[LOG_Finding].ID != 1483 AND 
-                        [dbo].[LOG_Finding].ID != 1486 AND [dbo].[LOG_Finding].ID != 1974 AND [dbo].[LOG_Finding].ID != 132  AND 
-                        (AuditResult = 'Need to Improve' or AuditResult = 'Non-conform')  AND [dbo].[LOG_Permit].[Detail] != '' 
-                        AND Corrective != '' AND [dbo].[LOG_Finding].[Created] > '''
+    # try:
+    Query = '''
+                SELECT (CAST([dbo].[LOG_Finding].[ID] AS int)),
+                    [dbo].[LOG_Finding].[ID],
+                    [dbo].[LOG_Finding].[Area],
+                    [dbo].[LOG_Finding].[Finding],
+                    [dbo].[LOG_Permit].[Detail],
+                    [dbo].[LOG_Finding].[AuditResult]
+                FROM [dbo].[LOG_Finding]
+                JOIN [dbo].[LOG_Permit]
+                ON   [dbo].[LOG_Finding].[Title] = [dbo].[LOG_Permit].[Title]
+                WHERE [dbo].[LOG_Finding].ID > 113   AND [dbo].[LOG_Finding].ID != 131  AND [dbo].[LOG_Finding].ID != 5057 AND 
+                    [dbo].[LOG_Finding].ID != 5058 AND [dbo].[LOG_Finding].ID != 190  AND [dbo].[LOG_Finding].ID != 1483 AND 
+                    [dbo].[LOG_Finding].ID != 1486 AND [dbo].[LOG_Finding].ID != 1974 AND [dbo].[LOG_Finding].ID != 132  AND 
+                    (AuditResult = 'Need to Improve' or AuditResult = 'Non-conform')  AND [dbo].[LOG_Permit].[Detail] != '' 
+                    AND Corrective != '' AND [dbo].[LOG_Finding].[Created] > '''
 
-        tbFinding = pd.read_sql(Query+"'"+str(LatestDate)+"'", connection_SafetyAudit)
-        # tbFinding = pd.read_sql(Query, connection_SafetyAudit)
-        if len(tbFinding) > 0:
-        # try:
+    tbFinding = pd.read_sql(Query+"'"+str(LatestDate)+"'", connection_SafetyAudit)
+    # tbFinding = pd.read_sql(Query, connection_SafetyAudit)
+    if len(tbFinding) > 0:
+        try:
             tbFindingArea = tbFinding['Area'].tolist()
             tbFindingSubArea = []
             tbFindingContractor = []
@@ -710,7 +719,7 @@ def StartCleansingtbFinding():
             for word in ListWords_InstallationAlignment:
                 temp = []
                 temp.append(word)
-                temp.append( CreateFrequencyTopic(word, ListWords_LOTO, ListWords_WAH, ListWords_Scaffolding, ListWords_Transportation, ListWords_PTW_JSA, 
+                temp.append(CreateFrequencyTopic(word, ListWords_LOTO, ListWords_WAH, ListWords_Scaffolding, ListWords_Transportation, ListWords_PTW_JSA, 
                                     ListWords_ProcessOperation, ListWords_Radiation, ListWords_Others, ListWords_Lifting, ListWords_Housekeeping,
                                     ListWords_ToolsEquipment, ListWords_HotWork, ListWords_Excavation, ListWords_CSE, ListWords_ElectricalGrounding,
                                     ListWords_PaintCoatBlast, ListWords_ChemicalWork, ListWords_SafetyManagement, ListWords_PPE, ListWords_WaterJet, 
@@ -1082,8 +1091,8 @@ def StartCleansingtbFinding():
             Old_Size = len(tbFindingFinding)
 
             UpdateSize = [
-                        ['Classfication_TbFinding', GetLatestDate, TotalOldClassification_Finding, int(TotalLatestClassification_Finding)+Old_Size],
-                        ['All Record', '-', int(TotalOldAllRecord), '-']
+                            ['Classfication_TbFinding', GetLatestDate, TotalOldClassification_Finding, int(TotalLatestClassification_Finding)+Old_Size],
+                            ['All Record', '-', int(TotalOldAllRecord), '-']
                         ] 
 
             with open('./SMIT_Data/TotalData.csv', 'w', newline='', encoding="utf-8") as f:
@@ -1094,8 +1103,8 @@ def StartCleansingtbFinding():
             print("[Finished Classification tbFinding]...")
 
             return Cleansing_FindingDetails()
-        else:
-            return "Record is up to date", 200
-    except:
-        return "There is an Error SQL Connection failure"
+        except:
+            return "There is an Error SQL Connection failure"
+    else:
+        return "Record is up to date", 200
 

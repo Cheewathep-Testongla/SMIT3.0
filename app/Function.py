@@ -26,20 +26,13 @@ modelPath = "./Model/SentenceTransformer"
 
 model = SentenceTransformer(modelPath)
 
-SafetyAudit = pd.read_csv('./SMIT_Data/Prepared_Safety_Audit.csv', encoding='utf-8')
-SA_Details = SafetyAudit['Finding'].tolist()
-SA_Area = SafetyAudit['Area'].tolist()
-SA_Contractor = SafetyAudit['Contractor'].tolist()
-SA_Tof = SafetyAudit['TypeOfFinding'].tolist()
-SA_Topic = SafetyAudit['Topic'].tolist()
-SA_Frequency = SafetyAudit['Frequency'].tolist()
-SA_Details_Trans = SafetyAudit['TranslateFinding'].tolist()
+
 
 with open('./SMIT_Data/Encode_SafeyAudit.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
   Encode_Safety_Audit_Details = pickle.load(fIn)
 
 def Cleansing_Input(Data, Case) :
-  
+
   Data = Data.lower()
 
   Custom_Dict = pd.read_csv('./SMIT_Data/DataForModel/Raw_Dictionary.csv',encoding='utf-8')
@@ -322,6 +315,15 @@ def Cleansing_Input(Data, Case) :
   return Response_SpellChecker
 
 def Search_Safety_Audit(case, Input_Location, Input_Coworker):
+  SafetyAudit = pd.read_csv('./SMIT_Data/Prepared_Safety_Audit.csv', encoding='utf-8')
+  SA_Details = SafetyAudit['Finding'].tolist()
+  SA_Area = SafetyAudit['Area'].tolist()
+  SA_Contractor = SafetyAudit['Contractor'].tolist()
+  SA_Tof = SafetyAudit['TypeOfFinding'].tolist()
+  SA_Topic = SafetyAudit['Topic'].tolist()
+  SA_Frequency = SafetyAudit['Frequency'].tolist()
+  SA_Details_Trans = SafetyAudit['TranslateFinding'].tolist()
+
   Data_Contractor = []
   Data_Area = []
   Data_Tof = []
@@ -343,7 +345,7 @@ def Search_Safety_Audit(case, Input_Location, Input_Coworker):
         Data_Frequency.append(SA_Frequency[i])
         Data_No.append(i)
 
-      elif Input_Location != "All" and (Input_Coworker == "All" and Input_Coworker == "-") and Input_Location == SA_Area[i]:  
+      elif Input_Location != "All" and (Input_Coworker == "All" or Input_Coworker == "-") and Input_Location == SA_Area[i]:  
         Data_Area.append(SA_Area[i])
         Data_Topic.append(SA_Topic[i])
         Data_Contractor.append(SA_Contractor[i])
@@ -353,7 +355,7 @@ def Search_Safety_Audit(case, Input_Location, Input_Coworker):
         Data_Frequency.append(SA_Frequency[i])
         Data_No.append(i)
 
-      elif Input_Location != "All" and (Input_Coworker != "All" and Input_Coworker != "-") and Input_Coworker == SA_Contractor[i] and Input_Location == SA_Area[i]:
+      elif Input_Location != "All" and (Input_Coworker != "All" or Input_Coworker != "-") and Input_Coworker == SA_Contractor[i] and Input_Location == SA_Area[i]:
         Data_Area.append(SA_Area[i])
         Data_Topic.append(SA_Topic[i])
         Data_Contractor.append(SA_Contractor[i])
@@ -370,7 +372,6 @@ def Search_Safety_Audit(case, Input_Location, Input_Coworker):
 
   elif case == 2:
     return Data_No, SA_Contractor, SA_Area, SA_Tof, SA_Details, SA_Details_Trans, SA_Topic, SA_Frequency
-
 
 def Calculate_Risk_Score(Tof, Frequency):
   if(len(Tof) > 0 and len(Frequency) > 0):
@@ -437,8 +438,8 @@ def Compare_Cosine_Similarity(case, Data_No, Safety_Audit_Details, Data_Details_
     for sentence in List_Input_Details:
       if len(Safety_Audit_Details) != 0:
         Translate_Input_Details = (GoogleTranslator(source='auto', target='en').translate(sentence))
-        Translate_Input_Details = [Translate_Input_Details]*len(Safety_Audit_Details)
         Encode_Input_Details = model.encode(Translate_Input_Details)
+        Encode_Input_Details = [Encode_Input_Details]*len(Safety_Audit_Details)
         
         Encode_Safety_Audit_Details_New = [Encode_Safety_Audit_Details[i] for i in Data_No]
         
@@ -453,7 +454,7 @@ def Compare_Cosine_Similarity(case, Data_No, Safety_Audit_Details, Data_Details_
         run_Number = 1
 
         for score, i, j, k, l, m, n, o in compare_work_with_Safety_Audit[:5]:        
-            if Cosine_Sim[i][0] > 0.5:
+            if Cosine_Sim[i][0] > 0.4:
               Temp_Safety_Audit_Details.append(Safety_Audit_Details[i])
               Temp_Safety_Audit_Frequency.append(Data_Frequency[i])
               Temp_Safety_Audit_Contractor.append(Data_Contractor[i])

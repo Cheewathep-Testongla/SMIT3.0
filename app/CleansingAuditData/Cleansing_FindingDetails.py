@@ -11,6 +11,7 @@ import pickle
 from pythainlp import word_tokenize
 from pythainlp.tag import pos_tag
 from pythainlp.util import Trie
+
 # import .py
 # from CleansingAuditData.Prepared_FindingDetails import *           
 # from CleansingAuditData.Prepared_FindingDetails import Prepared_FindingDetails

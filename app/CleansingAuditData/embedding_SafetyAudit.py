@@ -35,4 +35,4 @@ def embedding_SafetyAudit():
     except:
         return "Don't have newer data or There is an error", 400
 
-embedding_SafetyAudit()
+# embedding_SafetyAudit()
