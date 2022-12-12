@@ -5,7 +5,7 @@ from deep_translator import GoogleTranslator
 # from CleansingAuditData.embedding_SafetyAudit import embedding_SafetyAudit   
 
 from ..Function import * 
-from ..connection_db import *     
+# from ..connection_db import *     
 from .embedding_SafetyAudit import embedding_SafetyAudit       
  
 import pandas as pd                                        
@@ -25,25 +25,31 @@ modelPath = "./Model/SentenceTransformer"
 
 model = SentenceTransformer(modelPath)
 
-def ResetRiskCount():
+# def ResetRiskCount():
 
-    global RiskCount
+#     global RiskCount
 
-    RiskCount = {
-        "UnsafeAction": 0,
-        "UnsafeCondition": 0,
-        "NearMiss": 0,
-        "HNM": 0,
-        "Accident": 0
-    }
+#     RiskCount = {
+#         "UnsafeAction": 0,
+#         "UnsafeCondition": 0,
+#         "NearMiss": 0,
+#         "HNM": 0,
+#         "Accident": 0
+#     }
 
 def Prepared_FindingDetails():
     print("[Start Prepared FindingDetails]...")
 
     global RiskCount
 
-    ResetRiskCount()
-
+    # ResetRiskCount()
+    connection_SMIT3 = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
+                                Server = "smitazure.database.windows.net",
+                                Database = "SMIT3",
+                                uid = 'smitadmin',
+                                pwd = 'Abc12345',
+                                Trusted_Connection = 'no')
+    
     Cleansing_FindingDetails = pd.read_sql("SELECT * FROM [Cleansing_FindingDetails]", connection_SMIT3)
 
     FindingNo = Cleansing_FindingDetails['FindingNo'].tolist()
@@ -194,6 +200,9 @@ def Prepared_FindingDetails():
         write = csv.writer(f)
         write.writerow(Head)
         write.writerows(Prepared_Safety_Audit)
+
+    cursor.close()
+    connection_SMIT3.close()
 
     print("[Finished Prepared FindingDetails]...")
     

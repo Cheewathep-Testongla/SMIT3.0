@@ -17,7 +17,7 @@ from pythainlp.util import Trie
 # from CleansingAuditData.Prepared_FindingDetails import Prepared_FindingDetails
 # from connection_db import *                      
 
-from ..connection_db import *   
+# from ..connection_db import *   
 from .Prepared_FindingDetails import *
 
 modelPath = "./Model/SentenceTransformer"
@@ -279,6 +279,13 @@ def Cleansing_FindingDetails():
     # SA_TranslateDetails = ["-" if pd.isnull(x) else x for x in SA_TranslateDetails]
     # ------------------------------------------------------------------- #
 
+    connection_SMIT3 = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
+                                Server = "smitazure.database.windows.net",
+                                Database = "SMIT3",
+                                uid = 'smitadmin',
+                                pwd = 'Abc12345',
+                                Trusted_Connection = 'no') 
+
     Classification_TbFinding = pd.read_sql("SELECT * FROM [Classification_TbFinding] WHERE FindingNo > "+str(TotalOldClassification_Finding), connection_SMIT3)
 
     CTB_Area = Classification_TbFinding['Area'].tolist()
@@ -366,7 +373,10 @@ def Cleansing_FindingDetails():
         Query = "INSERT INTO [Cleansing_FindingDetails] VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         cursor.executemany(Query, NewSafetyAuditData)
         connection_SMIT3.commit()
-    
+        
+        cursor.close()
+        connection_SMIT3.close()
+
         TotalData = (pd.read_csv('./SMIT_Data/TotalData.csv', encoding='utf-8'))
         Classfication_TbFindingLatestDate = TotalData['LatestDate'].tolist()[0]
         TotalOldClassification_Finding = TotalData['Latest'].tolist()[0]
@@ -385,7 +395,5 @@ def Cleansing_FindingDetails():
             write.writerows(UpdateSize)
 
         print("[Finished Cleansing FindingDetails]...")
+
         return Prepared_FindingDetails()
-    
-    # else:
-    #     return "Don't have newer data or There is an error", 400

@@ -209,8 +209,8 @@ async def Suggest_Safety_Audit(request: Input_WPM_Details, auth: str = Depends(B
       Suggestion_Safety_Audit_1 = Suggestion_Safety_Audit_2
     
     elif(((Input_Coworker == "All" or Input_Coworker == "-") and Input_Location != "All") or 
-        ((Input_Coworker != "All" or Input_Coworker != "-") and Input_Location == "All") or 
-        ((Input_Coworker != "All" or Input_Coworker != "-") and Input_Location != "All")):
+         ((Input_Coworker != "All" or Input_Coworker != "-") and Input_Location == "All") or 
+         ((Input_Coworker != "All" or Input_Coworker != "-") and Input_Location != "All")):
 
       Data_No, Data_Contractor, Data_Area, Data_Tof, Data_Details, Data_Details_Trans, Data_Topic, Data_Frequency = Search_Safety_Audit(1, Input_Location, Input_Coworker)
       Suggestion_Safety_Audit_1 = Compare_Cosine_Similarity(1, Data_No, Data_Details, Data_Details_Trans, Collected_Input, Input_Details, Data_Frequency, Data_Contractor, Data_Tof, Data_Area, Data_Topic)

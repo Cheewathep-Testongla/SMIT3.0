@@ -26,8 +26,6 @@ modelPath = "./Model/SentenceTransformer"
 
 model = SentenceTransformer(modelPath)
 
-
-
 with open('./SMIT_Data/Encode_SafeyAudit.pkl', "rb") as fIn:  # open pickle file (same as model_deployment\safety_equip_func\embed_text_safety_measure.py)
   Encode_Safety_Audit_Details = pickle.load(fIn)
 
@@ -59,7 +57,8 @@ def Cleansing_Input(Data, Case) :
                         '[0-9]+-[0-9]+/[0-9]+',
                         '\#|\(|\)|\@|^[ ]|:|\"|M\.|=',
                         '\?',
-                        '\[|\]|\{|\}'
+                        '\[|\]|\{|\}',
+                        ' at '
                         ]
 
     ListCutText = []
@@ -73,7 +72,7 @@ def Cleansing_Input(Data, Case) :
         else : 
             Data = Data
 
-    ListSplitCharacter = "\/\/+|\/|\+|,|&|and|และ|กับ|เพื่อ|\n"
+    ListSplitCharacter = "\/\/+|\/|\+|,|&| and | and|และ|กับ|เพื่อ|\n"
     FindSplitCharecter = re.findall(ListSplitCharacter, Data) 
 
     Tokenize_Input = Data
@@ -141,8 +140,8 @@ def Cleansing_Input(Data, Case) :
             temp = []
             if (
                 # GetPos_TagListTokenize[index][1] == "SCONJ" or 
-                GetPos_TagListTokenize[index][1] == "ADP" or 
-                GetPos_TagListTokenize[index][1] == "CCONJ" or
+                # GetPos_TagListTokenize[index][1] == "ADP" or 
+                # GetPos_TagListTokenize[index][1] == "CCONJ" or
                 GetPos_TagListTokenize[index][1] == "PUNCT"):
                 temp.append(GetPos_TagListTokenize[index][0])
                 temp.append(index)
@@ -152,8 +151,13 @@ def Cleansing_Input(Data, Case) :
 
         for i in range(len(ListTokenize)):    
             FinalJoinString = ''
-            if(re.findall('(^[\u0E30-\u0E3A\u0E47-\u0E4E]+)', ListTokenize[i]) or len(re.findall('[\u0E01-\u0E4E]', ListTokenize[i])) == 1):
+            if(re.findall('(^[\u0E30-\u0E3A\u0E47-\u0E4E]+)', ListTokenize[i]) or 
+               (len(re.findall('[\u0E01-\u0E4E]', ListTokenize[i])) == 1 and re.findall('[\u0E01-\u0E4E]', ListTokenize[i]) != ['ส'])):
                 continue
+
+            if(ListTokenize[i] == 'ส'):
+                TempResult.append(ListTokenize[i])   
+
             elif(len(re.findall(' [a-z][a-z][a-z] | [a-z][a-z] ', ListTokenize[i])) > 1):
                 TempResult.append(ListTokenize[i])     
 
@@ -201,9 +205,9 @@ def Cleansing_Input(Data, Case) :
                 else:
                     if ListTokenize[i] != ' ':
                         try:
-                            if get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0] not in CheckIfTempResultisAlready:
-                                TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
-                                CheckIfTempResultisAlready.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
+                            # if get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0] not in CheckIfTempResultisAlready:
+                            TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0])
+                            CheckIfTempResultisAlready.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0])
                         except: 
                             if ListTokenize[i] not in CheckIfTempResultisAlready:
                                 TempResult.append(ListTokenize[i])
@@ -374,6 +378,9 @@ def Search_Safety_Audit(case, Input_Location, Input_Coworker):
     return Data_No, SA_Contractor, SA_Area, SA_Tof, SA_Details, SA_Details_Trans, SA_Topic, SA_Frequency
 
 def Calculate_Risk_Score(Tof, Frequency):
+
+  TotalUnsafeAction, TotalUnsafeCondition, TotalNearMiss, TotalHNM, TotalAccident = getRiskCount()
+
   if(len(Tof) > 0 and len(Frequency) > 0):
     SumFrequencyFinding = {
         "Unsafe Action": 0,
@@ -388,14 +395,13 @@ def Calculate_Risk_Score(Tof, Frequency):
         SumFrequencyFinding[Tof[i]] += Frequency[i]
 
     TotalRiskCount = {
-        "Unsafe Action": getRiskCount("Unsafe Action"),
-        "Unsafe Condition": getRiskCount("Unsafe Condition"),
-        "Near Miss": getRiskCount("Near Miss"),
-        "HNM": getRiskCount("HNM"),
-        "Accident": getRiskCount("Accident")
+        "Unsafe Action": TotalUnsafeAction,
+        "Unsafe Condition": TotalUnsafeCondition,
+        "Near Miss": TotalNearMiss,
+        "HNM": TotalHNM,
+        "Accident": TotalAccident
     }
 
-    print(SumFrequencyFinding, TotalRiskCount)
     RiskScore = {
       "Unsafe Action": round((SumFrequencyFinding["Unsafe Action"]*100)/TotalRiskCount["Unsafe Action"], 2),
       "Unsafe Condition": round((SumFrequencyFinding["Unsafe Condition"]*100)/TotalRiskCount["Unsafe Condition"], 2),
@@ -443,7 +449,9 @@ def Compare_Cosine_Similarity(case, Data_No, Safety_Audit_Details, Data_Details_
         
         Encode_Safety_Audit_Details_New = [Encode_Safety_Audit_Details[i] for i in Data_No]
         
-        Cosine_Sim = util.pytorch_cos_sim(Encode_Safety_Audit_Details_New, Encode_Input_Details) 
+        # print(Encode_Input_Details)
+        # print(Encode_Safety_Audit_Details_New)
+        Cosine_Sim = util.cos_sim(Encode_Safety_Audit_Details_New, Encode_Input_Details) 
         compare_work_with_Safety_Audit = []
         
         for i in range(len(Cosine_Sim)):
@@ -475,7 +483,13 @@ def Compare_Cosine_Similarity(case, Data_No, Safety_Audit_Details, Data_Details_
                     "Safety_Audit_Area" : [["No Data"]],
                     "Safety_Audit_Topic" : [["No Data"]],
                     "Safety_Audit_CA": [["No Data"]],
-                    "Safety_Audit_PA": [["No Data"]]
+                    "Safety_Audit_PA":  {
+                                          "Unsafe Action": 0,
+                                          "Unsafe Condition": 0,
+                                          "Near Miss": 0,
+                                          "HNM": 0,
+                                          "Accident": 0
+                                        }
                   }
                   return Form_Response_SafetyAudit
                 break
@@ -484,10 +498,10 @@ def Compare_Cosine_Similarity(case, Data_No, Safety_Audit_Details, Data_Details_
     for sentence in List_Input_Details:
       if len(Safety_Audit_Details) != 0:
         Translate_Input_Details = (GoogleTranslator(source='auto', target='en').translate(sentence))
-        Translate_Input_Details = [Translate_Input_Details]*len(Encode_Safety_Audit_Details)
         Encode_Input_Details = model.encode(Translate_Input_Details)
+        Encode_Input_Details = [Encode_Input_Details]*len(Safety_Audit_Details)
         
-        Cosine_Sim = util.pytorch_cos_sim(Encode_Safety_Audit_Details, Encode_Input_Details) 
+        Cosine_Sim = util.cos_sim(Encode_Safety_Audit_Details, Encode_Input_Details) 
         compare_work_with_Safety_Audit = []
         
         for i in range(len(Cosine_Sim)):
@@ -519,7 +533,14 @@ def Compare_Cosine_Similarity(case, Data_No, Safety_Audit_Details, Data_Details_
                   "Safety_Audit_Area" : [["No Data"]],
                   "Safety_Audit_Topic" : [["No Data"]],
                   "Safety_Audit_CA": [["No Data"]],
-                  "Safety_Audit_PA": [["No Data"]]
+                  "Safety_Audit_PA": [["No Data"]],
+                  "Safety_Audit_PA":  {
+                                        "Unsafe Action": 0,
+                                        "Unsafe Condition": 0,
+                                        "Near Miss": 0,
+                                        "HNM": 0,
+                                        "Accident": 0
+                                      }
                 }
                 return Form_Response_SafetyAudit
               break

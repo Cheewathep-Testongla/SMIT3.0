@@ -211,11 +211,11 @@ def TestSpellCheck(Data):
     Data = Data.lower()
 
     Custom_Dict = pd.read_csv('./SMIT_Data/DataForModel/Raw_Dictionary.csv',encoding='utf-8')
-    Unwanted_Dict = pd.read_csv('./SMIT_Data/DataForModel/UnwantedDict.csv',encoding='utf-8')
+    # Unwanted_Dict = pd.read_csv('./SMIT_Data/DataForModel/UnwantedDict.csv',encoding='utf-8')
 
     DictTokenize = Custom_Dict['words'].tolist()
     DictCorrect = Custom_Dict['correct'].tolist()
-    Unwanted_Dict = Unwanted_Dict['words'].tolist()
+    # Unwanted_Dict = Unwanted_Dict['words'].tolist()
 
     Thai_Dict = pd.read_csv('./SMIT_Data/DataForModel/TH_Raw_Dictionary.csv',encoding='utf-8')
     THDictTokenize = Thai_Dict['words'].tolist()
@@ -241,7 +241,8 @@ def TestSpellCheck(Data):
                         '[0-9]+-[0-9]+/[0-9]+',
                         '\#|\(|\)|\@|^[ ]|:|\"|M\.|=',
                         '\?',
-                        '\[|\]|\{|\}'
+                        '\[|\]|\{|\}',
+                        ' at '
                         ]
 
     ListCutText = []
@@ -255,7 +256,7 @@ def TestSpellCheck(Data):
         else : 
             Data = Data
 
-    ListSplitCharacter = "\/\/+|\/|\+|,|&|and|และ|กับ|เพื่อ|\n"
+    ListSplitCharacter = "\/\/+|\/|\+|,|&| and | and|และ|กับ|เพื่อ|\n"
     FindSplitCharecter = re.findall(ListSplitCharacter, Data) 
 
     Tokenize_Input = Data
@@ -312,8 +313,8 @@ def TestSpellCheck(Data):
 
     for sentence in Tokenize_Input:
         TempListTokenize = word_tokenize(sentence, custom_dict=THDictTrie, engine='newmm')
-        GetPos_TagListTokenize = pos_tag(TempListTokenize, corpus="orchid_ud")
         print(TempListTokenize)
+        GetPos_TagListTokenize = pos_tag(TempListTokenize, corpus="orchid_ud")
         TempResult = []
         CheckIfTempResultisAlready = []
         PROPNListTokenize = []
@@ -325,8 +326,9 @@ def TestSpellCheck(Data):
             temp = []
             if (
                 # GetPos_TagListTokenize[index][1] == "SCONJ" or 
-                GetPos_TagListTokenize[index][1] == "ADP" or 
-                GetPos_TagListTokenize[index][1] == "CCONJ" or
+                # GetPos_TagListTokenize[index][1] == "ADP" or 
+                # GetPos_TagListTokenize[index][0] == " " or
+                # GetPos_TagListTokenize[index][1] == "CCONJ"):
                 GetPos_TagListTokenize[index][1] == "PUNCT"):
                 temp.append(GetPos_TagListTokenize[index][0])
                 temp.append(index)
@@ -334,10 +336,17 @@ def TestSpellCheck(Data):
             else: 
                 ListTokenize.append(GetPos_TagListTokenize[index][0])
 
+        # print(ListTokenize)
+
         for i in range(len(ListTokenize)):    
             FinalJoinString = ''
-            if(re.findall('(^[\u0E30-\u0E3A\u0E47-\u0E4E]+)', ListTokenize[i]) or len(re.findall('[\u0E01-\u0E4E]', ListTokenize[i])) == 1):
+            if(re.findall('(^[\u0E30-\u0E3A\u0E47-\u0E4E]+)', ListTokenize[i]) or 
+                (len(re.findall('[\u0E01-\u0E4E]', ListTokenize[i])) == 1 and re.findall('[\u0E01-\u0E4E]', ListTokenize[i]) != ['ส'])):
                 continue
+
+            if(ListTokenize[i] == 'ส'):
+                TempResult.append(ListTokenize[i])    
+
             elif(len(re.findall(' [a-z][a-z][a-z] | [a-z][a-z] ', ListTokenize[i])) > 1):
                 TempResult.append(ListTokenize[i])     
 
@@ -347,9 +356,10 @@ def TestSpellCheck(Data):
                     TempResult.append(DictCorrect[DictTokenize.index(ListTokenize[i])])
                 else:
                     try:
-                        TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0])
+                        TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
                     except:
-                        TempResult.append(ListTokenize[i])        
+                        TempResult.append(ListTokenize[i])    
+
             else:    
                 if(ListTokenize[i] in DictTokenize):
                     IndexRepeatDictTokenize = []
@@ -357,6 +367,7 @@ def TestSpellCheck(Data):
                     for idx, val in enumerate(DictTokenize):
                         if ListTokenize[i] == val and idx not in IndexRepeatDictTokenize:
                             IndexRepeatDictTokenize.append(idx)
+
                     if (len(IndexRepeatDictTokenize) > 1):
                         for index in IndexRepeatDictTokenize:
                             for j in range(i, len(ListTokenize)):
@@ -376,7 +387,6 @@ def TestSpellCheck(Data):
                                 CheckIfTempResultisAlready.append(FinalJoinString)
                             elif FinalJoinString == '':
                                 TempResult.append(ListTokenize[i])  
-
                     else:
                         index = DictTokenize.index(ListTokenize[i])
                         # if DictCorrect[index] not in CheckIfTempResultisAlready:
@@ -386,9 +396,9 @@ def TestSpellCheck(Data):
                 else:
                     if ListTokenize[i] != ' ':
                         try:
-                            if get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0] not in CheckIfTempResultisAlready:
-                                TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
-                                CheckIfTempResultisAlready.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.6)[0])
+                            # if get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0] not in CheckIfTempResultisAlready:
+                            TempResult.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0])
+                            CheckIfTempResultisAlready.append(get_close_matches(ListTokenize[i], DictCorrect, 1, 0.4)[0])
                         except: 
                             if ListTokenize[i] not in CheckIfTempResultisAlready:
                                 TempResult.append(ListTokenize[i])
@@ -447,7 +457,7 @@ def TestSpellCheck(Data):
 # test = 'เปลี่ยน อะไหร่ air com' # แก้เป็น air com : air
 # test = 'remove/install scaff' # คำนามไม่ครบประโยค ['remove', 'install scaffolding'] : ผ่าน
 # test = '5ส Oiler+ Lifting Oil' # ผ่าน
-test = 'ขนยายอุปกรนตังนังล้าน' # ผ่าน
+# test = 'ขนยายอุปกรนตังนังล้าน' # ผ่าน
 # test = 'ขยายอุกรณ์อุปกรณ์นังล้านและอุกรณ์ติดตั้ง insul / velding' # ผ่าน
 # test = 'ติดตั้งทุนรอยน้ำและแผงโซล่าเซลล์, ขยายอุกรณ์' # ผ่าน
 # test = "ยก ขนย้ายอุปกรณ์เครื่องมือ, เครื่อง Gen, Pipe Spool เข้าหน้างาน" # ผ่าน
@@ -513,45 +523,53 @@ test = 'ขนยายอุปกรนตังนังล้าน' # ผ�
 # test = 'พื้นที่รางระบายน้ำด้านข้าง high flare พบดิน slide ทรุดพังเป็นบริเวณกว้าง >> อยู่ระหว่างดำเนินการติดตั้ง hard barricade'
 # test = 'Rigger สวมใส่เสื้อสะท้องแสงสีน้ำเงิน'
 # test = 'Basket ใส่ Clamp ไม่มีแผ่น Plate รองน้ำหนัก'
-# test = 'ตรวจสอบพบตู้เชื่อมมีการตรวจสอบเรียบร้อยแต่สภาพไม่พร้อมใช้งานโดยสายไฟหลังตู้มีการหลุดออกจากเต้าไฟ และ Regulator ยังไม่ผ่านการตรวจสอบและออกสติกเกอร์ของเดือนกรกฏาคม'
-# test = '5 ส.  remove นั้งลาน,insu'
-# test = 'งานนติดตั้งนั่งร้าน'
-# test = 'ปูตัวหนอน,ตัดปูน,สกัดปูน'
-# test = 'ตัดเชือม และ weding'
-# test = 'ขนย้าน ผูกเหล็ก  ขุดดินปรับดิน'
-# test = 'ตัด เจียร์ เชื่อม D-301 Project'
-# test = 'Uninstall scaffolding '
-# test = 'เข้าแบบ-เทปูน เกร้าปูน'
-# test = ' จัดเก็บนี้งร้านเจ้าจุดกองเก็บ'
-# test = 'D-3703B งานยกถังและอุปกรณ์ '
+# test = 'ตรวจสอบพบตู้เชื่อมมีการตรวจสอบเรียบร้อยแต่สภาพไม่พร้อมใช้งานโดยสายไฟหลังตู้มีการหลุดออกจากเต้าไฟ และ Regulator ยังไม่ผ่านการตรวจสอบและออกสติกเกอร์ของเดือนกรกฏาคม' /
+# test = 'กรกกฎาคม' 
+# test = '5 ส.  remove นั้งลาน,insu' 
+# test = 'งานนติดตั้งนั่งร้าน' 
+# test = 'ปูตัวหนอน,ตัดปูน,สกัดปูน' 
+# test = 'ตัดเชือม และ weding' 
+# test = 'ขนย้าน ผูกเหล็ก  ขุดดินปรับดิน' 
+# test = 'ตัด เจียร์ เชื่อม D-301 Project' 
+# test = 'Uninstall scaffolding ' 
+# test = 'เข้าแบบ-เทปูน เกร้าปูน' 
+# test = ' จัดเก็บนี้งร้านเจ้าจุดกองเก็บ' 
+# test = 'D-3703B งานยกถังและอุปกรณ์ ' 
 # test = 'E2 ติดตั้ง Dryer ชุด Under Water'
-# test = 'Disassembly work and Water Jet D-630,E-637'
-# test = 'Excavation Line Fire Water'
-# test = 'ีื้รื้อนั่งร้าน '
-# test = 'หุ้มinsulation'
-# test = 'าน PM'
+# test = 'Disassembly work and Water Jet D-630,E-637' 
+# test = 'Excavation Line Fire Water' 
+# test = 'ีื้รื้อนั่งร้าน ' 
+# test = 'หุ้มinsulation' 
+# test = 'าน PM' 
 # test = 'หุ้ม ins'
-# test = 'หุ้ทinsulation'
-# test = 'ยัดเชื่อม line ls'
-# test = 'ยกอุปกรณ์ด้วยรถเฮี้ยบ'
-# test = 'รถเข้าชนอุปกร ฉาบปูน'
-# test = 'ตัดเชื่อมเจียร'
-# test = "เชือม เจีย / ตังนั่งล้าน"
-# test = 'ขัดสนิมทาสี'
-# test = 'install scafffolding'
-# test = 'ตัด เชื่อ  เจียร ์์pipe support '
-# test = 'ตัด เจียร์ รื้อรางTray'
-# test = 'ตัดเชื่อม เจียระ ประกอบ Pipe support'
-# test = 'จรวจสอบ CUS Pipe'
-# test = 'งาานรื้อนั่งร้าน Project Unicat.'
-# test = 'งานนั้งร้าน'
-# test = 'งานยกติดตั้งเครื่อง Gen ฯ ,ห้องน้ำ และ ติดตั้งนั่งร้าน'
-# test = 'งานสกัดปูน-่กออิฐ-ฉาบปูน-ทาสี'
+# test = 'หุ้ทinsulation' 
+# test = 'ยัดเชื่อม line ls' 
+# test = 'ยกอุปกรณ์ด้วยรถเฮี้ยบ' 
+# test = 'รถเข้าชนอุปกร ฉาบปูน' 
+# test = 'ตัดเชื่อมเจียร' 
+# test = "เชือม เจีย / ตังนั่งล้าน" 
+# test = 'ขัดสนิมทาสี' 
+# test = 'install scafffolding' 
+# test = 'ตัด เชื่อ  เจียร ์์pipe support ' 
+# test = 'ตัด เจียร์ รื้อรางTray' 
+# test = 'ตัดเชื่อม เจียระ ประกอบ Pipe support' 
+# test = 'จรวจสอบ CUS Pipe' 
+# test = 'งาานรื้อนั่งร้าน Project Unicat.' 
+# test = 'งานนั้งร้าน' 
+# test = 'scafffold' 
+# test = 'งานยกติดตั้งเครื่อง Gen ฯ ,ห้องน้ำ และ ติดตั้งนั่งร้าน' 
+# test = 'งานสกัดปูน-่กออิฐ-ฉาบปูน-ทาสี' 
+# test = 'งานหุ้ม Insuฯ' 
+# test = 'insaall insult' 
+# test = 'install scaf' 
+# test = 'weddding, ทาสี' 
+# test = 'ตัดเชือม และ weding'  
+# test = 'ตั้งนั่งร้าน' 
+# test = 'อุปกร' 
+# test = 'กดหมาย' 
 # test = 'จาะติดตั้งsupport  ทาสี ลากสาย'
-# test = 'งานหุ้ม Insuฯ'
-# test = 'insaall insult'
-# test = 'weddding, pant'
-# test = 'ตัดเชือม และ weding'
+# test = 'กระจายอุปกร และ ติดตั้งอุปกรณ์จายไฟ'
 # ---------------------------------------------- #
+
 
 TestSpellCheck(test)

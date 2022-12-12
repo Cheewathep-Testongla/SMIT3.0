@@ -12,8 +12,7 @@ from pythainlp.util import Trie
 
 from .ScoredWord import *
 from .Cleansing_FindingDetails import Cleansing_FindingDetails
-from ..connection_db import *
-
+# from ..connection_db import *
 
 def StartCleansingtbFinding():
     # global Custom_Dict, DictCorrect, trie
@@ -114,27 +113,35 @@ def StartCleansingtbFinding():
     TotalData = pd.read_csv('./SMIT_Data/TotalData.csv', encoding='utf-8')
 
     LatestDate = TotalData['LatestDate'].tolist()[0]
-    # try:
-    Query = '''
-                SELECT (CAST([dbo].[LOG_Finding].[ID] AS int)),
-                    [dbo].[LOG_Finding].[ID],
-                    [dbo].[LOG_Finding].[Area],
-                    [dbo].[LOG_Finding].[Finding],
-                    [dbo].[LOG_Permit].[Detail],
-                    [dbo].[LOG_Finding].[AuditResult]
-                FROM [dbo].[LOG_Finding]
-                JOIN [dbo].[LOG_Permit]
-                ON   [dbo].[LOG_Finding].[Title] = [dbo].[LOG_Permit].[Title]
-                WHERE [dbo].[LOG_Finding].ID > 113   AND [dbo].[LOG_Finding].ID != 131  AND [dbo].[LOG_Finding].ID != 5057 AND 
-                    [dbo].[LOG_Finding].ID != 5058 AND [dbo].[LOG_Finding].ID != 190  AND [dbo].[LOG_Finding].ID != 1483 AND 
-                    [dbo].[LOG_Finding].ID != 1486 AND [dbo].[LOG_Finding].ID != 1974 AND [dbo].[LOG_Finding].ID != 132  AND 
-                    (AuditResult = 'Need to Improve' or AuditResult = 'Non-conform')  AND [dbo].[LOG_Permit].[Detail] != '' 
-                    AND Corrective != '' AND [dbo].[LOG_Finding].[Created] > '''
+    try:
+        connection_SafetyAudit = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
+                                Server = "smitazure.database.windows.net",
+                                Database = "SafetyAudit",
+                                uid = 'smitadmin',
+                                pwd = 'Abc12345',
+                                Trusted_Connection = 'no') 
+        Query = '''
+                    SELECT (CAST([dbo].[LOG_Finding].[ID] AS int)),
+                        [dbo].[LOG_Finding].[ID],
+                        [dbo].[LOG_Finding].[Area],
+                        [dbo].[LOG_Finding].[Finding],
+                        [dbo].[LOG_Permit].[Detail],
+                        [dbo].[LOG_Finding].[AuditResult]
+                    FROM [dbo].[LOG_Finding]
+                    JOIN [dbo].[LOG_Permit]
+                    ON   [dbo].[LOG_Finding].[Title] = [dbo].[LOG_Permit].[Title]
+                    WHERE [dbo].[LOG_Finding].ID > 113   AND [dbo].[LOG_Finding].ID != 131  AND [dbo].[LOG_Finding].ID != 5057 AND 
+                        [dbo].[LOG_Finding].ID != 5058 AND [dbo].[LOG_Finding].ID != 190  AND [dbo].[LOG_Finding].ID != 1483 AND 
+                        [dbo].[LOG_Finding].ID != 1486 AND [dbo].[LOG_Finding].ID != 1974 AND [dbo].[LOG_Finding].ID != 132  AND 
+                        (AuditResult = 'Need to Improve' or AuditResult = 'Non-conform')  AND [dbo].[LOG_Permit].[Detail] != '' 
+                        AND Corrective != '' AND [dbo].[LOG_Finding].[Created] > '''
 
-    tbFinding = pd.read_sql(Query+"'"+str(LatestDate)+"'", connection_SafetyAudit)
-    # tbFinding = pd.read_sql(Query, connection_SafetyAudit)
-    if len(tbFinding) > 0:
-        try:
+        tbFinding = pd.read_sql(Query+"'"+str(LatestDate)+"'", connection_SafetyAudit)
+
+        connection_SafetyAudit.close()
+        # tbFinding = pd.read_sql(Query, connection_SafetyAudit)
+        if len(tbFinding) > 0:
+            # try:
             tbFindingArea = tbFinding['Area'].tolist()
             tbFindingSubArea = []
             tbFindingContractor = []
@@ -756,322 +763,329 @@ def StartCleansingtbFinding():
             tbFindingFinding = tbFinding['Finding'].tolist()
 
             for index in range(len(tbFindingArea)):
-                DataFinding = word_tokenize(tbFindingFinding[index], custom_dict=trie, engine='newmm')
-                DataDetails = word_tokenize(tbFindingDetail[index], custom_dict=trie, engine='newmm')
-                Finding = "-"
-                Topic = "-"
-                TempMostSimTOF = 0
-                TempMostSimTopic = 0
-                MostSimTopic = -1
-                MostSimTOF = -1
+                    DataFinding = word_tokenize(tbFindingFinding[index], custom_dict=trie, engine='newmm')
+                    DataDetails = word_tokenize(tbFindingDetail[index], custom_dict=trie, engine='newmm')
+                    Finding = "-"
+                    Topic = "-"
+                    TempMostSimTOF = 0
+                    TempMostSimTopic = 0
+                    MostSimTopic = -1
+                    MostSimTOF = -1
 
-                if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_UnsafeAction])) > 3:
-                    for i in (set([x.lower() for x in DataFinding])):
-                        if i in ([j[0] for j in Cluster_UnsafeAction]):
-                            TempMostSimTOF += Cluster_UnsafeAction[ListWords_UnsafeAction.index(i)][1]
-                    if TempMostSimTOF > MostSimTOF:
-                        MostSimTOF = TempMostSimTOF
-                        Finding = "Unsafe Action"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_UnsafeAction])) > 3:
+                        for i in (set([x.lower() for x in DataFinding])):
+                            if i in ([j[0] for j in Cluster_UnsafeAction]):
+                                TempMostSimTOF += Cluster_UnsafeAction[ListWords_UnsafeAction.index(i)][1]
+                        if TempMostSimTOF > MostSimTOF:
+                            MostSimTOF = TempMostSimTOF
+                            Finding = "Unsafe Action"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_UnsafeCondition])) > 3:
-                    for i in (set([x.lower() for x in DataFinding])):
-                        if i in ([j[0] for j in Cluster_UnsafeCondition]):
-                            TempMostSimTOF += Cluster_UnsafeCondition[ListWords_UnsafeCondition.index(i)][1]
-                    if TempMostSimTOF > MostSimTOF:
-                        MostSimTOF = TempMostSimTOF
-                        Finding = "Unsafe Condition"
-                        TempMostSimTOF = 0
+                    if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_UnsafeCondition])) > 3:
+                        for i in (set([x.lower() for x in DataFinding])):
+                            if i in ([j[0] for j in Cluster_UnsafeCondition]):
+                                TempMostSimTOF += Cluster_UnsafeCondition[ListWords_UnsafeCondition.index(i)][1]
+                        if TempMostSimTOF > MostSimTOF:
+                            MostSimTOF = TempMostSimTOF
+                            Finding = "Unsafe Condition"
+                            TempMostSimTOF = 0
 
-                if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_NearMiss])) > 3:
-                    for i in (set([x.lower() for x in DataFinding])):
-                        if i in ([j[0] for j in Cluster_NearMiss]):
-                            TempMostSimTOF += Cluster_NearMiss[ListWords_NearMiss.index(i)][1]
-                    if TempMostSimTOF > MostSimTOF:
-                        MostSimTOF = TempMostSimTOF
-                        Finding = "Near Miss"
-                        TempMostSimTOF = 0
+                    if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_NearMiss])) > 3:
+                        for i in (set([x.lower() for x in DataFinding])):
+                            if i in ([j[0] for j in Cluster_NearMiss]):
+                                TempMostSimTOF += Cluster_NearMiss[ListWords_NearMiss.index(i)][1]
+                        if TempMostSimTOF > MostSimTOF:
+                            MostSimTOF = TempMostSimTOF
+                            Finding = "Near Miss"
+                            TempMostSimTOF = 0
 
-                if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_HNM])) > 3:
-                    for i in set([x.lower() for x in DataFinding]):
-                        if i in [j[0] for j in Cluster_HNM]:
-                            TempMostSimTOF += Cluster_HNM[ListWords_HNM.index(i)][1]
-                    if TempMostSimTOF > MostSimTOF:
-                        MostSimTOF = TempMostSimTOF
-                        Finding = "HNM"
-                        TempMostSimTOF = 0
+                    if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_HNM])) > 3:
+                        for i in set([x.lower() for x in DataFinding]):
+                            if i in [j[0] for j in Cluster_HNM]:
+                                TempMostSimTOF += Cluster_HNM[ListWords_HNM.index(i)][1]
+                        if TempMostSimTOF > MostSimTOF:
+                            MostSimTOF = TempMostSimTOF
+                            Finding = "HNM"
+                            TempMostSimTOF = 0
 
-                if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_Accident])) > 3:
-                    for i in (set([x.lower() for x in DataFinding])):
-                        if i in ([j[0] for j in Cluster_Accident]):
-                            TempMostSimTOF += Cluster_Accident[ListWords_Accident.index(i)][1]
-                    if TempMostSimTOF > MostSimTOF:
-                        MostSimTOF = TempMostSimTOF
-                        Finding = "Accident"
-                        TempMostSimTOF = 0
+                    if len(set([x.lower() for x in DataFinding]) & set([i[0] for i in Cluster_Accident])) > 3:
+                        for i in (set([x.lower() for x in DataFinding])):
+                            if i in ([j[0] for j in Cluster_Accident]):
+                                TempMostSimTOF += Cluster_Accident[ListWords_Accident.index(i)][1]
+                        if TempMostSimTOF > MostSimTOF:
+                            MostSimTOF = TempMostSimTOF
+                            Finding = "Accident"
+                            TempMostSimTOF = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_LOTO])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_LOTO]):
-                            TempMostSimTopic += Cluster_LOTO[ListWords_LOTO.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "LOTO/ LB"
-                        TempMostSimTopic = 0  
-                
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_WAH])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_WAH]):
-                            TempMostSimTopic += Cluster_WAH[ListWords_WAH.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Work at height"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_LOTO])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_LOTO]):
+                                TempMostSimTopic += Cluster_LOTO[ListWords_LOTO.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "LOTO/ LB"
+                            TempMostSimTopic = 0  
+                    
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_WAH])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_WAH]):
+                                TempMostSimTopic += Cluster_WAH[ListWords_WAH.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Work at height"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Scaffolding])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Scaffolding]):
-                            TempMostSimTopic += Cluster_Scaffolding[ListWords_Scaffolding.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Scaffolding"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Scaffolding])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Scaffolding]):
+                                TempMostSimTopic += Cluster_Scaffolding[ListWords_Scaffolding.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Scaffolding"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Transportaion])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Transportaion]):
-                            TempMostSimTopic += Cluster_Transportaion[ListWords_Transportation.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Transportation"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Transportaion])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Transportaion]):
+                                TempMostSimTopic += Cluster_Transportaion[ListWords_Transportation.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Transportation"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_PTWJSA])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_PTWJSA]):
-                            TempMostSimTopic += Cluster_PTWJSA[ListWords_PTW_JSA.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "PTW & JSA"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_PTWJSA])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_PTWJSA]):
+                                TempMostSimTopic += Cluster_PTWJSA[ListWords_PTW_JSA.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "PTW & JSA"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_ProcessOperation])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_ProcessOperation]):
-                            TempMostSimTopic += Cluster_ProcessOperation[ListWords_ProcessOperation.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Process & Operation"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_ProcessOperation])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_ProcessOperation]):
+                                TempMostSimTopic += Cluster_ProcessOperation[ListWords_ProcessOperation.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Process & Operation"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Radiation])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Radiation]):
-                            TempMostSimTopic += Cluster_Radiation[ListWords_Radiation.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Radiation"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Radiation])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Radiation]):
+                                TempMostSimTopic += Cluster_Radiation[ListWords_Radiation.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Radiation"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Others])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Others]):
-                            TempMostSimTopic += Cluster_Others[ListWords_Others.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Others"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Others])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Others]):
+                                TempMostSimTopic += Cluster_Others[ListWords_Others.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Others"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Lifting])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Lifting]):
-                            TempMostSimTopic += Cluster_Lifting[ListWords_Lifting.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Lifting"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Lifting])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Lifting]):
+                                TempMostSimTopic += Cluster_Lifting[ListWords_Lifting.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Lifting"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Housekeeping])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Housekeeping]):
-                            TempMostSimTopic += Cluster_Housekeeping[ListWords_Housekeeping.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Housekeeping"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Housekeeping])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Housekeeping]):
+                                TempMostSimTopic += Cluster_Housekeeping[ListWords_Housekeeping.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Housekeeping"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_ToolsEquipment])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_ToolsEquipment]):
-                            TempMostSimTopic += Cluster_ToolsEquipment[ListWords_ToolsEquipment.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Tools & Equipment"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_ToolsEquipment])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_ToolsEquipment]):
+                                TempMostSimTopic += Cluster_ToolsEquipment[ListWords_ToolsEquipment.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Tools & Equipment"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_HotWork])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_HotWork]):
-                            TempMostSimTopic += Cluster_HotWork[ListWords_HotWork.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Hot Work"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_HotWork])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_HotWork]):
+                                TempMostSimTopic += Cluster_HotWork[ListWords_HotWork.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Hot Work"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Excavation])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Excavation]):
-                            TempMostSimTopic += Cluster_Excavation[ListWords_Excavation.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Excavation"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Excavation])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Excavation]):
+                                TempMostSimTopic += Cluster_Excavation[ListWords_Excavation.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Excavation"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_CSE])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_CSE]):
-                            TempMostSimTopic += Cluster_CSE[ListWords_CSE.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "CSE"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_CSE])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_CSE]):
+                                TempMostSimTopic += Cluster_CSE[ListWords_CSE.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "CSE"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_ElectricalGrounding])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_ElectricalGrounding]):
-                            TempMostSimTopic += Cluster_ElectricalGrounding[ListWords_ElectricalGrounding.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Electrical & Grounding"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_ElectricalGrounding])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_ElectricalGrounding]):
+                                TempMostSimTopic += Cluster_ElectricalGrounding[ListWords_ElectricalGrounding.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Electrical & Grounding"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_PaintCoatBlast])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_PaintCoatBlast]):
-                            TempMostSimTopic += Cluster_PaintCoatBlast[ListWords_PaintCoatBlast.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Paint/ Coat/ Blast"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_PaintCoatBlast])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_PaintCoatBlast]):
+                                TempMostSimTopic += Cluster_PaintCoatBlast[ListWords_PaintCoatBlast.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Paint/ Coat/ Blast"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_ChemicalWork])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_ChemicalWork]):
-                            TempMostSimTopic += Cluster_ChemicalWork[ListWords_ChemicalWork.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Chemical Work"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_ChemicalWork])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_ChemicalWork]):
+                                TempMostSimTopic += Cluster_ChemicalWork[ListWords_ChemicalWork.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Chemical Work"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_SafetyManagement])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_SafetyManagement]):
-                            TempMostSimTopic += Cluster_SafetyManagement[ListWords_SafetyManagement.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Safety Management"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_SafetyManagement])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_SafetyManagement]):
+                                TempMostSimTopic += Cluster_SafetyManagement[ListWords_SafetyManagement.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Safety Management"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_PPE])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_PPE]):
-                            TempMostSimTopic += Cluster_PPE[ListWords_PPE.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "PPE"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_PPE])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_PPE]):
+                                TempMostSimTopic += Cluster_PPE[ListWords_PPE.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "PPE"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_WaterJet])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_WaterJet]):
-                            TempMostSimTopic += Cluster_WaterJet[ListWords_WaterJet.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Water jet"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_WaterJet])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_WaterJet]):
+                                TempMostSimTopic += Cluster_WaterJet[ListWords_WaterJet.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Water jet"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_PressureTest])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_PressureTest]):
-                            TempMostSimTopic += Cluster_PressureTest[ListWords_PressureTest.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Pressure test"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_PressureTest])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_PressureTest]):
+                                TempMostSimTopic += Cluster_PressureTest[ListWords_PressureTest.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Pressure test"
+                            TempMostSimTopic = 0
 
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_SLPerformance])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_SLPerformance]):
-                            TempMostSimTopic += Cluster_SLPerformance[ListWords_SLPerformance.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "SL Performance"
-                        TempMostSimTopic = 0
-                        
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_WorkProcedure])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_WorkProcedure]):
-                            TempMostSimTopic += Cluster_WorkProcedure[ListWords_WorkProcedure.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Work Procedure"
-                        TempMostSimTopic = 0
-                        
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Civil])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Civil]):
-                            TempMostSimTopic += Cluster_Civil[ListWords_Civil.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Civil"
-                        TempMostSimTopic = 0
-                        
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Insulation])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Insulation]):
-                            TempMostSimTopic += Cluster_Insulation[ListWords_Insulation.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Insulation"
-                        TempMostSimTopic = 0
-                                    
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Environmental])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Environmental]):
-                            TempMostSimTopic += Cluster_Environmental[ListWords_Environmental.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Environmental"
-                        TempMostSimTopic = 0
-                                    
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_InstallationAlignment])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_InstallationAlignment]):
-                            TempMostSimTopic += Cluster_InstallationAlignment[ListWords_InstallationAlignment.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Installation/ Alignment"
-                        TempMostSimTopic = 0
-                                    
-                if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Security])) > 3:
-                    for i in (set([x.lower() for x in DataDetails])):
-                        if i in ([j[0] for j in Cluster_Security]):
-                            TempMostSimTopic += Cluster_Security[ListWords_Security.index(i)][1]
-                    if TempMostSimTopic > MostSimTopic:
-                        MostSimTopic = TempMostSimTopic
-                        Topic = "Security"
-                        TempMostSimTopic = 0
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_SLPerformance])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_SLPerformance]):
+                                TempMostSimTopic += Cluster_SLPerformance[ListWords_SLPerformance.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "SL Performance"
+                            TempMostSimTopic = 0
+                            
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_WorkProcedure])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_WorkProcedure]):
+                                TempMostSimTopic += Cluster_WorkProcedure[ListWords_WorkProcedure.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Work Procedure"
+                            TempMostSimTopic = 0
+                            
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Civil])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Civil]):
+                                TempMostSimTopic += Cluster_Civil[ListWords_Civil.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Civil"
+                            TempMostSimTopic = 0
+                            
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Insulation])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Insulation]):
+                                TempMostSimTopic += Cluster_Insulation[ListWords_Insulation.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Insulation"
+                            TempMostSimTopic = 0
+                                        
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Environmental])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Environmental]):
+                                TempMostSimTopic += Cluster_Environmental[ListWords_Environmental.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Environmental"
+                            TempMostSimTopic = 0
+                                        
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_InstallationAlignment])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_InstallationAlignment]):
+                                TempMostSimTopic += Cluster_InstallationAlignment[ListWords_InstallationAlignment.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Installation/ Alignment"
+                            TempMostSimTopic = 0
+                                        
+                    if len(set([x.lower() for x in DataDetails]) & set([i[0] for i in Cluster_Security])) > 3:
+                        for i in (set([x.lower() for x in DataDetails])):
+                            if i in ([j[0] for j in Cluster_Security]):
+                                TempMostSimTopic += Cluster_Security[ListWords_Security.index(i)][1]
+                        if TempMostSimTopic > MostSimTopic:
+                            MostSimTopic = TempMostSimTopic
+                            Topic = "Security"
+                            TempMostSimTopic = 0
 
-                tbFindingNo.append(str(TotalOldClassification_Finding+index+1)) 
-                # tbFindingNo.append(index+1)
-                tbFindingSubArea.append('-')  
-                tbFindingContractor.append('-')     
-                tbFindingTof.append(Finding)
-                tbFindingTopic.append(Topic)
+                    tbFindingNo.append(str(TotalOldClassification_Finding+index+1)) 
+                    # tbFindingNo.append(index+1)
+                    tbFindingSubArea.append('-')  
+                    tbFindingContractor.append('-')     
+                    tbFindingTof.append(Finding)
+                    tbFindingTopic.append(Topic)
 
             Classification_TbFinding = list(zip(tbFindingNo, tbFindingArea, tbFindingSubArea, 
                                                 tbFindingContractor, tbFindingTof, tbFindingTopic, 
                                                 tbFindingDetail, tbFindingTranslateDetail, tbFindingFinding, tbFindingTranslateFinding))
+
+            connection_SMIT3 = pyodbc.connect(Driver = "ODBC Driver 17 for SQL Server",
+                                Server = "smitazure.database.windows.net",
+                                Database = "SMIT3",
+                                uid = 'smitadmin',
+                                pwd = 'Abc12345',
+                                Trusted_Connection = 'no') 
 
             cursor = connection_SMIT3.cursor()
             Query = "INSERT INTO [Classification_TbFinding] VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
@@ -1082,7 +1096,7 @@ def StartCleansingtbFinding():
 
             Query = 'SELECT MAX([dbo].[LOG_Finding].[Created]) FROM [dbo].[LOG_Finding]'
 
-            GetLatestDate = pd.read_sql(Query, connection_SafetyAudit)
+            GetLatestDate = pd.read_sql(Query, connection_SMIT3)
 
             GetLatestDate = GetLatestDate[""].tolist()[0]
 
@@ -1100,11 +1114,14 @@ def StartCleansingtbFinding():
                 write.writerow(Head)
                 write.writerows(UpdateSize)
 
+            cursor.close()
+            connection_SMIT3.close()
+
             print("[Finished Classification tbFinding]...")
 
             return Cleansing_FindingDetails()
-        except:
-            return "There is an Error SQL Connection failure"
-    else:
-        return "Record is up to date", 200
-
+        else:
+            return "Record is up to date", 200
+    except:
+        return "There is an Error SQL Connection failure"
+    
